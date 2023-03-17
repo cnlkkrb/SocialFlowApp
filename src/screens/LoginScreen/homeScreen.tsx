@@ -5,7 +5,7 @@ import Text from '../../components/Text/text'
 const homeScreen = () => {
   return (
     <Box>
-      <Text>homeScreen</Text>
+      <Text>HomeScreen</Text>
     </Box>
   )
 }
