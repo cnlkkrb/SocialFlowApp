@@ -3,7 +3,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  Image,
   Switch,
 } from 'react-native';
 import {Modal} from 'react-native';
@@ -24,18 +23,15 @@ interface SeatModalProps {
   onPress?: () => void;
 }
 
-const LargeModal = ({
+const NotificationModal = ({
   visible = false,
   text,
-  onClose,
   buttonLabel,
   secondText,
   description,
   onCloseSecondary,
   onPress,
 }: SeatModalProps) => {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (
     <Modal
       animationType="fade"
@@ -51,21 +47,6 @@ const LargeModal = ({
             backgroundColor: 'white',
             alignItems: 'center',
           }}>
-          <TouchableOpacity
-            onPress={onClose}
-            style={{
-              position: 'absolute',
-              right: 20,
-              top: 20,
-            }}><CloseIcon/></TouchableOpacity>
-            <Switch
-              style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }], marginTop: 30 }}
-              trackColor={{false: 'grey', true: '#27AE60'}}
-              thumbColor={isEnabled ? 'white' : 'white'}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-            />
           <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
             <Text
               style={{
@@ -119,7 +100,7 @@ const LargeModal = ({
   );
 };
 
-export default LargeModal;
+export default NotificationModal;
 
 const styles = StyleSheet.create({
   backdrop: {

@@ -100,7 +100,9 @@ const theme = createTheme({
     defaults: { width: "100%", borderRadius: 8, color: "white" },
   },
   buttonVariants: {
-    gradient: {},
+    gradient: {
+      backgroundColor: "white",
+    },
     primary: {
       backgroundColor: "bg",
     },

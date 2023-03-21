@@ -1,15 +1,12 @@
 import React from 'react';
-import {useAtom} from 'jotai';
 import Box from '../../components/Box/box';
 import Button from '../../components/Button/button';
-import {loggedInAtom} from '../../utils/atom';
 import LinearGradient from 'react-native-linear-gradient';
 import Text from '../../components/Text/text';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
-  const [, setLoggedIn] = useAtom(loggedInAtom);
   const navigation = useNavigation();
 
   return (
@@ -41,6 +38,7 @@ const LoginScreen = () => {
         <Button
           style={{width: '100%'}}
           variant="primary"
+          labelColor={'white'}
           onPress={() => navigation.navigate('Industry')}
           label={'Get Started'}
         />

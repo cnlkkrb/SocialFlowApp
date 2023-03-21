@@ -22,6 +22,7 @@ type Props = React.ComponentPropsWithRef<typeof TouchableOpacity> &
     disabled?: boolean;
     onPress: () => void;
     leftIcon?: ReactNode;
+    labelColor: any;
   };
 
 const variant = createVariant<Theme, "buttonVariants">({
@@ -30,7 +31,7 @@ const variant = createVariant<Theme, "buttonVariants">({
 
 const restyleFunctions = composeRestyleFunctions<Theme, Props>([spacing, spacingShorthand, variant]);
 
-const Button = ({ onPress, label, disabled, ...rest }: Props) => {
+const Button = ({ onPress, label, disabled, labelColor, ...rest }: Props) => {
   // @ts-ignore
   const props = useRestyle(restyleFunctions, rest);
   const opacity = disabled ? 0.3 : 1;
@@ -38,7 +39,7 @@ const Button = ({ onPress, label, disabled, ...rest }: Props) => {
   const button = (
     <TouchableOpacity onPress={onPress} disabled={disabled}>
       <Box alignItems="center" justifyContent="center" flexDirection="row" style={props.style} opacity={opacity}>
-        <Text textAlign="center" variant="heading2" color="white">
+        <Text textAlign="center" variant="heading2" color={labelColor}>
           {label}
         </Text>
       </Box>

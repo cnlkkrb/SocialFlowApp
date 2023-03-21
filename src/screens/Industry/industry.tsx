@@ -145,7 +145,7 @@ const Industry = () => {
         backgroundColor="white"
         height={70}
         justifyContent="center">
-        <Button onPress={() => {}} mx="m" variant="primary" label="Continue" />
+        <Button onPress={() => navigation.navigate('Business')} labelColor={'white'} mx="m" variant="primary" label="Continue" />
       </Box>
     </Box>
   );
