@@ -8,6 +8,7 @@ import Business from "../screens/Business/business";
 import ProductInfo from "../screens/ProductInfo/product-info";
 import Content from "../screens/Content/content";
 import ContentGeneration from "../screens/ContentGeneration/content-generation";
+import SignUp from "../screens/SignUp/sign-up";
 
 const Stack = createNativeStackNavigator();
 
@@ -21,6 +22,7 @@ const NotSignInNavigator = () => {
         <Stack.Screen options={{ headerShown: false }} name="ProductInfo" component={ProductInfo} />
         <Stack.Screen options={{ headerShown: false }} name="Content" component={Content} />
         <Stack.Screen options={{ headerShown: false }} name="ContentGeneration" component={ContentGeneration} />
+        <Stack.Screen options={{ headerShown: false }} name="SignUp" component={SignUp} />
       </Stack.Navigator>
     </NavigationContainer>
   );

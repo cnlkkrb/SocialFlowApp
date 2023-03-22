@@ -5,25 +5,19 @@ import LinearGradient from 'react-native-linear-gradient';
 import Text from '../../components/Text/text';
 import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import RectangleIcon from '../../assets/icons/rectangle-icon';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
 
   return (
     <Box backgroundColor="white" flex={1} padding="m">
-      <LinearGradient
-        style={{
-          width: '100%',
-          height: 400,
-          borderRadius: 18,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        colors={['#6944FF', '#9644FF']}>
-        <Text variant="generalHeading" color="white">
+      <Box justifyContent='center' alignItems='center'>
+        <Text style={{position: 'absolute', zIndex: 1}} variant="generalHeading" color="white">
           TUTORIAL VIDEO CONTENT
         </Text>
-      </LinearGradient>
+        <RectangleIcon/>
+      </Box>
       <Box justifyContent="center" alignItems="center" mt="m">
         <Text variant="generalHeading" style={{color: '#171648'}}>
           Welcome to Social Flow

@@ -3,6 +3,7 @@ import React from 'react';
 import {TextInput, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import BackIcon from '../../assets/icons/back-icon';
+import ProductIcon from '../../assets/icons/product-icon';
 import Box from '../../components/Box/box';
 import Button from '../../components/Button/button';
 import FixedButton from '../../components/FixedButton/fixed-button';
@@ -14,14 +15,20 @@ const ProductInfo = () => {
   return (
     <Box backgroundColor="pageBackground" flex={1} height={'100%'}>
       <Box mt="l" ml="m">
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={{flexDirection:'row', alignItems: 'center'}} onPress={() => navigation.goBack()}>
           <BackIcon />
+          <Text color='grey' fontSize={17} ml='s'>Back</Text>
         </TouchableOpacity>
       </Box>
       <KeyboardAwareScrollView style={{flex: 1}}>
         <Box>
           <Box mt="m" justifyContent="center" alignItems="center">
-            <Text variant="heading1">Product/Service</Text>
+          <Box flexDirection="row" alignItems="center">
+              <ProductIcon />
+              <Text ml="s" variant="heading1">
+                Product/Service
+              </Text>
+            </Box>
             <Text
               variant="heading3"
               textAlign="center"

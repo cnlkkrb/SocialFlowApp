@@ -25,7 +25,10 @@ const palette = {
   black: "#000000",
   white: "#FFFFFF",
   textColor: "#4A4A4A",
-  pageBackground: '#F4F8FC'
+  pageBackground: '#F4F8FC',
+  iosBtnColor: '#09121F',
+  googleBtnColor: '#EB5757',
+  facebookBtnColor: '#356EFF'
 };
 
 const theme = createTheme({
@@ -39,7 +42,10 @@ const theme = createTheme({
     darkGrey: palette.darkGrey,
     lightGrey: palette.lightGrey,
     textColor: palette.textColor,
-    pageBackground: palette.pageBackground
+    pageBackground: palette.pageBackground,
+    iosBtnColor: palette.iosBtnColor,
+    googleBtnColor: palette.googleBtnColor,
+    facebookBtnColor: palette.facebookBtnColor,
   },
   textWeights: {
     regular: {
@@ -105,6 +111,15 @@ const theme = createTheme({
     },
     primary: {
       backgroundColor: "bg",
+    },
+    iosBtn: {
+      backgroundColor: "iosBtnColor",
+    },
+    googleBtn: {
+      backgroundColor: "googleBtnColor",
+    },
+    facebookBtn: {
+      backgroundColor: "facebookBtnColor",
     },
     defaults: {
       paddingHorizontal: "l",

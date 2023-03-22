@@ -6053,6 +6053,13 @@
   dependencies:
     "find-up" "^4.0.0"
 
+"pkg-dir@^5.0.0":
+  "integrity" "sha512-NPE8TDbzl/3YQYY7CSS228s3g2ollTFnc+Qi3tqmqJp9Vg2ovUpixcJEo2HJScN2Ez+kEaal6y70c0ehqJBJeA=="
+  "resolved" "https://registry.npmjs.org/pkg-dir/-/pkg-dir-5.0.0.tgz"
+  "version" "5.0.0"
+  dependencies:
+    "find-up" "^5.0.0"
+
 "plist@^3.0.5":
   "integrity" "sha512-WiIVYyrp8TD4w8yCvyeIr+lkmrGRd5u0VbRnU+tP/aRLxP/YadJUYOMZJ/6hIa3oUyVCsycXvtNRgd5XBJIbiA=="
   "resolved" "https://registry.npmjs.org/plist/-/plist-3.0.6.tgz"
@@ -6278,6 +6285,14 @@
   dependencies:
     "prop-types" "^15.7.2"
 
+"react-native-permissions@^3.8.0":
+  "integrity" "sha512-BfZ7ksgdpGchHZH8M/kxCGZbWeACANbnPmb3hNjVOMDQusc4PWlPpobX3eBqYMSKbpi7bMECeV9BVU4QuwAf9A=="
+  "resolved" "https://registry.npmjs.org/react-native-permissions/-/react-native-permissions-3.8.0.tgz"
+  "version" "3.8.0"
+  dependencies:
+    "picocolors" "^1.0.0"
+    "pkg-dir" "^5.0.0"
+
 "react-native-reanimated@^3.0.2", "react-native-reanimated@>=2.2.0":
   "integrity" "sha512-8Et90yTI9yxchGbDP79k391XZqc/64zNbASbGy8X3Vgv4EbZ1M3IkKwcIbZmbVwpA804VJ6V9nJAGUh9fP0LrA=="
   "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-3.0.2.tgz"
@@ -6320,7 +6335,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.71 || 1000.0.0", "react-native@>=0.25.1", "react-native@>=0.42.0", "react-native@>=0.46", "react-native@>=0.48.4", "react-native@>=0.57", "react-native@>0.57.0", "react-native@0.71.4":
+"react-native@*", "react-native@^0.0.0-0 || 0.60 - 0.71 || 1000.0.0", "react-native@>=0.25.1", "react-native@>=0.42.0", "react-native@>=0.46", "react-native@>=0.48.4", "react-native@>=0.57", "react-native@>=0.63.3", "react-native@>0.57.0", "react-native@0.71.4":
   "integrity" "sha512-3hSYqvWrOdKhpV3HpEKp1/CkWx8Sr/N/miCrmUIAsVTSJUR7JW0VvIsrV9urDhUj/s6v2WF4n7qIEEJsmTCrPw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.71.4.tgz"
   "version" "0.71.4"
@@ -6382,7 +6397,7 @@
     "react-shallow-renderer" "^16.15.0"
     "scheduler" "^0.23.0"
 
-"react@*", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.2.0", "react@>=0.14.5", "react@>=16", "react@>=17.0.0", "react@>16.6.0", "react@18.2.0":
+"react@*", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^18.2.0", "react@>=0.14.5", "react@>=16", "react@>=16.13.1", "react@>=17.0.0", "react@>16.6.0", "react@18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"

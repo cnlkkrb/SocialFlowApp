@@ -3,8 +3,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  Image,
   Switch,
+  Image,
 } from 'react-native';
 import {Modal} from 'react-native';
 import CloseIcon from '../../assets/icons/close-icon';
@@ -22,6 +22,8 @@ interface SeatModalProps {
   description?: string;
   onCloseSecondary?: () => void;
   onPress?: () => void;
+  icon: any;
+  closeIcon: any
 }
 
 const LargeModal = ({
@@ -33,6 +35,8 @@ const LargeModal = ({
   description,
   onCloseSecondary,
   onPress,
+  icon,
+  closeIcon
 }: SeatModalProps) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -51,28 +55,40 @@ const LargeModal = ({
             backgroundColor: 'white',
             alignItems: 'center',
           }}>
-          <TouchableOpacity
+          {
+            closeIcon === true ? (
+              <TouchableOpacity
             onPress={onClose}
             style={{
               position: 'absolute',
               right: 20,
               top: 20,
             }}><CloseIcon/></TouchableOpacity>
-            <Switch
-              style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }], marginTop: 30 }}
-              trackColor={{false: 'grey', true: '#27AE60'}}
-              thumbColor={isEnabled ? 'white' : 'white'}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-            />
-          <View style={{alignItems: 'center', justifyContent: 'flex-end'}}>
+            ) : null
+          }
+            {
+              icon === true ? (
+                <Switch
+                  style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }], marginTop: 30 }}
+                  trackColor={{false: 'grey', true: '#27AE60'}}
+                  thumbColor={isEnabled ? 'white' : 'white'}
+                  ios_backgroundColor="#3e3e3e"
+                  onValueChange={toggleSwitch}
+                  value={isEnabled}
+                />
+              ) : (
+              <Box>
+                <Image source={require('../../assets/success.png')}/>
+              </Box>
+              )
+            }
+          <View style={{alignItems: 'center'}}>
             <Text
               style={{
                 textAlign: 'center',
                 color: 'black',
                 fontSize: 20,
-                marginTop: 12,
+                marginTop: icon === true ? 12 : -12,
                 fontWeight: '700',
               }}>
               {text}
@@ -88,7 +104,20 @@ const LargeModal = ({
               {description}
             </Text>
           </View>
-          <View style={{width:'100%',marginTop: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+          {
+            icon !== true ? (
+              <View style={{width:'100%',marginTop: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+            <Box width={'100%'}>
+            <Button
+              onPress={onPress}
+              label={buttonLabel ?? ''}
+              variant={'primary'}
+              labelColor={'white'}
+            />
+            </Box>
+          </View>
+            ) : (
+              <View style={{width:'100%',marginTop: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
             {!!secondText && (
               <TouchableOpacity
                 style={{width: '45%'}}
@@ -113,6 +142,8 @@ const LargeModal = ({
             />
             </Box>
           </View>
+            )
+          }
         </View>
       </View>
     </Modal>
