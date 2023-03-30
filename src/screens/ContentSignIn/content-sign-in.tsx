@@ -1,15 +1,17 @@
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import BackIcon from '../../assets/icons/back-icon';
 import ContentIcon from '../../assets/icons/content-icon';
 import Box from '../../components/Box/box';
 import Button from '../../components/Button/button';
 import DropDownMenu from '../../components/DropDownMenu/drop-down-menu';
+import PostThemeDropDown from '../../components/DropDownMenu/post-theme-drop-down';
 import Text from '../../components/Text/text';
+import {Slider} from '@miblanchard/react-native-slider';
 
-const Content = () => {
-  const navigation = useNavigation()
+const ContentSignIn = () => {
+  const navigation = useNavigation();
   return (
     <Box backgroundColor="pageBackground" flex={1} height={'100%'}>
       <Box mt="l" ml="m">
@@ -42,6 +44,29 @@ const Content = () => {
           </Text>
           <DropDownMenu />
         </Box>
+        <Box mt="m" mx="l">
+          <Text ml="s" variant="heading3">
+            Post Theme
+          </Text>
+          <PostThemeDropDown />
+        </Box>
+        <Box mt="xl" mx="m">
+          <Text textAlign='center' variant='heading2'>Post amount slider</Text>
+          <Slider
+            containerStyle={{marginHorizontal: 20, marginTop: 10}}
+            value={4}
+            minimumValue={0}
+            maximumValue={100}
+            step={1}
+            trackClickable={true}
+            animateTransitions
+            minimumTrackTintColor="#D9D9D9"
+            maximumTrackTintColor='#D9D9D9'
+            trackStyle={{height: 6}}
+            thumbTintColor='#D9D9D9'
+            thumbStyle={{width: 30, height: 30, borderRadius: 25}}
+          />
+        </Box>
       </Box>
       <Box
         position="absolute"
@@ -50,17 +75,21 @@ const Content = () => {
         height={70}
         justifyContent="center">
         <Button
-          onPress={() => navigation.navigate('ContentGeneration')}
+          onPress={() => {}}
           labelColor={'white'}
-          mx="m"
+          mx="l"
           variant="primary"
-          label="Continue"
+          label="Generate"
         />
       </Box>
     </Box>
   );
 };
 
+const styles = StyleSheet.create({
+    thumb: {
+        color: 'red'
+    }
+})
 
-
-export default Content;
+export default ContentSignIn;

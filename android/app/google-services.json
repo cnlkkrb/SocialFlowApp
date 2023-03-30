@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "277379091104",
-    "project_id": "socialflowapp-b1071",
-    "storage_bucket": "socialflowapp-b1071.appspot.com"
+    "project_number": "436871348176",
+    "project_id": "socailflow",
+    "storage_bucket": "socailflow.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:277379091104:android:7cfc5ee0ea37f7da49d7c5",
+        "mobilesdk_app_id": "1:436871348176:android:5754c8cea8ec30c42d43d5",
         "android_client_info": {
           "package_name": "com.socialflowapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "277379091104-ianbpakvuqjq7pj3kififvebmsdo2pn8.apps.googleusercontent.com",
+          "client_id": "436871348176-3lvkqig4uca0ufgf9bjm908ohopdhk8f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.socialflowapp",
-            "certificate_hash": "1867c90a0d42c0dce5b22673ea8ce3b870be9972"
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {
-          "client_id": "277379091104-0mn987sg8uq7jg1q89ma7b2thjaghva9.apps.googleusercontent.com",
+          "client_id": "436871348176-p8ad2e47n5ddk2pcffjmq3hgu95nh8ph.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDF1qDJAZtFlyhPvHjhDXdKbR51ngxtm74"
+          "current_key": "AIzaSyDVvn5j-YhO0zsW-n6GpJyZHq_SyINYtoI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "277379091104-0mn987sg8uq7jg1q89ma7b2thjaghva9.apps.googleusercontent.com",
+              "client_id": "436871348176-p8ad2e47n5ddk2pcffjmq3hgu95nh8ph.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
