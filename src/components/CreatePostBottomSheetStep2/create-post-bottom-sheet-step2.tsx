@@ -32,6 +32,7 @@ const CreatePostBottomSheetStep2 = ({createPostBottomSheetStep2Ref}: any) => {
         index={0}
         snapPoints={snapPoints}
         stackBehavior="push"
+        style={{flex: 1}}
         detached
         backdropComponent={props => (
           <BottomSheetBackdrop
@@ -43,7 +44,7 @@ const CreatePostBottomSheetStep2 = ({createPostBottomSheetStep2Ref}: any) => {
         enablePanDownToClose
         backgroundStyle={{backgroundColor: '#F4F8FC'}}>
         <BottomSheetScrollView>
-          <Box mx="l">
+          <Box flex={1} mx="l">
             <Text textAlign="center" variant="generalHeading" fontWeight="600">
               Create New Facebook Post
             </Text>
@@ -92,7 +93,7 @@ const CreatePostBottomSheetStep2 = ({createPostBottomSheetStep2Ref}: any) => {
               <TextInput
                 style={{
                   width: '100%',
-                  height: 120,
+                  height: 160,
                   borderColor: '#D6E0EA',
                   borderWidth: 1,
                   borderRadius: 10,
@@ -107,15 +108,17 @@ const CreatePostBottomSheetStep2 = ({createPostBottomSheetStep2Ref}: any) => {
                 numberOfLines={5}
               />
             </Box>
-            <Box mt="m" flexDirection="row" alignItems="center">
-              <SwitchButton />
-              <Text variant="heading3">Schedule</Text>
-            </Box>
-            <Box mt="s" flexDirection="row" justifyContent="space-between">
-              <Calendar color={'lightGrey'} calendarColor={undefined}/>
-              <Clock color={'lightGrey'} iconColor={undefined}/>
-            </Box>
-            <Box mt="m" mb="xs">
+            
+          </Box>
+          
+          <TouchableOpacity
+            onPress={() => {
+              createPostBottomSheetStep2Ref.current?.close()
+            }}
+            style={{position: 'absolute', top: 0, right: 20}}>
+            <CloseIcon />
+          </TouchableOpacity>
+          <Box mx='l' mt='large'>
               <Button
                 variant="primary"
                 disabled={text === ''}
@@ -127,15 +130,8 @@ const CreatePostBottomSheetStep2 = ({createPostBottomSheetStep2Ref}: any) => {
                 labelColor={'white'}
               />
             </Box>
-          </Box>
-          <TouchableOpacity
-            onPress={() => {
-              createPostBottomSheetStep2Ref.current?.close()
-            }}
-            style={{position: 'absolute', top: 0, right: 20}}>
-            <CloseIcon />
-          </TouchableOpacity>
         </BottomSheetScrollView>
+
       </BottomSheetModal>
       <PostTypeBottomSheet postTypeBottomSheetRef={postTypeBottomSheetRef}/>
     </BottomSheetModalProvider>

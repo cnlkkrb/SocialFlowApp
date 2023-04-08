@@ -3,6 +3,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import TabNavigator from './tab-navigator';
 import ContentSignIn from '../screens/ContentSignIn/content-sign-in';
+import TopTabNavigator from './top-tab-navigator';
+import TeamManagement from '../screens/TeamManagement/team-managemene';
+import Menu from '../screens/Menu/menu';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +19,9 @@ const SignInNavigator = () => {
           component={TabNavigator}
         />
         <Stack.Screen options={{ headerShown: false }} name="ContentSignIn" component={ContentSignIn} />
+        <Stack.Screen options={{ headerShown: false }} name="TopTabNavigator" component={TopTabNavigator} />
+        <Stack.Screen options={{ headerShown: false }} name="TeamManagement" component={TeamManagement} />
+        <Stack.Screen options={{ headerShown: false }} name="Menu" component={Menu} />
       </Stack.Navigator>
     </NavigationContainer>
   );

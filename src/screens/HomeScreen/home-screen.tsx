@@ -15,12 +15,14 @@ import {loggedInAtom, userDataAtom} from '../../utils/atom';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {SocailData} from '../../data/SocailPlatformData';
 import SocialPlatformBottomSheet from '../../components/SocialPlatformBottomSheet/social-platform-bottom-sheet';
+import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = () => {
   const [, setLoggedIn] = useAtom(loggedInAtom);
   const [myData, setMyData] = React.useState(SocailData);
   const [userData] = useAtom(userDataAtom);
   const bottomSheetModalRef = useRef<BottomSheet>(null);
+  const navigation = useNavigation();
 
   const signOut = async () => {
     try {
@@ -65,7 +67,7 @@ const HomeScreen = () => {
         flexDirection="row"
         alignItems="center"
         justifyContent="space-between">
-        <TouchableOpacity onPress={signOut}>
+        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
           <DotIcon />
         </TouchableOpacity>
         <TouchableOpacity

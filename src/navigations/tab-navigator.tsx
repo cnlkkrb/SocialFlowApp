@@ -5,8 +5,8 @@ import LibraryScreen from '../screens/LibraryScreen/library-screen';
 import CalendarScreen from '../screens/CalendarScreen/calendar-screen';
 import WorkspaceScreen from '../screens/WorkspaceSreen/workspace-screen';
 import {HomeIcon, HomeIconFilled} from '../assets/icons/home-icon';
-import {LibraryIcon} from '../assets/icons/library-icon';
-import {CalendarIcon} from '../assets/icons/calendar-icon';
+import {LibraryIcon, LibraryIconFilled} from '../assets/icons/library-icon';
+import {CalendarIcon, CalendarIconFilled} from '../assets/icons/calendar-icon';
 import {
   WorkspaceIcon,
   WorkspaceIconFilled,
@@ -64,8 +64,8 @@ const TabNavigator = () => {
             if (focused)
               return (
                 <>
-                  <Box width={40} backgroundColor="bg" height={2} top={-5} />
-                  <HomeIconFilled />
+                  <Box width={40} backgroundColor="bg" height={2} top={-3} />
+                  <LibraryIconFilled />
                 </>
               );
             return <LibraryIcon />;
@@ -115,8 +115,8 @@ const TabNavigator = () => {
             if (focused)
               return (
                 <>
-                  <Box width={40} backgroundColor="bg" height={2} top={-5} />
-                  <HomeIconFilled />
+                  <Box width={40} backgroundColor="bg" height={2} top={-3} />
+                  <CalendarIconFilled />
                 </>
               );
             return <CalendarIcon />;
@@ -133,7 +133,7 @@ const TabNavigator = () => {
             if (focused)
               return (
                 <>
-                  <Box width={40} backgroundColor="bg" height={2} top={-5} />
+                  <Box width={40} backgroundColor="bg" height={2} top={-3} />
                   <WorkspaceIconFilled />
                 </>
               );

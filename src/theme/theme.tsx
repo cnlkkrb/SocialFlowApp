@@ -11,7 +11,7 @@ const themeSpacing = {
   xxl: 140,
   xxxl: 160,
   cardP: 20,
-  camera: 90,
+  large: 70,
 };
 
 

@@ -1,19 +1,51 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 import BackIcon from '../../assets/icons/back-icon';
 import ContentIcon from '../../assets/icons/content-icon';
 import Box from '../../components/Box/box';
 import Button from '../../components/Button/button';
-import DropDownMenu from '../../components/DropDownMenu/drop-down-menu';
-import PostThemeDropDown from '../../components/DropDownMenu/post-theme-drop-down';
 import Text from '../../components/Text/text';
 import {Slider} from '@miblanchard/react-native-slider';
+import LinearGradient from 'react-native-linear-gradient';
+import ContentItems from '../../components/ContentItems/content-items';
 
 const ContentSignIn = () => {
   const navigation = useNavigation();
+  const [value, setValue] = useState(0);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const handleSlidingComplete = val => {
+    setValue(val);
+  };
+
+  const renderThumb = () => {
+    return (
+      <Box style={styles.thumb}>
+        <LinearGradient
+          colors={['#6944FF', '#9644FF']}
+          start={{x: 0, y: 0}}
+          end={{x: 0, y: 1}}
+          style={{
+            borderRadius: 10,
+            width: 40,
+            height: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+            position: 'absolute',
+            top: -60,
+          }}>
+          <Text style={styles.value}>{value}</Text>
+          <Box style={styles.arrow} />
+        </LinearGradient>
+      </Box>
+    );
+  };
+
   return (
-    <Box backgroundColor="pageBackground" flex={1} height={'100%'}>
+    <ScrollView
+      style={{
+        flex: 1,
+      }}>
       <Box mt="l" ml="m">
         <TouchableOpacity
           style={{flexDirection: 'row', alignItems: 'center'}}
@@ -38,34 +70,59 @@ const ContentSignIn = () => {
             }
           </Text>
         </Box>
-        <Box mt="m" mx="l">
-          <Text ml="s" variant="heading3">
-            Content Tone
+        <Box mx="l" mt="m">
+          <LinearGradient
+            colors={
+              selectedItem === null
+                ? ['#6944FF', '#9644FF']
+                : ['white', 'white']
+            }
+            start={{x: 0, y: 0}}
+            end={{x: 0, y: 1}}
+            style={{
+              height: 50,
+              borderRadius: 10,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text
+              color={selectedItem === null ? 'white' : 'darkGrey'}
+              variant="heading2">
+              Auto (Ai choose the best)
+            </Text>
+          </LinearGradient>
+          <Box mb="m">
+            <ContentItems onSelect={item => setSelectedItem(item)} />
+          </Box>
+          <Text ml="m" mb="l" variant="heading2">
+            How many posts
           </Text>
-          <DropDownMenu />
-        </Box>
-        <Box mt="m" mx="l">
-          <Text ml="s" variant="heading3">
-            Post Theme
+          <Box
+            borderWidth={1}
+            borderRadius={10}
+            borderColor="lightGrey"
+            mt="l"
+            paddingHorizontal="s"
+            paddingVertical="xs"
+            justifyContent="center">
+            <Slider
+              minimumValue={0}
+              maximumValue={20}
+              step={1}
+              value={value}
+              onValueChange={val => setValue(val)}
+              onSlidingComplete={val => handleSlidingComplete(val)}
+              minimumTrackTintColor="#6944FF"
+              maximumTrackTintColor="#D8CEFF"
+              trackStyle={{height: 6}}
+              thumbTintColor="white"
+              thumbStyle={styles.thumb}
+              renderThumbComponent={renderThumb}
+            />
+          </Box>
+          <Text mt='xs' textAlign='center' variant='heading5' style={{marginBottom: 80}} color="grey">
+            Remaining Post amount: <Text fontWeight='bold' variant='heading5' color="grey">160</Text>
           </Text>
-          <PostThemeDropDown />
-        </Box>
-        <Box mt="xl" mx="m">
-          <Text textAlign='center' variant='heading2'>Post amount slider</Text>
-          <Slider
-            containerStyle={{marginHorizontal: 20, marginTop: 10}}
-            value={4}
-            minimumValue={0}
-            maximumValue={100}
-            step={1}
-            trackClickable={true}
-            animateTransitions
-            minimumTrackTintColor="#D9D9D9"
-            maximumTrackTintColor='#D9D9D9'
-            trackStyle={{height: 6}}
-            thumbTintColor='#D9D9D9'
-            thumbStyle={{width: 30, height: 30, borderRadius: 25}}
-          />
         </Box>
       </Box>
       <Box
@@ -79,17 +136,41 @@ const ContentSignIn = () => {
           labelColor={'white'}
           mx="l"
           variant="primary"
-          label="Generate"
+          label="Continue"
         />
       </Box>
-    </Box>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-    thumb: {
-        color: 'red'
-    }
-})
+  thumb: {
+    width: 26,
+    height: 26,
+    borderRadius: 25,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: 'black',
+  },
+  value: {
+    fontSize: 18,
+    color: 'white',
+    fontWeight: '700',
+  },
+  arrow: {
+    borderTopWidth: 10,
+    borderTopColor: '#9644FF',
+    borderLeftWidth: 5,
+    borderLeftColor: 'transparent',
+    borderRightWidth: 5,
+    borderRightColor: 'transparent',
+    width: 0,
+    height: 0,
+    zIndex: -1,
+    position: 'absolute',
+    bottom: -7,
+  },
+});
 
 export default ContentSignIn;

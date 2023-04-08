@@ -9,12 +9,10 @@ import SignButton from '../../components/SignButton/sign-button'
 import Text from '../../components/Text/text'
 import { loggedInAtom, userDataAtom } from '../../utils/atom'
 import auth from '@react-native-firebase/auth';
-import Storage from "@react-native-async-storage/async-storage";
+
 import {
   GoogleSignin,
-  GoogleSigninButton,
 } from '@react-native-google-signin/google-signin';
-import { useNavigation } from '@react-navigation/native'
 
 const SignUp = () => {
 
@@ -34,15 +32,57 @@ const SignUp = () => {
     return auth().signInWithCredential(googleCredential);
   }
 
+  /* async function onAppleButtonPress() {
+    // Generate secure, random values for state and nonce
+    const rawNonce = uuid();
+    const state = uuid();
+  
+    // Configure the request
+    appleAuthAndroid.configure({
+      // The Service ID you registered with Apple
+      clientId: 'com.example.client-android',
+  
+      // Return URL added to your Apple dev console. We intercept this redirect, but it must still match
+      // the URL you provided to Apple. It can be an empty route on your backend as it's never called.
+      redirectUri: 'https://example.com/auth/callback',
+  
+      // The type of response requested - code, id_token, or both.
+      responseType: appleAuthAndroid.ResponseType.ALL,
+  
+      // The amount of user information requested from Apple.
+      scope: appleAuthAndroid.Scope.ALL,
+  
+      // Random nonce value that will be SHA256 hashed before sending to Apple.
+      nonce: rawNonce,
+  
+      // Unique state value used to prevent CSRF attacks. A UUID will be generated if nothing is provided.
+      state,
+    });
+  
+    // Open the browser window for user sign in
+    const response = await appleAuthAndroid.signIn();
+  
+    // Send the authorization code to your backend for verification
+  }
+
+  async function handleAppleSignIn() {
+    try {
+      await onAppleButtonPress();
+      // Send the authorization code to your backend for verification
+    } catch (error) {
+      console.log('Error signing in with Apple:', error);
+      // Show an error message to the user
+    }
+  } */
+  
+
       return (
         <Box style={{backgroundColor: '#F4F8FC'}} flex={1} alignItems='center'>
             <Text mt='xxl'>Illustration will be added</Text>
             <Text mt='l' variant='heading1'>Create Your Account</Text>
           <Box width={'100%'}> 
           <Box mt='l'>
-            <SignButton mx='m' variant='iosBtn' onPress={() => {
-              
-            }} label={'Continue With Apple'} labelColor={'white'} icon={<AppleIcon/>} />
+            <SignButton mx='m' variant='iosBtn' onPress={() => {}} label={'Continue With Apple'} labelColor={'white'} icon={<AppleIcon/>} />
           </Box>
           <Box mt='cardP'>
             <SignButton mx='m' variant='googleBtn' label={'Continue With Google'} labelColor={'white'} icon={<GoogleIcon/>} onPress={() => onGoogleButtonPress().then(res => {
@@ -52,7 +92,7 @@ const SignUp = () => {
             })} />
           </Box>
           <Box mt='cardP'>
-            <SignButton mx='m' variant='facebookBtn' onPress={()=>{}} label={'Continue With Facebook'} labelColor={'white'} icon={<FacebookIcon/>} /> 
+            <SignButton mx='m' variant='facebookBtn' onPress={() => {}} label={'Continue With Facebook'} labelColor={'white'} icon={<FacebookIcon/>} /> 
           </Box>
             <Text variant='heading3' textAlign='center' mt='xl'>or</Text>
           </Box>
