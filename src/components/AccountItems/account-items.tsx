@@ -6,21 +6,26 @@ import IndustryIcon from '../../assets/icons/industry-icon';
 import BusinessIcon from '../../assets/icons/business-icon';
 import ProductIcon from '../../assets/icons/product-icon';
 import {StyleSheet, TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import PremiumIcon from '../../assets/icons/premium-icon';
+import UserIcon from '../../assets/icons/user-icon';
+import NotificationIcon from '../../assets/icons/notification-icon';
 
 const AccountItems = () => {
+  const navigation = useNavigation();
   return (
     <Box>
       <TouchableOpacity style={styles.container}>
         <Box style={styles.iconContainer}>
-          <IndustryIcon />
+          <PremiumIcon />
         </Box>
         <Text marginRight="auto" variant="heading3" ml="s">
           Try Premium for Free
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('AccountSettings')} style={styles.container}>
         <Box style={styles.iconContainer}>
-          <BusinessIcon />
+          <UserIcon />
         </Box>
         <Text marginRight="auto" variant="heading3" ml="s">
           Account settings
@@ -31,7 +36,7 @@ const AccountItems = () => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.container}>
         <Box style={styles.iconContainer}>
-          <ProductIcon />
+          <NotificationIcon />
         </Box>
         <Text marginRight="auto" variant="heading3" ml="s">
           Notifications

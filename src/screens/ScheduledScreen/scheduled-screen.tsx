@@ -1,6 +1,4 @@
 import React, {useRef} from 'react';
-import Box from '../Box/box';
-import Text from '../Text/text';
 import {
   FlatList,
   Image,
@@ -16,13 +14,15 @@ import ApproveIcon from '../../assets/icons/approve-icon';
 import {DraftData} from '../../data/DraftData';
 import DotsIcon from '../../assets/icons/dots-icon';
 import LinearGradient from 'react-native-linear-gradient';
-import EditPostBottomSheet from '../EditPostBottomSheet/edit-post-bottom-sheet';
 import BottomSheet from '@gorhom/bottom-sheet';
 import SmallCalendarIcon from '../../assets/icons/small-calendar-icon';
 import SmallEditIcon from '../../assets/icons/small-edit-icon';
 import SmallCalendarCancelIcon from '../../assets/icons/small-calendar-cancel-icon';
+import Box from '../../components/Box/box';
+import Text from '../../components/Text/text';
+import EditPostBottomSheet from '../../components/EditPostBottomSheet/edit-post-bottom-sheet';
 
-const Post = ({draft}) => {
+const ScheduledScreen = ({draft}) => {
   const EditPostBottomSheetRef = useRef<BottomSheet>(null);
   const [selectedPost, setSelectedPost] = React.useState(null);
   const [drafts, setDrafts] = React.useState(DraftData);
@@ -84,33 +84,6 @@ const Post = ({draft}) => {
                 height={1}
                 backgroundColor="lightGrey"
               />
-
-              {draft === true ? (
-                <Box
-                  mb="s"
-                  mt="xs"
-                  flexDirection="row"
-                  justifyContent="space-around">
-                  <TouchableOpacity
-                    onPress={() => {
-                      handleEditPost(item);
-                      setSelectedPost(item);
-                      EditPostBottomSheetRef.current?.expand();
-                    }}
-                    style={{alignItems: 'center', justifyContent: 'center'}}>
-                    <EditIcon />
-                    <Text>Edit</Text>
-                  </TouchableOpacity>
-                  <Box alignItems="center" justifyContent="center">
-                    <AddVisualsIcon />
-                    <Text>Add Visuals</Text>
-                  </Box>
-                  <Box alignItems="center" justifyContent="center">
-                    <ApproveIcon />
-                    <Text>Approve</Text>
-                  </Box>
-                </Box>
-              ) : (
                 <Box flexDirection="row" alignItems="center" mb="s">
                   <Box flexDirection="row" ml="m" marginRight="auto">
                     <Box mr="s">
@@ -125,7 +98,6 @@ const Post = ({draft}) => {
                     </Text>
                   </Box>
                 </Box>
-              )}
               <LinearGradient
                 colors={
                   item.image === null
@@ -260,4 +232,4 @@ const Post = ({draft}) => {
   );
 };
 
-export default Post;
+export default ScheduledScreen;

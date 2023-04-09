@@ -7,13 +7,17 @@ import BusinessIcon from '../../assets/icons/business-icon';
 import ProductIcon from '../../assets/icons/product-icon';
 import ContentIcon from '../../assets/icons/content-icon';
 import {StyleSheet, TouchableOpacity} from 'react-native';
+import ContactIcon from '../../assets/icons/contact-icon';
+import FeedbackIcon from '../../assets/icons/feedback-icon';
+import ThermOnServiceIcon from '../../assets/icons/therm-of-service-icon';
+import PrivacyIcon from '../../assets/icons/privacy-icon';
 
 const MenuMoreItems = () => {
   return (
     <Box>
       <TouchableOpacity style={styles.container}>
         <Box style={styles.iconContainer}>
-          <IndustryIcon />
+          <ContactIcon />
         </Box>
         <Text variant="heading3" ml="s">
           Contact us
@@ -21,7 +25,7 @@ const MenuMoreItems = () => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.container}>
         <Box style={styles.iconContainer}>
-          <BusinessIcon />
+          <FeedbackIcon />
         </Box>
         <Text variant="heading3" ml="s">
           Leave a feedback
@@ -29,7 +33,7 @@ const MenuMoreItems = () => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.container}>
         <Box style={styles.iconContainer}>
-          <ProductIcon />
+          <ThermOnServiceIcon />
         </Box>
         <Text variant="heading3" ml="s">
           Terms of service
@@ -37,7 +41,7 @@ const MenuMoreItems = () => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.container}>
         <Box style={styles.iconContainer}>
-          <ContentIcon />
+          <PrivacyIcon />
         </Box>
         <Text variant="heading3" ml="s">
           Privacy policy

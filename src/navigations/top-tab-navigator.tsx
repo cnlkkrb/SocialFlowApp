@@ -2,6 +2,8 @@ import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import DraftScreen from '../screens/DraftScreen/draft-screen';
+import ApprovedScreen from '../screens/ApprovedScreen/approved-screen';
+import ScheduledScreen from '../screens/ScheduledScreen/scheduled-screen';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -42,7 +44,7 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
               backgroundColor: '#fff',
               width: 100,
               borderRadius: 10,
-              paddingVertical: 4,
+              paddingVertical: 5,
               textAlign: 'center',
             }
           : null;
@@ -75,8 +77,8 @@ const TopTabNavigator = () => {
   return (
     <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
       <Tab.Screen name="Draft" component={DraftScreen} />
-      <Tab.Screen name="Approved" component={DraftScreen} />
-      <Tab.Screen name="Scheduled" component={DraftScreen} />
+      <Tab.Screen name="Approved" component={ApprovedScreen} />
+      <Tab.Screen name="Scheduled" component={ScheduledScreen} />
     </Tab.Navigator>
   );
 };
