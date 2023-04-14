@@ -1,6 +1,12 @@
 import { atom } from 'jotai'
+import { atomWithStorage, createJSONStorage } from 'jotai/utils'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export const loggedInAtom = atom(false)
-export const userDataAtom = atom ({})
+
+const storage = createJSONStorage(() => AsyncStorage)
+
+
+export const loggedInAtom = atomWithStorage('loggedIn',false, storage)
+export const userDataAtom = atomWithStorage ('user',{}, storage)
 
 

@@ -25,10 +25,11 @@ const Menu = () => {
     try {
       await GoogleSignin.revokeAccess();
       await auth().signOut();
-      setLoggedIn(false);
-      console.log('sign out success');
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoggedIn(false);
+      console.log('sign out success');
     }
   };
   return (
