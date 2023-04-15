@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">SocialFlowApp</string>
+    <string name="app_name">SocialFlowApp</string> 
+    <string name="facebook_app_id">3481033725551325</string>
+    <string name="facebook_client_token">85b987eb74721017f7143458845e5882</string>
 </resources>
