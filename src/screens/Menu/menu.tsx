@@ -18,6 +18,7 @@ import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { useAtom } from 'jotai';
 import { loggedInAtom } from '../../utils/atom';
+import appleAuth, {AppleRequestOperation} from '@invertase/react-native-apple-authentication';
 
 const Menu = () => {
   const navigation = useNavigation();
@@ -33,6 +34,28 @@ const Menu = () => {
       console.log('sign out success');
     }
   };
+  const appleLogout = async () => {
+    try {
+      await appleAuth.performRequest({
+        requestedOperation: AppleRequestOperation.LOGOUT,
+      });
+      console.log('Apple logout success');
+    } catch (error) {
+      console.log('Apple logout error:', error);
+    }
+  }
+  
+  // Call the appleLogout function when you want to log out
+  const handleLogout = async () => {
+    try {
+      // Call any other logout functions you need here
+      await appleLogout();
+    } catch (error) {
+      console.log('Logout error:', error);
+    } finally {
+      setLoggedIn(false);
+    }
+  }
   return (
   <SafeAreaView style={{flex: 1}}>
     <ScrollView>
@@ -89,7 +112,7 @@ const Menu = () => {
         textDecorationLine="underline">
         Restore my purchases
       </Text>
-      <TouchableOpacity onPress={signOut} style={styles.logOutButton}>
+      <TouchableOpacity onPress={handleLogout} style={styles.logOutButton}>
         <Text variant="heading3" style={{color: '#EB5757'}}>
           Log out
         </Text>
