@@ -7,7 +7,7 @@ import {
   BottomSheetModalProvider,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
-import {LogBox, TextInput, TouchableOpacity} from 'react-native';
+import {LogBox, Platform, TextInput, TouchableOpacity} from 'react-native';
 import Button from '../Button/button';
 import SwitchButton from '../SwitchButton/switch-button';
 import CloseIcon from '../../assets/icons/close-icon';
@@ -21,7 +21,7 @@ const PostDetailBottomSheet = ({postDetailBottomSheetRef}: any) => {
       LogBox.ignoreLogs(["VirtualizedLists should never be nested"])
     }, [])
     const [text, setText] = React.useState('');
-    const snapPoints = ['85%'];
+    const snapPoints = ['75%'];
     const navigation = useNavigation();
 
   return (
@@ -100,22 +100,7 @@ const PostDetailBottomSheet = ({postDetailBottomSheetRef}: any) => {
                 numberOfLines={5}
               />
             </Box>
-            <Box mt="m" flexDirection="row" alignItems="center">
-              <SwitchButton />
-              <Text variant="heading3">Schedule</Text>
-            </Box>
-            <Box mt="s" flexDirection="row" justifyContent="space-between">
-              <Calendar color={'black'} calendarColor={'#4A4A4A'}/>
-              <Clock color={'black'} iconColor={'#4A4A4A'}/>
-            </Box>
-            <Box mt="m" mb="xs">
-              <Button
-                variant="primary"
-                label="Share"
-                onPress={() => navigation.navigate('ContentSignIn')}
-                labelColor={'white'}
-              />
-            </Box>
+
           </Box>
           <TouchableOpacity
             onPress={() => {
@@ -125,6 +110,15 @@ const PostDetailBottomSheet = ({postDetailBottomSheetRef}: any) => {
             <CloseIcon />
           </TouchableOpacity>
         </BottomSheetScrollView>
+        <Box position='absolute' bottom={Platform.OS === 'android' ? 10 : 40} width={'100%'}>
+              <Button
+                mx='l'
+                variant="primary"
+                label="Share Now"
+                onPress={() => navigation.navigate('ContentSignIn')}
+                labelColor={'white'}
+              />
+            </Box>
       </BottomSheetModal>
     </BottomSheetModalProvider>
   );

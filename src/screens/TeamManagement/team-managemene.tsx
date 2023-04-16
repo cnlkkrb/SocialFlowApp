@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '../../components/Box/box';
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {Image, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
 import BackIcon from '../../assets/icons/back-icon';
 import Text from '../../components/Text/text';
 import {useNavigation} from '@react-navigation/native';
@@ -13,7 +13,7 @@ const TeamManagement = () => {
   const navigation = useNavigation();
   const [userData] = useAtom(userDataAtom);
   return (
-    <Box>
+    <SafeAreaView style={{flex: 1}}>
       <Box mx="m" mt="l" flexDirection="row" justifyContent="space-between">
         <TouchableOpacity
           style={{flexDirection: 'row', alignItems: 'center'}}
@@ -103,7 +103,7 @@ const TeamManagement = () => {
         <Text color='bg' variant='heading2'>Add Member</Text>
     </TouchableOpacity>
     </Box>
-    </Box>
+    </SafeAreaView>
   );
 };
 

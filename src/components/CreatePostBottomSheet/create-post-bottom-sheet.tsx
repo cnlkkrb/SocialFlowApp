@@ -6,7 +6,7 @@ import BottomSheet, {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet';
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {Image, Platform, StyleSheet, TouchableOpacity} from 'react-native';
 import SinglePostIcon from '../../assets/icons/single-post-icon';
 import SpecialPostIcon from '../../assets/icons/special-post-icon';
 import MultiplePostIcon from '../../assets/icons/multiple-post-icon';
@@ -14,14 +14,14 @@ import CreatePostBottomSheetStep2 from '../CreatePostBottomSheetStep2/create-pos
 
 const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
     const createPostBottomSheetStep2Ref = useRef<BottomSheet>(null);
-    const snapPoints = ['40%'];
+    const snapPoints = ['45%'];
 
   return (
     <BottomSheetModalProvider>
       <BottomSheetModal
         ref={bottomSheetModalRef}
         index={0}
-        snapPoints={snapPoints}
+        snapPoints={Platform.OS === 'android' ? snapPoints : ['40%']}
         stackBehavior="push"
         detached
         backdropComponent={props => (
@@ -32,9 +32,10 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
           />
         )}
         bottomInset={20}
-        style={{marginHorizontal: 16}}
+        style={{marginHorizontal: 16, justifyContent: 'center',flex: 1,}}
         enablePanDownToClose
         backgroundStyle={{backgroundColor: 'white'}}>
+      <Box flex={1} justifyContent='center'>
         <Box
           flexDirection="row"
           alignItems="center"
@@ -103,6 +104,7 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
             Special Facebook Post
           </Text>
         </TouchableOpacity>
+        </Box>
       </BottomSheetModal>
       <CreatePostBottomSheetStep2 createPostBottomSheetStep2Ref={createPostBottomSheetStep2Ref}/>
     </BottomSheetModalProvider>

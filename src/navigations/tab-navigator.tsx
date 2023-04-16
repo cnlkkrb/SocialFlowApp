@@ -11,12 +11,10 @@ import {
   WorkspaceIcon,
   WorkspaceIconFilled,
 } from '../assets/icons/workspace-icon';
-import {TouchableOpacity} from 'react-native';
-import PlusIcon from '../assets/icons/plus-icon';
-import LinearGradient from 'react-native-linear-gradient';
 import Box from '../components/Box/box';
 import BottomSheet from '@gorhom/bottom-sheet';
 import CreatePostBottomSheet from '../components/CreatePostBottomSheet/create-post-bottom-sheet';
+import PlusIconComponent from '../components/PlusIconComponent/plus-icon-component';
 
 const Tab = createBottomTabNavigator();
 
@@ -37,6 +35,7 @@ const TabNavigator = () => {
         headerShown: false,
         tabBarLabelStyle: {fontSize: 12, fontWeight: '500', top: -5},
         tabBarActiveTintColor: '#6944FF',
+        tabBarHideOnKeyboard: true
       }}>
       <Tab.Screen
         options={{
@@ -79,29 +78,7 @@ const TabNavigator = () => {
           title: () => null,
           headerShown: false,
           tabBarIcon: ({focused}) => (
-            <TouchableOpacity
-              onPress={handlePresentModal}
-              style={{
-                backgroundColor: 'white',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <LinearGradient
-                style={{
-                  top: -10,
-                  width: 50,
-                  height: 50,
-                  borderRadius: 15,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderWidth: 2,
-                  borderColor: 'white',
-                }}
-                colors={['#6944FF', '#9644FF']}>
-                <PlusIcon />
-              </LinearGradient>
-              
-            </TouchableOpacity>
+            <PlusIconComponent handlePresentModal={handlePresentModal} />
           )
         }}
         name="PlusScreen"

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
 import BackIcon from '../../assets/icons/back-icon';
 import Box from '../../components/Box/box';
 import Text from '../../components/Text/text';
@@ -36,6 +36,7 @@ const AccountSettings = () => {
     }
   };
   return (
+  <SafeAreaView style={{flex: 1}}>
     <Box mt="m" mb="m" alignItems="center">
       <TouchableOpacity
         style={{
@@ -62,7 +63,7 @@ const AccountSettings = () => {
           keyExtractor={item => item.id.toString()}
           renderItem={({item}) => {
             return (
-              <Box>
+              <Box alignItems='center'>
                 <Text textAlign="center" variant="heading3" fontWeight={item === selectedItem ? '700' : '600'}>
                   Starter Pack
                 </Text>
@@ -151,7 +152,7 @@ const AccountSettings = () => {
           keyExtractor={item => item.id.toString()}
           renderItem={({item}) => {
             return (
-              <Box>
+              <Box alignItems='center'>
                 <Text textAlign="center" variant="heading3" fontWeight={item === selectedItem ? '700' : '600'}>
                   Best Seller
                 </Text>
@@ -270,7 +271,7 @@ const AccountSettings = () => {
           keyExtractor={item => item.id.toString()}
           renderItem={({item}) => {
             return (
-              <Box>
+              <Box alignItems='center'>
                 <Text textAlign="center" variant="heading3" fontWeight={item === selectedItem ? '700' : '600'}>
                   Pro Business
                 </Text>
@@ -371,6 +372,7 @@ const AccountSettings = () => {
         />
       </Box>
     </Box>
+    </SafeAreaView>
   );
 };
 

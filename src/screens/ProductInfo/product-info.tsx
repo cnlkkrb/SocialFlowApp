@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {TextInput, TouchableOpacity} from 'react-native';
+import {SafeAreaView, TextInput, TouchableOpacity} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import BackIcon from '../../assets/icons/back-icon';
 import ProductIcon from '../../assets/icons/product-icon';
@@ -13,6 +13,7 @@ const ProductInfo = () => {
   const navigation = useNavigation();
 
   return (
+  <SafeAreaView style={{flex: 1}}>
     <Box backgroundColor="pageBackground" flex={1} height={'100%'}>
       <Box mt="l" ml="m">
         <TouchableOpacity style={{flexDirection:'row', alignItems: 'center'}} onPress={() => navigation.goBack()}>
@@ -88,6 +89,7 @@ const ProductInfo = () => {
         <Button onPress={() => navigation.navigate('Content')} labelColor={'white'} mx="m" variant="primary" label="Continue" />
       </FixedButton>
     </Box>
+  </SafeAreaView>
   );
 };
 

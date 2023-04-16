@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Image, PermissionsAndroid, Platform } from 'react-native';
+import { Image, PermissionsAndroid, Platform, SafeAreaView, ScrollView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import UnCheckedIcon from '../../assets/icons/unchecked-icon';
 import Box from '../../components/Box/box';
@@ -18,32 +18,10 @@ const ContentGeneration = () => {
     const [permissionGranted, setPemissionGranted] = useState(false);
     const [permissionAlert, setPermissionAlert] = useState(false);
 
-    const requestPemission = () => {
-      if (Platform.OS === "android") {
-        PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA).then(res => {
-          if (res === PermissionsAndroid.RESULTS.GRANTED) {
-            setPemissionGranted(true);
-          } else {
-            setPermissionAlert(true);
-          }
-        });
-      } else {
-        Permissions.request(Permissions.PERMISSIONS.IOS.CAMERA).then(res => {
-          if (res === Permissions.RESULTS.GRANTED) {
-            setPemissionGranted(true);
-          } else {
-            setPermissionAlert(true);
-          }
-        });
-      }
-    };
-  
-    React.useEffect(() => {
-      requestPemission();
-    }, []);
-
   return (
+  <SafeAreaView style={{flex: 1}}>
     <LinearGradient colors={['#6944FF', '#9644FF']} style={{flex: 1}}>
+    <ScrollView>
       <Box style={{marginTop: 80}} justifyContent="center" alignItems="center">
         <Text variant="heading1" color='white'>Ai is tailoring your contents!</Text>
         <Text variant="heading3" textAlign="center" mt="m" color="white">
@@ -75,11 +53,7 @@ const ContentGeneration = () => {
         <Text ml='s' color='white' variant='heading4'>Image generation.</Text>
       </Box>
       </Box>
-      <Box position='absolute'
-      width={'100%'}
-      bottom={0}
-      height={70}
-      justifyContent="center">
+      <Box mt='xl' mb='s'>
         <Button onPress={() => setLargeModalVisible(true)} mx="m" labelColor={'bg'} variant="gradient" label="Let me know once it’s done!" />
       </Box>
       <LargeModal
@@ -128,7 +102,9 @@ const ContentGeneration = () => {
           setSuccessModal(false)
           navigation.navigate('SignUp')
         }}/>
+        </ScrollView>
     </LinearGradient>
+    </SafeAreaView>
   );
 };
 

@@ -75,7 +75,7 @@ const Post = ({draft}) => {
                   source={item.image}
                 />
               )}
-              <Text p="m" fontSize={13} lineHeight={18}>
+              <Text p="m" mr='s' fontSize={13} lineHeight={18}>
                 {item.title}
               </Text>
               <Box

@@ -1,4 +1,4 @@
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Box from '../../components/Box/box';
 import DotIcon from '../../assets/icons/dot-icon';
@@ -17,7 +17,7 @@ const WorkspaceScreen = () => {
   const [userData] = useAtom(userDataAtom);
   const navigation = useNavigation()
   return (
-    <Box>
+    <SafeAreaView style={{flex: 1}}>
       <Box mt="m" mb="m" alignItems="center">
         <TouchableOpacity onPress={() => navigation.navigate('Menu')} style={{position: 'absolute', left: 20}}>
           <DotIcon />
@@ -27,7 +27,8 @@ const WorkspaceScreen = () => {
         </Text>
       </Box>
       <Divider disablePadding />
-      <Box mx="m" mt="m">
+    <ScrollView>
+      <Box mx="m" mt="m" mb='m'>
         <Text color="grey" ml="m" variant="heading4">
           Workspace & Team
         </Text>
@@ -113,7 +114,8 @@ const WorkspaceScreen = () => {
         </Text>
         <BusinessSettings />
       </Box>
-    </Box>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

@@ -22,13 +22,12 @@ import CheckIcon from '../../assets/icons/check-icon';
 import {DraftData} from '../../data/DraftData';
 import SelectedScheduleItem from '../../components/SelectedScheduleItem/selected-schedule-item';
 
-const ApprovedScreen = () => {
+const ApprovedScreen = ({selectedItems, setSelectedItems}) => {
   const EditPostBottomSheetRef = useRef<BottomSheet>(null);
   const [selectedPost, setSelectedPost] = React.useState(null);
   const [drafts, setDrafts] = React.useState(DraftData);
   const [menuVisible, setMenuVisible] = React.useState(false);
   const [menuPosition, setMenuPosition] = React.useState({x: 0, y: 0});
-  const [selectedItems, setSelectedItems] = useState([]);
   const [showSelectedItems, setShowSelectedItems] = useState(false);
 
   const handleSharePress = updatedPost => {
@@ -55,7 +54,7 @@ const ApprovedScreen = () => {
   return (
     <Box>
       <Box zIndex={1} position="absolute" bottom={10} width={'100%'}>
-        {showSelectedItems && (
+        {showSelectedItems && selectedItems.length > 0 && (
           <SelectedScheduleItem selectedItem={selectedItems} />
         )}
       </Box>
@@ -83,7 +82,7 @@ const ApprovedScreen = () => {
                     source={item.image}
                   />
                 )}
-                <Text p="m" fontSize={13} lineHeight={18}>
+                <Text p="m" mr='m' fontSize={13} lineHeight={18}>
                   {item.title}
                 </Text>
                 <Box

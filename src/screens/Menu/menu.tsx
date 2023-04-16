@@ -1,4 +1,5 @@
 import {
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -25,13 +26,15 @@ const Menu = () => {
     try {
       await GoogleSignin.revokeAccess();
       await auth().signOut();
-      setLoggedIn(false);
-      console.log('sign out success');
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoggedIn(false);
+      console.log('sign out success');
     }
   };
   return (
+  <SafeAreaView style={{flex: 1}}>
     <ScrollView>
       <Box mt="m" mb="m" alignItems="center">
         <TouchableOpacity
@@ -95,6 +98,7 @@ const Menu = () => {
         App version v0.1.1 (10893)
       </Text>
     </ScrollView>
+    </SafeAreaView>
   );
 };
 

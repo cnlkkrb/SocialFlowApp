@@ -7,7 +7,7 @@ import BottomSheet, {
   BottomSheetModalProvider,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
-import {LogBox, TextInput, TouchableOpacity} from 'react-native';
+import {LogBox, Platform, SafeAreaView, TextInput, TouchableOpacity} from 'react-native';
 import DropDownMenu from '../DropDownMenu/drop-down-menu';
 import Button from '../Button/button';
 import SwitchButton from '../SwitchButton/switch-button';
@@ -30,7 +30,7 @@ const CreatePostBottomSheetStep2 = ({createPostBottomSheetStep2Ref}: any) => {
       <BottomSheetModal
         ref={createPostBottomSheetStep2Ref}
         index={0}
-        snapPoints={snapPoints}
+        snapPoints={Platform.OS === 'android' ? snapPoints : ['85%']}
         stackBehavior="push"
         style={{flex: 1}}
         detached
@@ -44,6 +44,7 @@ const CreatePostBottomSheetStep2 = ({createPostBottomSheetStep2Ref}: any) => {
         enablePanDownToClose
         backgroundStyle={{backgroundColor: '#F4F8FC'}}>
         <BottomSheetScrollView>
+        <SafeAreaView style={{flex: 1}}>
           <Box flex={1} mx="l">
             <Text textAlign="center" variant="generalHeading" fontWeight="600">
               Create New Facebook Post
@@ -53,8 +54,6 @@ const CreatePostBottomSheetStep2 = ({createPostBottomSheetStep2Ref}: any) => {
                 Starting point
               </Text>
               <TextInput
-                value={text}
-                onChangeText={text => setText(text)}
                 style={{
                   width: '100%',
                   height: 95,
@@ -121,7 +120,6 @@ const CreatePostBottomSheetStep2 = ({createPostBottomSheetStep2Ref}: any) => {
           <Box mx='l' mt='large'>
               <Button
                 variant="primary"
-                disabled={text === ''}
                 label="Share"
                 onPress={() => {
                     createPostBottomSheetStep2Ref.current?.close()
@@ -130,8 +128,8 @@ const CreatePostBottomSheetStep2 = ({createPostBottomSheetStep2Ref}: any) => {
                 labelColor={'white'}
               />
             </Box>
+            </SafeAreaView>
         </BottomSheetScrollView>
-
       </BottomSheetModal>
       <PostTypeBottomSheet postTypeBottomSheetRef={postTypeBottomSheetRef}/>
     </BottomSheetModalProvider>
