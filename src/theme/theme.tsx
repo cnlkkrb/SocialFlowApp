@@ -51,10 +51,8 @@ const theme = createTheme({
   },
   textWeights: {
     regular: {
-      fontFamily: "OpenSans-Regular",
     },
     bold: {
-      fontFamily: "OpenSans-Bold",
     },
   },
   spacing: themeSpacing,
@@ -98,7 +96,6 @@ const theme = createTheme({
     defaults: {
       fontSize: 14,
       color: "black",
-      fontFamily: "OpenSans-Regular",
     },
   },
   textInputVariants: {

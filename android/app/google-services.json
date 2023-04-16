@@ -22,7 +22,15 @@
           }
         },
         {
-          "client_id": "436871348176-p8ad2e47n5ddk2pcffjmq3hgu95nh8ph.apps.googleusercontent.com",
+          "client_id": "436871348176-qhm1lrlkj4kiv4pn12q3b4u9r6t7opms.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.socialflowapp",
+            "certificate_hash": "ae6af85e6776d8ef1d335528054e15e9cfc360ec"
+          }
+        },
+        {
+          "client_id": "436871348176-4p46uicks3qp5v3q7o3nrjeu02dlakrb.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -35,8 +43,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "436871348176-p8ad2e47n5ddk2pcffjmq3hgu95nh8ph.apps.googleusercontent.com",
+              "client_id": "436871348176-4p46uicks3qp5v3q7o3nrjeu02dlakrb.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "436871348176-eaq6co7b4sec24ihq4dka65cpfuf07pj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.socialflowapp"
+              }
             }
           ]
         }

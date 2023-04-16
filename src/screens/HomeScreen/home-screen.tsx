@@ -4,7 +4,7 @@ import DotIcon from '../../assets/icons/dot-icon';
 import Text from '../../components/Text/text';
 import DownIcon from '../../assets/icons/up-icon';
 import RingIcon from '../../assets/icons/ring-icon';
-import {Image, TouchableOpacity} from 'react-native';
+import {Image, SafeAreaView, ScrollView, TouchableOpacity} from 'react-native';
 import Insights from '../../components/Insights/insights';
 import TipsTricks from '../../components/TipsTricks/tips-tricks';
 import SpecialDays from '../../components/SpecialDays/special-days';
@@ -15,16 +15,10 @@ import {SocailData} from '../../data/SocailPlatformData';
 import SocialPlatformBottomSheet from '../../components/SocialPlatformBottomSheet/social-platform-bottom-sheet';
 import {useNavigation} from '@react-navigation/native';
 
-interface UserData {
-  photoURL: string;
-  displayName: string;
-  providerId: string;
-}
-
 
 const HomeScreen = () => {
   const [myData, setMyData] = React.useState(SocailData);
-  const [userData] = useAtom<UserData>(userDataAtom);
+  const [userData] = useAtom(userDataAtom);
   const bottomSheetModalRef = useRef<BottomSheet>(null);
   const navigation = useNavigation();
 
@@ -53,7 +47,10 @@ const HomeScreen = () => {
   const selectedIcon =
     selectedIconIndex > -1 && SocailData[selectedIconIndex].image;
 
+  console.log(userData.providerData[0].providerId)
+
   return (
+  <SafeAreaView style={{flex: 1}}>
     <Box flex={1} backgroundColor="pageBackground">
       <Box
         m="m"
@@ -81,9 +78,9 @@ const HomeScreen = () => {
                 height: 24,
               }}
               source={
-                userData.providerId === 'google.com'
+                userData.providerData[0].providerId === 'google.com'
                   ? selectedIcon || require('../../assets/google-logo.png')
-                  : selectedIcon || require('../../assets/logo_fb.png')
+                  : selectedIcon || require('../../assets/logo_fb.png') 
               }
             />
           </Box>
@@ -94,6 +91,7 @@ const HomeScreen = () => {
         </TouchableOpacity>
         <RingIcon />
       </Box>
+    <ScrollView>
       <Box mt="m" ml="m">
         <Text ml="m" variant="heading2">
           Insights
@@ -114,7 +112,7 @@ const HomeScreen = () => {
         </Box>
         <TipsTricks />
       </Box>
-      <Box ml="m" mt="l">
+      <Box ml="m" mt="l" mb='m'>
         <Box
           flexDirection="row"
           alignItems="center"
@@ -128,6 +126,7 @@ const HomeScreen = () => {
         </Box>
         <SpecialDays />
       </Box>
+      </ScrollView>
       <SocialPlatformBottomSheet
         bottomSheetModalRef={bottomSheetModalRef}
         selectedItem={selectedItem}
@@ -135,6 +134,7 @@ const HomeScreen = () => {
         userData={userData}
       />
     </Box>
+  </SafeAreaView>
   );
 };
 

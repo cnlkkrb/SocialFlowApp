@@ -1,4 +1,5 @@
 import {
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -43,6 +44,7 @@ const Menu = () => {
     }
   }
   return (
+  <SafeAreaView style={{flex: 1}}>
     <ScrollView>
       <Box mt="m" mb="m" alignItems="center">
         <TouchableOpacity
@@ -98,7 +100,7 @@ const Menu = () => {
         Restore my purchases
       </Text>
       <TouchableOpacity onPress={() => {
-        if (userData.providerId === 'google.com') {
+        if (userData.providerData[0].providerId === 'google.com') {
           signOut();
         } else {
           facebookLogout();
@@ -112,6 +114,7 @@ const Menu = () => {
         App version v0.1.1 (10893)
       </Text>
     </ScrollView>
+    </SafeAreaView>
   );
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import Box from '../../components/Box/box';
 import Button from '../../components/Button/button';
 import Text from '../../components/Text/text';
-import { TouchableOpacity } from 'react-native';
+import { SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RectangleIcon from '../../assets/icons/rectangle-icon';
 import analytics from '@react-native-firebase/analytics';
@@ -42,7 +42,7 @@ const LoginScreen = () => {
       </Box>
       <Box flexDirection='row' justifyContent='center' mt='m'>
         <Text variant='heading4' color='textColor'>Already have an account? </Text>   
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
           <Text variant='heading4' color='bg'>Log in</Text>
         </TouchableOpacity>     
       </Box>

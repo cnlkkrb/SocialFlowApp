@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, { useState } from 'react';
-import {TextInput, TouchableOpacity} from 'react-native';
+import {SafeAreaView, TextInput, TouchableOpacity} from 'react-native';
 import BackIcon from '../../assets/icons/back-icon';
 import Box from '../../components/Box/box';
 import Button from '../../components/Button/button';
@@ -15,6 +15,7 @@ const Business = () => {
     setVisible((prev) => !prev);
   };
   return (
+  <SafeAreaView style={{flex: 1}}>
     <Box backgroundColor="pageBackground" flex={1} height={'100%'}>
       <Box mt="l" ml="m">
         <TouchableOpacity
@@ -180,6 +181,7 @@ const Business = () => {
         />
       </Box>
     </Box>
+  </SafeAreaView>
   );
 };
 

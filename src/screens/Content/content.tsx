@@ -1,20 +1,21 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {SafeAreaView, ScrollView, TouchableOpacity} from 'react-native';
 import BackIcon from '../../assets/icons/back-icon';
 import ContentIcon from '../../assets/icons/content-icon';
 import Box from '../../components/Box/box';
 import Button from '../../components/Button/button';
 import Text from '../../components/Text/text';
 import ContentItems from '../../components/ContentItems/content-items';
-import LinearGradient from 'react-native-linear-gradient';
 
 const Content = () => {
   const navigation = useNavigation();
   const [selectedItem, setSelectedItem] = useState(null);
 
   return (
+  <SafeAreaView style={{flex: 1}}>
     <Box backgroundColor="pageBackground" flex={1} height={'100%'}>
+    <ScrollView >
       <Box mt="l" ml="m">
         <TouchableOpacity
           style={{flexDirection: 'row', alignItems: 'center'}}
@@ -39,32 +40,11 @@ const Content = () => {
             }
           </Text>
         </Box>
-        <Box mt="l" mx="l">
-          <TouchableOpacity>
-            <LinearGradient
-              colors={
-                selectedItem === null
-                  ? ['#6944FF', '#9644FF']
-                  : ['white', 'white']
-              }
-              start={{x: 0, y: 0}}
-              end={{x: 0, y: 1}}
-              style={{
-                height: 50,
-                borderRadius: 10,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text
-                color={selectedItem === null ? 'white' : 'darkGrey'}
-                variant="heading2">
-                Auto (Ai choose the best)
-              </Text>
-            </LinearGradient>
-          </TouchableOpacity>
+        <Box mt="l" mx="l" mb='large'>
+          <ContentItems onSelect={item => setSelectedItem(item)} />
         </Box>
-        <ContentItems onSelect={item => setSelectedItem(item)} />
       </Box>
+      </ScrollView>
       <Box
         position="absolute"
         width={'100%'}
@@ -80,6 +60,8 @@ const Content = () => {
         />
       </Box>
     </Box>
+    </SafeAreaView>
+
   );
 };
 

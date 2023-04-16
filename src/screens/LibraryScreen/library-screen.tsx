@@ -4,7 +4,7 @@ import DotIcon from '../../assets/icons/dot-icon';
 import Text from '../../components/Text/text';
 import DownIcon from '../../assets/icons/up-icon';
 import RingIcon from '../../assets/icons/ring-icon';
-import {Image, ScrollView, TouchableOpacity} from 'react-native';
+import {Image, SafeAreaView, ScrollView, TouchableOpacity} from 'react-native';
 import {useAtom} from 'jotai';
 import {loggedInAtom, userDataAtom} from '../../utils/atom';
 import BottomSheet from '@gorhom/bottom-sheet';
@@ -46,6 +46,7 @@ const LibraryScreen = () => {
     selectedIconIndex > -1 && SocailData[selectedIconIndex].image;
 
   return (
+  <SafeAreaView style={{flex: 1}}>
     <ScrollView contentContainerStyle={{flex: 1}}>
       <Box
         m="m"
@@ -90,6 +91,7 @@ const LibraryScreen = () => {
         userData={userData}
       />
     </ScrollView>
+    </SafeAreaView>
   );
 };
 

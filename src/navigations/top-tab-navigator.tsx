@@ -7,16 +7,18 @@ import ScheduledScreen from '../screens/ScheduledScreen/scheduled-screen';
 
 const Tab = createMaterialTopTabNavigator();
 
-const CustomTabBar = ({state, descriptors, navigation}) => {
+const CustomTabBar = ({state, descriptors, navigation, selectedItems}) => {
+  const numSelected = selectedItems.length
+
   return (
     <View
       style={{
         flexDirection: 'row',
         marginTop: 10,
-        backgroundColor: '#EAEEF1',
+        backgroundColor: 'white',
         height: 40,
         marginHorizontal: 18,
-        borderRadius: 5,
+        borderRadius: 10,
       }}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
@@ -37,7 +39,7 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
         };
 
         const borderStyle = isFocused
-          ? {borderWidth: 1, borderColor: '#D6E0EA'}
+          ? {borderWidth: 1, borderColor: '#D6E0EA',}
           : null;
         const labelStyle = isFocused
           ? {
@@ -53,7 +55,7 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
           <TouchableOpacity
             key={route.key}
             onPress={onPress}
-            style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            style={{flex: 1, alignItems: 'center', justifyContent: 'center',}}>
             <Text
               style={[
                 {
@@ -65,6 +67,9 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
                 borderStyle,
               ]}>
               {label}
+              {route.name === 'Approved' && (
+                <Text>{`(${numSelected})`}</Text>
+              )}
             </Text>
           </TouchableOpacity>
         );
@@ -74,10 +79,13 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
 };
 
 const TopTabNavigator = () => {
+  const [selectedItems, setSelectedItems] = React.useState([])
   return (
-    <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
+    <Tab.Navigator tabBar={props => <CustomTabBar {...props} selectedItems={selectedItems} />}>
       <Tab.Screen name="Draft" component={DraftScreen} />
-      <Tab.Screen name="Approved" component={ApprovedScreen} />
+      <Tab.Screen name="Approved">
+        {() => <ApprovedScreen selectedItems={selectedItems} setSelectedItems={setSelectedItems}/>}  
+      </Tab.Screen>
       <Tab.Screen name="Scheduled" component={ScheduledScreen} />
     </Tab.Navigator>
   );

@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {FlatList, TouchableOpacity} from 'react-native';
+import {FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
 import BackIcon from '../../assets/icons/back-icon';
 import CheckedIcon from '../../assets/icons/checked-icon';
 import IndustryIcon from '../../assets/icons/industry-icon';
@@ -144,6 +144,7 @@ const Industry = () => {
   };
 
   return (
+  <SafeAreaView style={{flex: 1}}>
     <Box backgroundColor="pageBackground" flex={1}>
       <Box mt="l" ml="m">
         <TouchableOpacity style={{flexDirection:'row', alignItems: 'center'}} onPress={() => navigation.goBack()}>
@@ -184,6 +185,7 @@ const Industry = () => {
         />
       </Box>
     </Box>
+  </SafeAreaView>
   );
 };
 

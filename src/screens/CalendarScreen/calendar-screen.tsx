@@ -3,7 +3,7 @@ import Box from '../../components/Box/box';
 import DotIcon from '../../assets/icons/dot-icon';
 import Text from '../../components/Text/text';
 import DownIcon from '../../assets/icons/up-icon';
-import {Image, ScrollView, TouchableOpacity} from 'react-native';
+import {Image, SafeAreaView, ScrollView, TouchableOpacity} from 'react-native';
 import {Calendar} from 'react-native-calendars';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
@@ -62,6 +62,7 @@ const CalendarScreen = () => {
     selectedIconIndex > -1 && SocailData[selectedIconIndex].image;
 
   return (
+  <SafeAreaView style={{flex: 1}}>
     <ScrollView style={{flex: 1, backgroundColor: '#F4F8FC'}}>
       <Box mx="m">
         <Box mt="m" mb="m" flexDirection="row" alignItems="center">
@@ -184,6 +185,7 @@ const CalendarScreen = () => {
         userData={userData}
       />
     </ScrollView>
+    </SafeAreaView>
   );
 };
 

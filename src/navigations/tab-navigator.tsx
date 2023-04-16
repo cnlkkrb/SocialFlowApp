@@ -11,9 +11,6 @@ import {
   WorkspaceIcon,
   WorkspaceIconFilled,
 } from '../assets/icons/workspace-icon';
-import {TouchableOpacity} from 'react-native';
-import PlusIcon from '../assets/icons/plus-icon';
-import LinearGradient from 'react-native-linear-gradient';
 import Box from '../components/Box/box';
 import BottomSheet from '@gorhom/bottom-sheet';
 import CreatePostBottomSheet from '../components/CreatePostBottomSheet/create-post-bottom-sheet';

@@ -129,15 +129,6 @@ const SignUp = () => {
       </Text>
       <Box width={'100%'}>
         <Box mt="l">
-        <View>
-      {appleAuthAndroid.isSupported && (
-        <AppleButton
-          buttonStyle={AppleButton.Style.WHITE}
-          buttonType={AppleButton.Type.SIGN_IN}
-          onPress={() => appleLogin()}
-        />
-      )}
-    </View>
           <SignButton
             mx="m"
             variant="iosBtn"
