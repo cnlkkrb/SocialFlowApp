@@ -8,39 +8,32 @@ import {Image, SafeAreaView, ScrollView, TouchableOpacity} from 'react-native';
 import Insights from '../../components/Insights/insights';
 import TipsTricks from '../../components/TipsTricks/tips-tricks';
 import SpecialDays from '../../components/SpecialDays/special-days';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
 import {useAtom} from 'jotai';
-import {loggedInAtom, userDataAtom} from '../../utils/atom';
+import {userDataAtom} from '../../utils/atom';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {SocailData} from '../../data/SocailPlatformData';
 import SocialPlatformBottomSheet from '../../components/SocialPlatformBottomSheet/social-platform-bottom-sheet';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
+
+interface UserData {
+  photoURL: string;
+  displayName: string;
+  providerId: string;
+}
+
 
 const HomeScreen = () => {
-  const [, setLoggedIn] = useAtom(loggedInAtom);
   const [myData, setMyData] = React.useState(SocailData);
-  const [userData] = useAtom(userDataAtom);
+  const [userData] = useAtom<UserData>(userDataAtom);
   const bottomSheetModalRef = useRef<BottomSheet>(null);
   const navigation = useNavigation();
-
-  const signOut = async () => {
-    try {
-      await GoogleSignin.revokeAccess();
-      await auth().signOut();
-      setLoggedIn(false);
-      console.log('sign out success');
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   function handlePresentModal() {
     bottomSheetModalRef.current?.present();
   }
 
-  const selectedItem = (item, index) => {
-    const newArrData = SocailData.map((e, index) => {
+  const selectedItem = (item: { id: number }) => {
+    const newArrData = SocailData.map((e) => {
       if (e.id === item.id) {
         return {
           ...e,
@@ -88,7 +81,11 @@ const HomeScreen = () => {
                 width: 24,
                 height: 24,
               }}
-              source={selectedIcon || require('../../assets/google-logo.png')}
+              source={
+                userData.providerId === 'google.com'
+                  ? selectedIcon || require('../../assets/google-logo.png')
+                  : selectedIcon || require('../../assets/logo_fb.png')
+              }
             />
           </Box>
           <Text variant="heading2" ml="s">

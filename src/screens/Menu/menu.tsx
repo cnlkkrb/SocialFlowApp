@@ -17,12 +17,13 @@ import MessageIcon from '../../assets/icons/message-icon';
 import auth from '@react-native-firebase/auth';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { useAtom } from 'jotai';
-import { loggedInAtom } from '../../utils/atom';
 import appleAuth, {AppleRequestOperation} from '@invertase/react-native-apple-authentication';
+import { loggedInAtom, userDataAtom } from '../../utils/atom';
 
 const Menu = () => {
   const navigation = useNavigation();
   const [, setLoggedIn] = useAtom(loggedInAtom);
+  const [userData] = useAtom(userDataAtom);
   const signOut = async () => {
     try {
       await GoogleSignin.revokeAccess();
@@ -54,6 +55,15 @@ const Menu = () => {
       console.log('Logout error:', error);
     } finally {
       setLoggedIn(false);
+    }
+  }
+  const facebookLogout = async function onFacebookLogoutPress() {
+    try {
+      await auth().signOut(); // optional, to sign out of Firebase as well
+      setLoggedIn(false);
+      console.log('logout success');
+    } catch (error) {
+      console.log(error);
     }
   }
   return (
@@ -112,7 +122,13 @@ const Menu = () => {
         textDecorationLine="underline">
         Restore my purchases
       </Text>
-      <TouchableOpacity onPress={handleLogout} style={styles.logOutButton}>
+      <TouchableOpacity onPress={() => {
+        if (userData.providerId === 'google.com') {
+          signOut();
+        } else {
+          facebookLogout();
+        }
+      }} style={styles.logOutButton}>
         <Text variant="heading3" style={{color: '#EB5757'}}>
           Log out
         </Text>

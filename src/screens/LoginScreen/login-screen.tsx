@@ -1,7 +1,6 @@
 import React from 'react';
 import Box from '../../components/Box/box';
 import Button from '../../components/Button/button';
-import LinearGradient from 'react-native-linear-gradient';
 import Text from '../../components/Text/text';
 import { SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';

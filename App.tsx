@@ -10,6 +10,7 @@ import NotSignInNavigator from './src/navigations/not-sign-in-navigator';
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInAtom);
+
   return (
     <>
       {loggedIn ? <SignInNavigator /> : <NotSignInNavigator />}

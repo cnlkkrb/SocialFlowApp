@@ -14,7 +14,7 @@ import {
 import Box from '../components/Box/box';
 import BottomSheet from '@gorhom/bottom-sheet';
 import CreatePostBottomSheet from '../components/CreatePostBottomSheet/create-post-bottom-sheet';
-import PlusIconComponent from '../components/PlusIconComponent/plus-icon-component';
+import PlusIconComponent from './PlusIconComponent';
 
 const Tab = createBottomTabNavigator();
 
@@ -78,7 +78,7 @@ const TabNavigator = () => {
           title: () => null,
           headerShown: false,
           tabBarIcon: ({focused}) => (
-            <PlusIconComponent handlePresentModal={handlePresentModal} />
+           <PlusIconComponent handlePresentModal={handlePresentModal} />
           )
         }}
         name="PlusScreen"

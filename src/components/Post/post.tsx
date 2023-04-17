@@ -5,7 +5,9 @@ import {
   FlatList,
   Image,
   Modal,
+  StyleSheet,
   TouchableOpacity,
+  View,
 } from 'react-native';
 import GreyFacebookIcon from '../../assets/icons/grey-facebook-icon';
 import GreyInstagramIcon from '../../assets/icons/grey-instagram-icon';
