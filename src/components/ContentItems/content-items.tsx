@@ -7,11 +7,12 @@ import BoldIcon from '../../assets/icons/bold-icon';
 import ProfessionalIcon from '../../assets/icons/professional-icon';
 import PersuasiveIcon from '../../assets/icons/persuasive-icon';
 import EmphaticIcon from '../../assets/icons/emphatic-icon';
-import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 const ContentItems = ({ onSelect }) => {
   const [selected, setSelected] = useState(null);
+  const [disabled, setDisabled] = useState(true);
 
   const handlePress = id => {
     setSelected(id);
@@ -23,7 +24,7 @@ const ContentItems = ({ onSelect }) => {
   };
 
   return (
-    <Box mt="l" alignItems="center">
+    <Box mt="l">
     <Box width={'100%'} mb='m'>
   <TouchableOpacity onPress={() => handlePress(7)}>
     <LinearGradient
@@ -51,11 +52,13 @@ const ContentItems = ({ onSelect }) => {
       </LinearGradient>
       </TouchableOpacity>
       </Box>
-      <TouchableOpacity style={{ flexDirection: 'row',
-      marginHorizontal: Platform.OS === 'android' ? 75 : 85 }}>
+      <Box style={{ flexDirection: 'row'}}>
         <TouchableOpacity
-          onPress={() => handlePress(1)}
-          style={[styles.container, { backgroundColor: getBackgroundColor(1) }]}>
+          disabled={disabled}
+          activeOpacity={disabled ? 1 : 0.5}
+          onPress={() =>handlePress(1)}
+          style={[styles.container, { backgroundColor: disabled ? 'lightgrey' : getBackgroundColor(1), 
+          opacity: disabled ? 0.6 : 1 }]}>
           {selected === 1 && (
             <LinearGradient
               colors={['#6944FF', '#9644FF']}
@@ -73,8 +76,11 @@ const ContentItems = ({ onSelect }) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => handlePress(2)}
-          style={[styles.container, { backgroundColor: getBackgroundColor(2) }]}>
+          disabled={disabled}
+          activeOpacity={disabled ? 1 : 0.5}
+          onPress={() =>handlePress(2)}
+          style={[styles.container, { backgroundColor: disabled ? 'lightgrey' : getBackgroundColor(2), 
+          opacity: disabled ? 0.6 : 1 }]}>
           {selected === 2 && (
             <LinearGradient
               colors={['#6944FF', '#9644FF']}
@@ -91,12 +97,14 @@ const ContentItems = ({ onSelect }) => {
             Luxury
           </Text>
         </TouchableOpacity>
-      </TouchableOpacity>
-      <TouchableOpacity style={{ flexDirection: 'row', marginTop: 16,
-        marginHorizontal: Platform.OS === 'android' ? 75 : 85}}>
+      </Box>
+      <Box style={{ flexDirection: 'row'}}>
         <TouchableOpacity
-          onPress={() => handlePress(3)}
-          style={[styles.container, { backgroundColor: getBackgroundColor(3) }]}>
+          disabled={disabled}
+          activeOpacity={disabled ? 1 : 0.5}
+          onPress={() =>handlePress(3)}
+          style={[styles.container, { backgroundColor: disabled ? 'lightgrey' : getBackgroundColor(3), 
+          opacity: disabled ? 0.6 : 1 }]}>
           {selected === 3 && (
             <LinearGradient
               colors={['#6944FF', '#9644FF']}
@@ -114,8 +122,11 @@ const ContentItems = ({ onSelect }) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => handlePress(4)}
-          style={[styles.container, { backgroundColor: getBackgroundColor(4) }]}>
+          disabled={disabled}
+          activeOpacity={disabled ? 1 : 0.5}
+          onPress={() =>handlePress(4)}
+          style={[styles.container, { backgroundColor: disabled ? 'lightgrey' : getBackgroundColor(4), 
+          opacity: disabled ? 0.6 : 1 }]}>
           {selected === 4 && (
             <LinearGradient
               colors={['#6944FF', '#9644FF']}
@@ -132,12 +143,14 @@ const ContentItems = ({ onSelect }) => {
             Professional
           </Text>
         </TouchableOpacity>
-      </TouchableOpacity>
-      <TouchableOpacity style={{ flexDirection: 'row', marginTop: 16,
-        marginHorizontal: Platform.OS === 'android' ? 75 : 85 }}>
+      </Box>
+      <Box style={{ flexDirection: 'row' }}>
         <TouchableOpacity
-          onPress={() => handlePress(5)}
-          style={[styles.container, { backgroundColor: getBackgroundColor(5) }]}>
+          disabled={disabled}
+          activeOpacity={disabled ? 1 : 0.5}
+          onPress={() =>handlePress(5)}
+          style={[styles.container, { backgroundColor: disabled ? 'lightgrey' : getBackgroundColor(5), 
+          opacity: disabled ? 0.6 : 1 }]}>
           {selected === 5 && (
             <LinearGradient
               colors={['#6944FF', '#9644FF']}
@@ -155,8 +168,11 @@ const ContentItems = ({ onSelect }) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => handlePress(6)}
-          style={[styles.container, { backgroundColor: getBackgroundColor(6) }]}>
+          disabled={disabled}
+          activeOpacity={disabled ? 1 : 0.5}
+          onPress={() =>handlePress(6)}
+          style={[styles.container, { backgroundColor: disabled ? 'lightgrey' : getBackgroundColor(6), 
+          opacity: disabled ? 0.6 : 1 }]}>
           {selected === 6 && (
             <LinearGradient
               colors={['#6944FF', '#9644FF']}
@@ -173,7 +189,7 @@ const ContentItems = ({ onSelect }) => {
             Emphatic
           </Text>
         </TouchableOpacity>
-      </TouchableOpacity>
+      </Box>
     </Box>
   );
 };
@@ -184,10 +200,12 @@ const styles = StyleSheet.create({
     borderColor: '#D6E0EA',
     borderRadius: 10,
     width: '100%',
+    flex: 1,
     margin: 4,
     height: 90,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 10
   },
 });
 

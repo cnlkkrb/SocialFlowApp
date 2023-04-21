@@ -5,7 +5,7 @@ export const SocailData = [
       image: require('../assets/logo_fb.png')
     },
     {
-      id: 5,
+      id: 2,
       name: 'Google My Business',
       image: require('../assets/google-logo.png')
     },

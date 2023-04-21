@@ -4,11 +4,13 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import DraftScreen from '../screens/DraftScreen/draft-screen';
 import ApprovedScreen from '../screens/ApprovedScreen/approved-screen';
 import ScheduledScreen from '../screens/ScheduledScreen/scheduled-screen';
+import { DraftData } from '../data/DraftData';
 
 const Tab = createMaterialTopTabNavigator();
 
-const CustomTabBar = ({state, descriptors, navigation, selectedItems}) => {
-  const numSelected = selectedItems.length
+const CustomTabBar = ({state, descriptors, navigation}) => {
+  const draftsLength = DraftData.length
+  const scheduledLength = DraftData.length
 
   return (
     <View
@@ -68,7 +70,10 @@ const CustomTabBar = ({state, descriptors, navigation, selectedItems}) => {
               ]}>
               {label}
               {route.name === 'Approved' && (
-                <Text>{`(${numSelected})`}</Text>
+                <Text>{`(${draftsLength})`}</Text>
+              )}
+              {route.name === 'Scheduled' && (
+                <Text>{`(${scheduledLength})`}</Text>
               )}
             </Text>
           </TouchableOpacity>
@@ -79,13 +84,10 @@ const CustomTabBar = ({state, descriptors, navigation, selectedItems}) => {
 };
 
 const TopTabNavigator = () => {
-  const [selectedItems, setSelectedItems] = React.useState([])
   return (
-    <Tab.Navigator tabBar={props => <CustomTabBar {...props} selectedItems={selectedItems} />}>
+    <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
       <Tab.Screen name="Draft" component={DraftScreen} />
-      <Tab.Screen name="Approved">
-        {() => <ApprovedScreen selectedItems={selectedItems} setSelectedItems={setSelectedItems}/>}  
-      </Tab.Screen>
+      <Tab.Screen name="Approved" component={ApprovedScreen}/>
       <Tab.Screen name="Scheduled" component={ScheduledScreen} />
     </Tab.Navigator>
   );

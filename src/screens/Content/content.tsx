@@ -7,6 +7,7 @@ import Box from '../../components/Box/box';
 import Button from '../../components/Button/button';
 import Text from '../../components/Text/text';
 import ContentItems from '../../components/ContentItems/content-items';
+import ProgressStepsComponent from '../../components/ProgressSteps/progress-steps';
 
 const Content = () => {
   const navigation = useNavigation();
@@ -16,16 +17,19 @@ const Content = () => {
   <SafeAreaView style={{flex: 1}}>
     <Box backgroundColor="pageBackground" flex={1} height={'100%'}>
     <ScrollView >
-      <Box mt="l" ml="m">
-        <TouchableOpacity
-          style={{flexDirection: 'row', alignItems: 'center'}}
-          onPress={() => navigation.goBack()}>
-          <BackIcon />
-          <Text color="grey" fontSize={17} ml="s">
-            Back
-          </Text>
-        </TouchableOpacity>
-      </Box>
+    <Box mt="l" ml="m" flexDirection='row' alignItems='center'>
+          <TouchableOpacity
+            style={{flexDirection: 'row', alignItems: 'center'}}
+            onPress={() => navigation.goBack()}>
+            <BackIcon />
+            <Text color="grey" fontSize={17} ml="s">
+              Back
+            </Text>
+          </TouchableOpacity>
+        <Box ml='l'>
+          <ProgressStepsComponent currentStep={4} />
+        </Box>
+        </Box>
       <Box>
         <Box mt="m" justifyContent="center" alignItems="center">
           <Box flexDirection="row" alignItems="center">
@@ -61,7 +65,6 @@ const Content = () => {
       </Box>
     </Box>
     </SafeAreaView>
-
   );
 };
 

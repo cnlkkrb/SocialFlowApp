@@ -12,7 +12,7 @@ import auth from '@react-native-firebase/auth';
 import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
 import 'firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import appleAuth, { appleAuthAndroid, AppleButton } from '@invertase/react-native-apple-authentication';
+import appleAuth from '@invertase/react-native-apple-authentication';
 
 const SignUp = () => {
   const [userData, setUserData] = useState({});
@@ -59,49 +59,6 @@ const SignUp = () => {
     return auth().signInWithCredential(googleCredential);
   };
 
-  /* async function onAppleButtonPress() {
-    // Generate secure, random values for state and nonce
-    const rawNonce = uuid();
-    const state = uuid();
-  
-    // Configure the request
-    appleAuthAndroid.configure({
-      // The Service ID you registered with Apple
-      clientId: 'com.example.client-android',
-  
-      // Return URL added to your Apple dev console. We intercept this redirect, but it must still match
-      // the URL you provided to Apple. It can be an empty route on your backend as it's never called.
-      redirectUri: 'https://example.com/auth/callback',
-  
-      // The type of response requested - code, id_token, or both.
-      responseType: appleAuthAndroid.ResponseType.ALL,
-  
-      // The amount of user information requested from Apple.
-      scope: appleAuthAndroid.Scope.ALL,
-  
-      // Random nonce value that will be SHA256 hashed before sending to Apple.
-      nonce: rawNonce,
-  
-      // Unique state value used to prevent CSRF attacks. A UUID will be generated if nothing is provided.
-      state,
-    });
-  
-    // Open the browser window for user sign in
-    const response = await appleAuthAndroid.signIn();
-  
-    // Send the authorization code to your backend for verification
-  }
-
-  async function handleAppleSignIn() {
-    try {
-      await onAppleButtonPress();
-      // Send the authorization code to your backend for verification
-    } catch (error) {
-      console.log('Error signing in with Apple:', error);
-      // Show an error message to the user
-    }
-  } */
-
   const appleLogin = async function onAppleButtonPress() {
     // performs login request
     const appleAuthRequestResponse = await appleAuth.performRequest({
@@ -119,7 +76,6 @@ const SignUp = () => {
       // user is authenticated
     }
   }
-  
 
   return (
     <Box style={{backgroundColor: '#F4F8FC'}} flex={1} alignItems="center">
@@ -177,18 +133,6 @@ const SignUp = () => {
         <Text fontSize={13} color="grey">
           By continuing, you agree to our terms and privacy policy
         </Text>
-        <Box
-          mt="m"
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="center">
-          <Text variant="heading3">Already have an account?</Text>
-          <TouchableOpacity>
-            <Text variant="heading2" color="bg" ml="s">
-              Log in
-            </Text>
-          </TouchableOpacity>
-        </Box>
       </Box>
     </Box>
   );

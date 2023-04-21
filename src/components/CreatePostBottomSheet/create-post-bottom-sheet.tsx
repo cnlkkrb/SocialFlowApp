@@ -11,11 +11,16 @@ import SinglePostIcon from '../../assets/icons/single-post-icon';
 import SpecialPostIcon from '../../assets/icons/special-post-icon';
 import MultiplePostIcon from '../../assets/icons/multiple-post-icon';
 import CreatePostBottomSheetStep2 from '../CreatePostBottomSheetStep2/create-post-bottom-sheet-step2';
+import { useAtomValue } from 'jotai';
+import { socialPlatformAtom } from '../../utils/atom';
+import { SocailData } from '../../data/SocailPlatformData';
 
 const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
+  const selectedSocialPlatform = useAtomValue(socialPlatformAtom)
     const createPostBottomSheetStep2Ref = useRef<BottomSheet>(null);
     const snapPoints = ['45%'];
-
+    const {name, image} = SocailData.find(d => d.id === selectedSocialPlatform?.id) || {};
+    
   return (
     <BottomSheetModalProvider>
       <BottomSheetModal
@@ -41,7 +46,7 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
           alignItems="center"
           justifyContent="center"
           mx="m">
-          <Image source={require('../../assets/logo_fb.png')} />
+          <Image source={image} />
           <Text ml="s" variant="generalHeading" fontWeight="600">
             Create New Posts
           </Text>
@@ -65,7 +70,7 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
             <SinglePostIcon />
           </Box>
           <Text ml="m" variant="heading3">
-            Single Facebook Post
+            {`Single ${name} Post`}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -83,7 +88,7 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
             <MultiplePostIcon />
           </Box>
           <Text ml="m" variant="heading3">
-            Multiple Facebook Posts
+            {`Multiple ${name} Posts`}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -101,7 +106,7 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
             <SpecialPostIcon />
           </Box>
           <Text ml="m" variant="heading3">
-            Special Facebook Post
+            {`Special ${name} Post`}
           </Text>
         </TouchableOpacity>
         </Box>

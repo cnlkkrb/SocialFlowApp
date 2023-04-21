@@ -3,7 +3,6 @@ import {
   FlatList,
   Image,
   Modal,
-  ScrollView,
   TouchableOpacity,
 } from 'react-native';
 import EditIcon from '../../assets/icons/edit-icon';
@@ -22,10 +21,11 @@ import CheckIcon from '../../assets/icons/check-icon';
 import {DraftData} from '../../data/DraftData';
 import SelectedScheduleItem from '../../components/SelectedScheduleItem/selected-schedule-item';
 
-const ApprovedScreen = ({selectedItems, setSelectedItems}) => {
+const ApprovedScreen = () => {
   const EditPostBottomSheetRef = useRef<BottomSheet>(null);
   const [selectedPost, setSelectedPost] = React.useState(null);
   const [drafts, setDrafts] = React.useState(DraftData);
+  const [selectedItems, setSelectedItems] = useState([])
   const [menuVisible, setMenuVisible] = React.useState(false);
   const [menuPosition, setMenuPosition] = React.useState({x: 0, y: 0});
   const [showSelectedItems, setShowSelectedItems] = useState(false);
@@ -232,7 +232,7 @@ const ApprovedScreen = ({selectedItems, setSelectedItems}) => {
                           flexDirection="row"
                           justifyContent="space-between"
                           alignItems="center">
-                          <Text>Edit Content</Text>
+                          <Text>Duplicate</Text>
                           <SmallEditIcon />
                         </Box>
                         <Box
@@ -248,7 +248,7 @@ const ApprovedScreen = ({selectedItems, setSelectedItems}) => {
                           flexDirection="row"
                           justifyContent="space-between"
                           alignItems="center">
-                          <Text>option3</Text>
+                          <Text>Delete</Text>
                           <SmallCalendarCancelIcon />
                         </Box>
                       </TouchableOpacity>

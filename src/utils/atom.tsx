@@ -9,4 +9,5 @@ const storage = createJSONStorage(() => AsyncStorage)
 export const loggedInAtom = atomWithStorage('loggedIn',false, storage)
 export const userDataAtom = atomWithStorage ('user',{}, storage)
 
+export const socialPlatformAtom = atom(null)
 

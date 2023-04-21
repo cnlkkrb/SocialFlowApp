@@ -47,8 +47,6 @@ const HomeScreen = () => {
   const selectedIcon =
     selectedIconIndex > -1 && SocailData[selectedIconIndex].image;
 
-  console.log(userData.providerData[0].providerId)
-
   return (
   <SafeAreaView style={{flex: 1}}>
     <Box flex={1} backgroundColor="pageBackground">
@@ -78,7 +76,7 @@ const HomeScreen = () => {
                 height: 24,
               }}
               source={
-                userData.providerData[0].providerId === 'google.com'
+                userData.providerId === 'google.com'
                   ? selectedIcon || require('../../assets/google-logo.png')
                   : selectedIcon || require('../../assets/logo_fb.png') 
               }

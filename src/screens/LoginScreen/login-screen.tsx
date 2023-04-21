@@ -40,7 +40,7 @@ const LoginScreen = () => {
           label={'Get Started'}
         />
       </Box>
-      <Box flexDirection='row' justifyContent='center' mt='m'>
+      <Box flexDirection='row' justifyContent='center' mt='s' mb='m'>
         <Text variant='heading4' color='textColor'>Already have an account? </Text>   
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
           <Text variant='heading4' color='bg'>Log in</Text>

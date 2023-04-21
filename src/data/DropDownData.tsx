@@ -5,22 +5,30 @@ export const DropDownData = [
     },
     {
       id: 2,
-      title: 'Luxury',
+      title: 'Friendly',
     },
     {
       id: 3,
-      title: 'Bold',
+      title: 'Luxury',
     },
     {
       id: 4,
-      title: 'Professional',
+      title: 'Bold',
     },
     {
       id: 5,
-      title: 'Adventurous',
+      title: 'Professional',
     },
     {
       id: 6,
-      title: 'Friendly',
+      title: 'Adventurous',
+    },
+    {
+      id: 7,
+      title: 'Persuasive',
+    },
+    {
+      id: 8,
+      title: 'Empathetic',
     },
   ];
