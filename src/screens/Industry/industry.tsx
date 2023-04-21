@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import {FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
 import BackIcon from '../../assets/icons/back-icon';
 import CheckedIcon from '../../assets/icons/checked-icon';
@@ -7,6 +7,7 @@ import IndustryIcon from '../../assets/icons/industry-icon';
 import Box from '../../components/Box/box';
 import Button from '../../components/Button/button';
 import Text from '../../components/Text/text';
+import {ProgressSteps,ProgressStep} from 'react-native-progress-steps';
 
 const data = [
   {
@@ -66,6 +67,7 @@ const data = [
 const Industry = () => {
   const [mydata, setMyData] = React.useState(data);
   const navigation = useNavigation();
+  const [currentStep, setCurrentStep] = useState(0)
 
   const selectedItem = (item, index) => {
     const newArrData = data.map((e, index) => {
@@ -146,6 +148,8 @@ const Industry = () => {
   return (
   <SafeAreaView style={{flex: 1}}>
     <Box backgroundColor="pageBackground" flex={1}>
+      <ProgressSteps currentStep={currentStep}>
+        <ProgressStep label='Step 1'>
       <Box mt="l" ml="m">
         <TouchableOpacity style={{flexDirection:'row', alignItems: 'center'}} onPress={() => navigation.goBack()}>
           <BackIcon />
@@ -184,6 +188,8 @@ const Industry = () => {
           label="Continue"
         />
       </Box>
+      </ProgressStep>
+      </ProgressSteps>
     </Box>
   </SafeAreaView>
   );

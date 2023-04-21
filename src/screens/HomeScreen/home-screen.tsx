@@ -19,6 +19,7 @@ interface UserData {
   photoURL: string;
   displayName: string;
   providerId: string;
+  providerData: any;
 }
 
 
@@ -82,7 +83,7 @@ const HomeScreen = () => {
                 height: 24,
               }}
               source={
-                userData.providerId === 'google.com'
+                userData.providerData[0].providerId === 'google.com'
                   ? selectedIcon || require('../../assets/google-logo.png')
                   : selectedIcon || require('../../assets/logo_fb.png')
               }

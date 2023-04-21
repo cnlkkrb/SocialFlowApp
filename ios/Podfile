@@ -3,6 +3,8 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, min_ios_version_supported
 prepare_react_native_project!
+use_frameworks! :linkage => :static
+$RNFirebaseAsStaticFramework = true
 
 # If you are using a `react-native-flipper` your iOS build will fail when `NO_FLIPPER=1` is set.
 # because `react-native-flipper` depends on (FlipperKit,...) that will be excluded
@@ -24,6 +26,7 @@ end
 target 'SocialFlowApp' do
   config = use_native_modules!
 
+  pod 'RNFBAnalytics', :path => '../node_modules/@react-native-firebase/analytics/ios'
   # Flags change depending on the env values.
   flags = get_default_flags()
 
@@ -46,6 +49,7 @@ target 'SocialFlowApp' do
   target 'SocialFlowAppTests' do
     inherit! :complete
     # Pods for testing
+    pod 'RNFBAnalytics', :path => '../node_modules/@react-native-firebase/analytics/ios'
   end
 
   pod 'Firebase', :modular_headers => true
@@ -54,6 +58,7 @@ target 'SocialFlowApp' do
   pod 'FirebaseCore', :modular_headers => true
   pod 'GoogleSignIn', :modular_headers => true
 
+  
   post_install do |installer|
     react_native_post_install(
       installer,
