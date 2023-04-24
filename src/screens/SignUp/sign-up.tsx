@@ -1,6 +1,6 @@
 import {useAtom} from 'jotai';
 import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {Image, ScrollView, TouchableOpacity, View} from 'react-native';
 import AppleIcon from '../../assets/icons/apple-icon';
 import FacebookIcon from '../../assets/icons/facebook-icon';
 import GoogleIcon from '../../assets/icons/google-icon';
@@ -73,8 +73,14 @@ const SignUp = () => {
   }
 
   return (
-    <Box style={{backgroundColor: '#F4F8FC'}} flex={1} alignItems="center">
-      <Text mt="xxl">Illustration will be added</Text>
+    <Box style={{backgroundColor: '#F4F8FC'}} flex={1}>
+      <ScrollView style={{flex: 1}}>
+      <Box alignItems='center'>
+      <Image 
+        source={require('../../assets/login_illustration.png')}
+        resizeMode='contain'
+        style={{marginTop: 30}}
+      />
       <Text mt="l" variant="heading1">
         Create Your Account
       </Text>
@@ -124,11 +130,13 @@ const SignUp = () => {
           Sign up with e-mail
         </Text>
       </TouchableOpacity>
-      <Box position="absolute" bottom={20}>
+      <Box bottom={10} mt='large'>
         <Text fontSize={13} color="grey">
           By continuing, you agree to our terms and privacy policy
         </Text>
       </Box>
+      </Box>
+      </ScrollView>
     </Box>
   );
 };
