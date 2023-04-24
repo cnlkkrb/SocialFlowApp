@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '../Box/box';
 import Text from '../Text/text';
 import {FlatList, Image, TouchableOpacity} from 'react-native';
@@ -8,16 +8,25 @@ import {
   BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet';
 import CheckedIcon from '../../assets/icons/checked-icon';
+import { useSetAtom } from 'jotai';
+import { socialPlatformAtom } from '../../utils/atom';
 
-const SocialPlatformBottomSheet = ({bottomSheetModalRef, userData, selectedItem, myData}: any) => {
-  const snapPoints = ['100%'];
+const SocialPlatformBottomSheet = ({bottomSheetModalRef, userData, selectedItem, myData, selectedItemName}: any) => {
+  const setSocialPlatform = useSetAtom(socialPlatformAtom)
+  const snapPoints = ['100%']
 
   const renderItem = ({item, index}: any) => {
     return (
       <Box flex={1}>
         <TouchableOpacity
           activeOpacity={1}
-          onPress={() => selectedItem(item, index)}>
+          onPress={() => {
+            setSocialPlatform(item)
+
+            item.isSelected = !item.isSelected;
+            myData[index] = item;
+            selectedItem(item)
+          }}>
           {item.isSelected ? (
             <Box
               mt="m"

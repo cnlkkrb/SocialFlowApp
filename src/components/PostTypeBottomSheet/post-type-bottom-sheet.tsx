@@ -12,7 +12,7 @@ import PostDetailBottomSheet from '../PostDetailBottomSheet/post-detail-bottom-s
 const PostTypeBottomSheet = ({postTypeBottomSheetRef}: any) => {
 
   const postDetailBottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = ['60%'];
+  const snapPoints = ['55%'];
 
   return (
     <BottomSheetModalProvider>
@@ -31,14 +31,14 @@ const PostTypeBottomSheet = ({postTypeBottomSheetRef}: any) => {
         )}
         enablePanDownToClose
         backgroundStyle={{backgroundColor: '#F4F8FC'}}>
-        <Box mx="l">
+        <Box alignItems='center' flex={1}>
           <Text textAlign="center" variant="generalHeading" fontWeight="600">
             Create a special post
           </Text>
           <Text color="darkGrey" mt="m" textAlign="center" variant="heading4">
             What type of post do you want to create?
           </Text>
-          <Box flexDirection="row" mt='l' justifyContent='space-between'>
+          <Box flexDirection="row" mt='l' justifyContent='space-evenly' width={'100%'}>
             <TouchableOpacity
               onPress={() => {
                 postTypeBottomSheetRef.current?.close()
@@ -61,7 +61,7 @@ const PostTypeBottomSheet = ({postTypeBottomSheetRef}: any) => {
               <Text>Hours & Discounts</Text>
             </TouchableOpacity>
           </Box>
-        <Box flexDirection="row" mt='l' justifyContent='space-between'>
+        <Box flexDirection="row" mt='l' justifyContent='space-evenly' width={'100%'}>
         <TouchableOpacity
               onPress={() => {
                 
@@ -98,8 +98,8 @@ const styles = StyleSheet.create({
     backgroundColor:"white",
     borderWidth:1,
     borderColor:"#D6E0EA",
-    width:140,
-    height:120
+    width:156,
+    height:124
   }
 })
 

@@ -224,7 +224,7 @@ const Post = ({draft}) => {
                         flexDirection="row"
                         justifyContent="space-between"
                         alignItems="center">
-                        <Text>Change Date </Text>
+                        <Text>Duplicate</Text>
                         <SmallEditIcon />
                       </Box>
                       <Box
@@ -240,7 +240,7 @@ const Post = ({draft}) => {
                         flexDirection="row"
                         justifyContent="space-between"
                         alignItems="center">
-                        <Text>Cancel Schedule</Text>
+                        <Text>Delete</Text>
                         <SmallCalendarCancelIcon />
                       </Box>
                     </TouchableOpacity>

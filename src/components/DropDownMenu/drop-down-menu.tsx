@@ -36,7 +36,7 @@ const DropDownMenu = () => {
 
   const aboutOrganizerAnimInterpolate = aboutOrganizerAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: [50, 225],
+    outputRange: [50, 400],
   });
 
   const renderItem = ({item}) => {

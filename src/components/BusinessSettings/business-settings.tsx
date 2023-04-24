@@ -7,11 +7,13 @@ import BusinessIcon from '../../assets/icons/business-icon';
 import ProductIcon from '../../assets/icons/product-icon';
 import ContentIcon from '../../assets/icons/content-icon';
 import { StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
 
 const BusinessSettings = () => {
+  const navigation = useNavigation()
   return (
     <Box>
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('Industry')} style={styles.container}>
         <Box style={styles.iconContainer}>
           <IndustryIcon />
         </Box>
@@ -22,7 +24,7 @@ const BusinessSettings = () => {
           <RightIcon />
         </Box>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('Business')} style={styles.container}>
         <Box style={styles.iconContainer}>
           <BusinessIcon />
         </Box>
@@ -33,7 +35,7 @@ const BusinessSettings = () => {
           <RightIcon />
         </Box>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('ProductInfo')} style={styles.container}>
         <Box style={styles.iconContainer}>
           <ProductIcon />
         </Box>
@@ -44,7 +46,7 @@ const BusinessSettings = () => {
           <RightIcon />
         </Box>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('Content')} style={styles.container}>
         <Box style={styles.iconContainer}>
           <ContentIcon />
         </Box>

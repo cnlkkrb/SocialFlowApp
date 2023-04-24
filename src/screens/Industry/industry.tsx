@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
 import BackIcon from '../../assets/icons/back-icon';
 import CheckedIcon from '../../assets/icons/checked-icon';
@@ -7,7 +7,8 @@ import IndustryIcon from '../../assets/icons/industry-icon';
 import Box from '../../components/Box/box';
 import Button from '../../components/Button/button';
 import Text from '../../components/Text/text';
-import {ProgressSteps,ProgressStep} from 'react-native-progress-steps';
+import ProgressStep from '../../components/ProgressSteps/progress-steps';
+import ProgressStepsComponent from '../../components/ProgressSteps/progress-steps';
 
 const data = [
   {
@@ -65,7 +66,7 @@ const data = [
 ];
 
 const Industry = () => {
-  const [mydata, setMyData] = React.useState(data);
+  const [mydata, setMyData] = useState(data);
   const navigation = useNavigation();
   const [currentStep, setCurrentStep] = useState(0)
 
@@ -87,111 +88,118 @@ const Industry = () => {
 
   const renderItem = ({item, index}) => {
     return (
-    <Box flex={1}>
-      <TouchableOpacity onPress={() => selectedItem(item, index)}>
-        {item.isSelected ? (
-          <Box
-            mt="m"
-            mx="m"
-            backgroundColor="white"
-            height={54}
-            borderRadius={10}
-            flexDirection="row"
-            alignItems="center"
-            borderWidth={2}
-            borderColor="bg">
+      <Box flex={1}>
+        <TouchableOpacity onPress={() => selectedItem(item, index)}>
+          {item.isSelected ? (
             <Box
-              ml="s"
-              borderRadius={7}
-              width={38}
-              height={38}
-              style={{backgroundColor: '#D9D9D9'}}
-            />
-            <Text
-              marginRight="auto"
-              color="bg"
-              variant="heading4"
-              fontWeight="700"
-              ml="m">
-              {item.name}
-            </Text>
-            <Box marginRight="m">
-              <CheckedIcon />
+              mt="m"
+              mx="m"
+              backgroundColor="white"
+              height={54}
+              borderRadius={10}
+              flexDirection="row"
+              alignItems="center"
+              borderWidth={2}
+              borderColor="bg">
+              <Box
+                ml="s"
+                borderRadius={7}
+                width={38}
+                height={38}
+                style={{backgroundColor: '#D9D9D9'}}
+              />
+              <Text
+                marginRight="auto"
+                color="bg"
+                variant="heading4"
+                fontWeight="700"
+                ml="m">
+                {item.name}
+              </Text>
+              <Box marginRight="m">
+                <CheckedIcon />
+              </Box>
             </Box>
-          </Box>
-        ) : (
-          <Box
-            mt="m"
-            mx="m"
-            backgroundColor="white"
-            height={54}
-            borderRadius={10}
-            flexDirection="row"
-            alignItems="center">
+          ) : (
             <Box
-              ml="s"
-              borderRadius={7}
-              width={38}
-              height={38}
-              style={{backgroundColor: '#D9D9D9'}}
-            />
-            <Text variant="heading4" ml="m">
-              {item.name}
-            </Text>
-          </Box>
-        )}
-      </TouchableOpacity>
+              mt="m"
+              mx="m"
+              backgroundColor="white"
+              height={54}
+              borderRadius={10}
+              flexDirection="row"
+              alignItems="center">
+              <Box
+                ml="s"
+                borderRadius={7}
+                width={38}
+                height={38}
+                style={{backgroundColor: '#D9D9D9'}}
+              />
+              <Text variant="heading4" ml="m">
+                {item.name}
+              </Text>
+            </Box>
+          )}
+        </TouchableOpacity>
       </Box>
     );
   };
+  
 
   return (
-  <SafeAreaView style={{flex: 1}}>
-    <Box backgroundColor="pageBackground" flex={1}>
-      <ProgressSteps currentStep={currentStep}>
-        <ProgressStep label='Step 1'>
-      <Box mt="l" ml="m">
-        <TouchableOpacity style={{flexDirection:'row', alignItems: 'center'}} onPress={() => navigation.goBack()}>
-          <BackIcon />
-          <Text color='grey' fontSize={17} ml='s'>Back</Text>
-        </TouchableOpacity>
-      </Box>
-        <Box mt="m" justifyContent="center" alignItems="center">
-        <Box flexDirection='row' alignItems='center'>
-          <IndustryIcon />
-          <Text ml='s' variant="heading1">Select Your Industry</Text>
+    <SafeAreaView style={{flex: 1}}>
+      <Box backgroundColor="pageBackground" flex={1}>
+        <Box mt="l" ml="m" flexDirection='row' alignItems='center'>
+          <TouchableOpacity
+            style={{flexDirection: 'row', alignItems: 'center'}}
+            onPress={() => navigation.goBack()}>
+            <BackIcon />
+            <Text color="grey" fontSize={17} ml="s">
+              Back
+            </Text>
+          </TouchableOpacity>
+        <Box ml='l'>
+          <ProgressStepsComponent currentStep={1} />
         </Box>
+        </Box>
+        <Box mt="m" justifyContent="center" alignItems="center">
+          <Box flexDirection="row" alignItems="center">
+            <IndustryIcon />
+            <Text ml="s" variant="heading1">
+              Select Your Industry
+            </Text>
+          </Box>
           <Text variant="heading3" textAlign="center" mt="m" color="textColor">
             {
               'Best personal Ai Assistant to boost your \n social media Social Flow is your new Ai \n Assistant to boost you business,'
             }
           </Text>
         </Box>
-          <FlatList
-            data={mydata}
-            keyExtractor={item => item.id.toString()}
-            renderItem={renderItem}
-            ListFooterComponent={() => <Box height={80} />}
-          />
-      <Box
-        position="absolute"
-        width={'100%'}
-        bottom={0}
-        backgroundColor="white"
-        height={70}
-        justifyContent="center">
-        <Button
-          onPress={() => navigation.navigate('Business')}
-          labelColor={'white'}
-          mx="m"
-          variant="primary"
-          label="Continue"
+        <FlatList
+          data={mydata}
+          keyExtractor={item => item.id.toString()}
+          renderItem={renderItem}
+          ListFooterComponent={() => <Box height={80} />}
         />
+        <Box
+          position="absolute"
+          width={'100%'}
+          bottom={0}
+          backgroundColor="white"
+          height={70}
+          justifyContent="center">
+          <Button
+            onPress={() => navigation.navigate('Business')}
+            labelColor={'white'}
+            mx="m"
+            variant="primary"
+            label="Continue"
+            disabled={mydata.filter(e => e.isSelected).length === 0}
+          />
+        </Box>
       </Box>
-      </ProgressStep>
-      </ProgressSteps>
-    </Box>
-  </SafeAreaView>
+    </SafeAreaView>
   );
 };
 

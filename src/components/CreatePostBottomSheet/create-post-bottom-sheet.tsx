@@ -11,11 +11,16 @@ import SinglePostIcon from '../../assets/icons/single-post-icon';
 import SpecialPostIcon from '../../assets/icons/special-post-icon';
 import MultiplePostIcon from '../../assets/icons/multiple-post-icon';
 import CreatePostBottomSheetStep2 from '../CreatePostBottomSheetStep2/create-post-bottom-sheet-step2';
+import { useAtomValue } from 'jotai';
+import { socialPlatformAtom } from '../../utils/atom';
+import { SocailData } from '../../data/SocailPlatformData';
 
 const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
+  const selectedSocialPlatform = useAtomValue(socialPlatformAtom)
     const createPostBottomSheetStep2Ref = useRef<BottomSheet>(null);
     const snapPoints = ['45%'];
-
+    const {name, image} = SocailData.find(d => d.id === selectedSocialPlatform?.id) || {};
+    
   return (
     <BottomSheetModalProvider>
       <BottomSheetModal
@@ -31,21 +36,21 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
             disappearsOnIndex={-1}
           />
         )}
-        bottomInset={20}
+        bottomInset={30}
         style={{marginHorizontal: 16, justifyContent: 'center',flex: 1,}}
         enablePanDownToClose
         backgroundStyle={{backgroundColor: 'white'}}>
-      <Box flex={1} justifyContent='center'>
+      <Box flex={1} mt='m'>
         <Box
           flexDirection="row"
           alignItems="center"
-          justifyContent="center"
-          mx="m">
-          <Image source={require('../../assets/logo_fb.png')} />
+          justifyContent="center">
+          <Image source={image} />
           <Text ml="s" variant="generalHeading" fontWeight="600">
             Create New Posts
           </Text>
         </Box>
+      <Box mt='s'>
         <TouchableOpacity
           onPress={() => {
             bottomSheetModalRef.current?.close();
@@ -64,8 +69,8 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
             borderColor="lightGrey">
             <SinglePostIcon />
           </Box>
-          <Text ml="m" variant="heading3">
-            Single Facebook Post
+          <Text flex={1} mr='xs' ml="m" variant="heading3">
+            {`Single ${name} Post`}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -82,8 +87,8 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
             borderColor="lightGrey">
             <MultiplePostIcon />
           </Box>
-          <Text ml="m" variant="heading3">
-            Multiple Facebook Posts
+          <Text flex={1} ml="m" variant="heading3">
+            {`Multiple ${name} Posts`}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -100,10 +105,11 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
             borderColor="lightGrey">
             <SpecialPostIcon />
           </Box>
-          <Text ml="m" variant="heading3">
-            Special Facebook Post
+          <Text flex={1} ml="m" variant="heading3">
+            {`Special ${name} Post`}
           </Text>
         </TouchableOpacity>
+        </Box>
         </Box>
       </BottomSheetModal>
       <CreatePostBottomSheetStep2 createPostBottomSheetStep2Ref={createPostBottomSheetStep2Ref}/>

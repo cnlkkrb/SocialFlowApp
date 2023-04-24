@@ -33,7 +33,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.436871348176-eaq6co7b4sec24ihq4dka65cpfuf07pj</string>
+				<string>com.googleusercontent.apps.436871348176-cakfb8mkevpv2r1guepacoo1m5op5afh</string>
 			</array>
 		</dict>
 	</array>
@@ -42,7 +42,7 @@
 	<key>FacebookAppID</key>
 	<string>1406901643443036</string>
 	<key>FacebookClientToken</key>
-	<string>d8b4ef4841b052882d3956667290e269</string>
+	<string>7187f2abb643ef9aff1a167fc2655154</string>
 	<key>FacebookDisplayName</key>
 	<string>SocialFlowAppIos</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -77,8 +77,12 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

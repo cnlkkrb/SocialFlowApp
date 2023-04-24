@@ -1,5 +1,5 @@
 import {Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '../../components/Box/box';
 import DotIcon from '../../assets/icons/dot-icon';
 import Text from '../../components/Text/text';
@@ -12,10 +12,28 @@ import RightIcon from '../../assets/icons/right-icon';
 import SmallPlusIcon from '../../assets/icons/small-plus-icon';
 import BusinessSettings from '../../components/BusinessSettings/business-settings';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WorkspaceScreen = () => {
   const [userData] = useAtom(userDataAtom);
   const navigation = useNavigation()
+  const [business, setBusiness] = useState('');
+
+  useEffect(() => {
+    retrieveBusiness();
+  }, []);
+
+  const retrieveBusiness = async () => {
+    try {
+      const value = await AsyncStorage.getItem('business');
+      if (value !== null) {
+        setBusiness(value);
+      }
+    } catch (error) {
+      console.log('Error retrieving business:', error);
+    }
+  }
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <Box mt="m" mb="m" alignItems="center">
@@ -23,7 +41,7 @@ const WorkspaceScreen = () => {
           <DotIcon />
         </TouchableOpacity>
         <Text textAlign="center" variant="heading2" ml="s">
-          WorkSpace
+          {business}
         </Text>
       </Box>
       <Divider disablePadding />
@@ -46,7 +64,7 @@ const WorkspaceScreen = () => {
             source={{uri: userData.photoURL}}
           />
           <Text marginRight="auto" variant="heading3" ml="s">
-            {userData.displayName}
+            {business}
           </Text>
           <Box mr="s">
             <SwitchWorkIcon />
@@ -102,7 +120,9 @@ const WorkspaceScreen = () => {
               />
             </Box>
           <Image style={{marginLeft: 8}} source={require('../../assets/logo_ig.png')}/>
-          <Image style={{marginLeft: 8}} source={require('../../assets/google-image.png')}/>
+          {
+            userData.providerData[0].providerId === 'google.com'  ? null : <Image style={{marginLeft: 8}} source={require('../../assets/google-image.png')}/>
+          }
           <Image style={{marginLeft: 8}} source={require('../../assets/logo_linkedin.png')}/>
           <Image style={{marginLeft: 8, marginRight: 'auto'}} source={require('../../assets/logo_twtter.png')}/>
           <Box borderWidth={2} borderColor='bg' p='xs' borderRadius={7} mr="m">

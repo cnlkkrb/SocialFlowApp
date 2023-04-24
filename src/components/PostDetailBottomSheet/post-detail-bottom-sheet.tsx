@@ -9,11 +9,12 @@ import {
 } from '@gorhom/bottom-sheet';
 import {LogBox, Platform, TextInput, TouchableOpacity} from 'react-native';
 import Button from '../Button/button';
-import SwitchButton from '../SwitchButton/switch-button';
 import CloseIcon from '../../assets/icons/close-icon';
-import Calendar from '../Calendar/calendar';
-import Clock from '../Clock/clock';
 import { useNavigation } from '@react-navigation/native';
+import EditIcon from '../../assets/icons/edit-icon';
+import { CalendarIcon } from '../../assets/icons/calendar-icon';
+import AddVisualsIcon from '../../assets/icons/add-visuals-icon';
+import ApproveIcon from '../../assets/icons/approve-icon';
 
 const PostDetailBottomSheet = ({postDetailBottomSheetRef}: any) => {
 
@@ -46,7 +47,7 @@ const PostDetailBottomSheet = ({postDetailBottomSheetRef}: any) => {
             <Text textAlign="center" variant="generalHeading" fontWeight="600">
               Special Post Detail
             </Text>
-            <Box mt="s">
+            <Box mt="m">
               <Text ml="m" variant="heading3">
                 Starting point
               </Text>
@@ -79,28 +80,44 @@ const PostDetailBottomSheet = ({postDetailBottomSheetRef}: any) => {
               />
             </Box>
             <Box mt="m">
-              <Text ml="m" variant="heading3">
-                Preview
-              </Text>
-              <TextInput
-                style={{
-                  width: '100%',
-                  height: 120,
-                  borderColor: '#D6E0EA',
-                  borderWidth: 1,
-                  borderRadius: 10,
-                  paddingLeft: 10,
-                  backgroundColor: 'white',
-                  marginTop: 10,
-                  textAlignVertical: 'top',
-                  color: 'black',
-                }}
-                placeholderTextColor={'#D0C9D6'}
-                multiline={true}
-                numberOfLines={5}
+            <Box
+              backgroundColor="white"
+              borderWidth={1}
+              borderColor="lightGrey"
+              borderRadius={10}
+              mt="m">
+              <Box
+                mb="s"
+                width={'100%'}
+                height={100}
+                backgroundColor="white"
+                borderRadius={10}
               />
+                <Box
+                  mb="s"
+                  mt="xs"
+                  flexDirection="row"
+                  justifyContent="space-around">
+                  <TouchableOpacity
+                    style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <EditIcon />
+                    <Text fontSize={11}>Edit</Text>
+                  </TouchableOpacity>
+                  <Box alignItems="center" justifyContent="center">
+                    <CalendarIcon />
+                    <Text fontSize={11}>Schedule</Text>
+                  </Box>
+                  <Box alignItems="center" justifyContent="center">
+                    <AddVisualsIcon />
+                    <Text fontSize={11}>Add Media</Text>
+                  </Box>
+                  <Box alignItems="center" justifyContent="center">
+                    <ApproveIcon />
+                    <Text fontSize={11}>Save to Draft</Text>
+                  </Box>
+                </Box>
+                </Box>
             </Box>
-
           </Box>
           <TouchableOpacity
             onPress={() => {

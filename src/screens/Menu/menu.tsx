@@ -123,7 +123,7 @@ const Menu = () => {
         Restore my purchases
       </Text>
       <TouchableOpacity onPress={() => {
-        if (userData.providerId === 'google.com') {
+        if (userData.providerData[0].providerId === 'google.com') {
           signOut();
         } else {
           facebookLogout();

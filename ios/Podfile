@@ -26,7 +26,7 @@ end
 target 'SocialFlowApp' do
   config = use_native_modules!
 
-  pod 'RNFBAnalytics', :path => '../node_modules/@react-native-firebase/analytics/ios'
+  pod 'RNFBAnalytics', :path => '../node_modules/@react-native-firebase/analytics'
   # Flags change depending on the env values.
   flags = get_default_flags()
 
@@ -41,7 +41,7 @@ target 'SocialFlowApp' do
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable the next line.
-    :flipper_configuration => flipper_config,
+    #:flipper_configuration => flipper_config,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
@@ -49,7 +49,7 @@ target 'SocialFlowApp' do
   target 'SocialFlowAppTests' do
     inherit! :complete
     # Pods for testing
-    pod 'RNFBAnalytics', :path => '../node_modules/@react-native-firebase/analytics/ios'
+    pod 'RNFBAnalytics', :path => '../node_modules/@react-native-firebase/analytics'
   end
 
   pod 'Firebase', :modular_headers => true

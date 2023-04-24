@@ -68,14 +68,7 @@ const LargeModal = ({
           }
             {
               icon === true ? (
-                <Switch
-                  style={{ transform: [{ scaleX: 1.5 }, { scaleY: 1.5 }], marginTop: 30 }}
-                  trackColor={{false: 'grey', true: '#27AE60'}}
-                  thumbColor={isEnabled ? 'white' : 'white'}
-                  ios_backgroundColor="#3e3e3e"
-                  onValueChange={toggleSwitch}
-                  value={isEnabled}
-                />
+                null
               ) : (
               <Box>
                 <Image source={require('../../assets/success.png')}/>
@@ -88,7 +81,7 @@ const LargeModal = ({
                 textAlign: 'center',
                 color: 'black',
                 fontSize: 20,
-                marginTop: icon === true ? 12 : -12,
+                marginTop: icon === true ? 32 : -12,
                 fontWeight: '700',
               }}>
               {text}

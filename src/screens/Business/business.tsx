@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {SafeAreaView, TextInput, TouchableOpacity} from 'react-native';
 import BackIcon from '../../assets/icons/back-icon';
 import Box from '../../components/Box/box';
@@ -7,26 +7,54 @@ import Button from '../../components/Button/button';
 import Text from '../../components/Text/text';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import BusinessIcon from '../../assets/icons/business-icon';
+import ProgressStepsComponent from '../../components/ProgressSteps/progress-steps';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Business = () => {
   const navigation = useNavigation();
   const [visible, setVisible] = useState(true);
+  const [business, setBusiness] = useState('');
+  const [location, setLocation] = useState('');
+  const [year, setYear] = useState('');
+  const [competitors, setCompetitors] = useState('');
+
+  const saveBusiness = async (business) => {
+    try {
+      await AsyncStorage.setItem('business', business);
+    } catch (error) {
+      console.log('Error saving business:', error);
+    }
+  }
+  
+  const handleSave = () => {
+    saveBusiness(business);
+  }
+
   const removeElement = () => {
     setVisible((prev) => !prev);
   };
+
+
+  const locationRef = useRef(null);
+  const yearRef = useRef(null);
+  const competitorsRef = useRef(null);
+
   return (
   <SafeAreaView style={{flex: 1}}>
     <Box backgroundColor="pageBackground" flex={1} height={'100%'}>
-      <Box mt="l" ml="m">
-        <TouchableOpacity
-          style={{flexDirection: 'row', alignItems: 'center'}}
-          onPress={() => navigation.goBack()}>
-          <BackIcon />
-          <Text color="grey" fontSize={17} ml="s">
-            Back
-          </Text>
-        </TouchableOpacity>
-      </Box>
+    <Box mt="l" ml="m" flexDirection='row' alignItems='center'>
+          <TouchableOpacity
+            style={{flexDirection: 'row', alignItems: 'center'}}
+            onPress={() => navigation.goBack()}>
+            <BackIcon />
+            <Text color="grey" fontSize={17} ml="s">
+              Back
+            </Text>
+          </TouchableOpacity>
+        <Box ml='l'>
+          <ProgressStepsComponent currentStep={2} />
+        </Box>
+        </Box>
       <KeyboardAwareScrollView>
         <Box>
           <Box mt="m" justifyContent="center" alignItems="center">
@@ -52,6 +80,8 @@ const Business = () => {
               Business name
             </Text>
             <TextInput
+              value={business}
+              onChangeText={(text) => setBusiness(text)}
               style={{
                 width: '100%',
                 height: 48,
@@ -62,6 +92,9 @@ const Business = () => {
                 backgroundColor: 'white',
                 marginTop: 10,
                 color: 'black',
+              }}
+              onSubmitEditing={() => {
+                locationRef.current.focus();
               }}
               placeholder="Business"
               placeholderTextColor={'#D0C9D6'}
@@ -72,6 +105,9 @@ const Business = () => {
               Location
             </Text>
             <TextInput
+              value={location}
+              ref={locationRef}
+              onChangeText={(text) => setLocation(text)}
               style={{
                 width: '100%',
                 height: 48,
@@ -82,6 +118,9 @@ const Business = () => {
                 backgroundColor: 'white',
                 marginTop: 10,
                 color: 'black',
+              }}
+              onSubmitEditing={() => {
+                yearRef.current.focus();
               }}
               placeholder="State, Country"
               placeholderTextColor={'#D0C9D6'}
@@ -92,6 +131,10 @@ const Business = () => {
               Foundation Year
             </Text>
             <TextInput
+              value={year}
+              ref={yearRef}
+              keyboardType='numeric'
+              onChangeText={(text) => setYear(text)}
               style={{
                 width: '100%',
                 height: 48,
@@ -103,6 +146,9 @@ const Business = () => {
                 marginTop: 10,
                 color: 'black',
               }}
+              onSubmitEditing={() => {
+                competitorsRef.current.focus();
+              }}
               placeholder="Since 1984"
               placeholderTextColor={'#D0C9D6'}
             />
@@ -112,6 +158,9 @@ const Business = () => {
               Competitors (*)
             </Text>
             <TextInput
+              value={competitors}
+              ref={competitorsRef}
+              onChangeText={(text) => setCompetitors(text)}
               style={{
                 width: '100%',
                 height: 48,
@@ -173,11 +222,17 @@ const Business = () => {
         height={70}
         justifyContent="center">
         <Button
-          onPress={() => navigation.navigate('ProductInfo')}
+          onPress={() => {
+            handleSave();
+            navigation.navigate('ProductInfo')
+          }}
           mx="m"
           labelColor={'white'}
           variant="primary"
           label="Continue"
+          disabled={
+            business.length === 0 || location.length === 0 || year.length === 0 || competitors.length === 0
+          }
         />
       </Box>
     </Box>

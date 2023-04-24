@@ -12,7 +12,7 @@ import auth from '@react-native-firebase/auth';
 import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
 import 'firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import appleAuth, { AppleRequestScope, AppleCredentialState, AppleRequestOperation, AppleError } from '@invertase/react-native-apple-authentication';
+import appleAuth from '@invertase/react-native-apple-authentication';
 
 const SignUp = () => {
   const [userData, setUserData] = useState({});
@@ -42,7 +42,6 @@ const SignUp = () => {
       return userCredential;
     } catch (error) {
       console.log(error);
-      // Display a message to the user that the login process was cancelled
     }
   }
 
@@ -73,11 +72,13 @@ const SignUp = () => {
       setLoggedIn(true);
       setUserData(userCredential.user);
       setUserDataAtom(userCredential.user);
+      console.log(userCredential.user)
+
       return userCredential;
     } catch (error) {
       console.log(error);
-      // Display a message to the user that the login process was cancelled
     }
+
   };
  
   return (
@@ -137,18 +138,6 @@ const SignUp = () => {
         <Text fontSize={13} color="grey">
           By continuing, you agree to our terms and privacy policy
         </Text>
-        <Box
-          mt="m"
-          flexDirection="row"
-          alignItems="center"
-          justifyContent="center">
-          <Text variant="heading3">Already have an account?</Text>
-          <TouchableOpacity>
-            <Text variant="heading2" color="bg" ml="s">
-              Log in
-            </Text>
-          </TouchableOpacity>
-        </Box>
       </Box>
     </Box>
     </SafeAreaView>

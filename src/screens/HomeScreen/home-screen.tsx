@@ -32,6 +32,7 @@ const HomeScreen = () => {
   function handlePresentModal() {
     bottomSheetModalRef.current?.present();
   }
+  
 
   const selectedItem = (item: { id: number }) => {
     const newArrData = SocailData.map((e) => {
@@ -69,10 +70,16 @@ const HomeScreen = () => {
           onPress={handlePresentModal}
           style={{alignItems: 'center', flexDirection: 'row'}}>
           <Box>
-            <Image
-              style={{width: 34, height: 34, borderRadius: 25}}
-              source={{uri: userData.photoURL}}
-            />
+            {
+              userData.photoURL !== null ? 
+              <Image
+               style={{width: 34, height: 34, borderRadius: 25}}
+               source={{uri: userData.photoURL}}
+             />
+               : <Box width={34} height={34} borderRadius={25} borderWidth={1}/>
+
+            }
+            
             <Image
               style={{
                 position: 'absolute',
@@ -83,9 +90,9 @@ const HomeScreen = () => {
                 height: 24,
               }}
               source={
-                userData.providerData[0].providerId === 'google.com'
+                userData.providerData?.[0]?.providerId === 'google.com'
                   ? selectedIcon || require('../../assets/google-logo.png')
-                  : selectedIcon || require('../../assets/logo_fb.png')
+                  : selectedIcon || require('../../assets/logo_fb.png') 
               }
             />
           </Box>
