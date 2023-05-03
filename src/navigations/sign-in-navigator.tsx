@@ -22,7 +22,7 @@ const SignInNavigator = () => {
         <Stack.Screen options={{ headerShown: false }} name="ContentSignIn" component={ContentSignIn} />
         <Stack.Screen options={{ headerShown: false }} name="TopTabNavigator" component={TopTabNavigator} />
         <Stack.Screen options={{ headerShown: false }} name="TeamManagement" component={TeamManagement} />
-        <Stack.Screen options={{ headerShown: false }} name="Menu" component={Menu} />
+        <Stack.Screen options={{ headerShown: false, animation: 'slide_from_left' }} name="Menu" component={Menu} />
         <Stack.Screen options={{ headerShown: false }} name="AccountSettings" component={AccountSettings} />
       </Stack.Navigator>
     </NavigationContainer>

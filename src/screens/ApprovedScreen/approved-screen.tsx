@@ -52,7 +52,7 @@ const ApprovedScreen = () => {
   };
 
   return (
-    <Box>
+    <Box backgroundColor='pageBackground'>
       <Box zIndex={1} position="absolute" bottom={10} width={'100%'}>
         {showSelectedItems && selectedItems.length > 0 && (
           <SelectedScheduleItem selectedItem={selectedItems} />

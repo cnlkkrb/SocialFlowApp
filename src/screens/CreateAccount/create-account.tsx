@@ -39,7 +39,7 @@ const CreateAccount = () => {
   };
 
   return (
-    <Box>
+    <Box backgroundColor='pageBackground' flex={1}>
       <KeyboardAwareScrollView>
         <Box>
           <Box mt="m" justifyContent="center">

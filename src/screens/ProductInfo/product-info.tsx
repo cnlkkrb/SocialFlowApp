@@ -1,6 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {SafeAreaView, TextInput, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import BackIcon from '../../assets/icons/back-icon';
 import ProductIcon from '../../assets/icons/product-icon';
@@ -12,12 +17,46 @@ import ProgressStepsComponent from '../../components/ProgressSteps/progress-step
 
 const ProductInfo = () => {
   const navigation = useNavigation();
-  const [productName, setProductName] = React.useState('');
-  const [description, setdescription] = React.useState('');
+  const [productName, setProductName] = useState('');
+  const [description, setdescription] = useState('');
+  const [productNames, setProductNames] = useState<{ name: string, color: string }[]>([]);
+
+  const handleInputChange = (text: string) => {
+    setProductName(text);
+  };
+
+  const handleInputSubmit = () => {
+    setProductNames(prevProductNames => [
+      ...prevProductNames,
+      {name: productName, color: getRandomColor()},
+    ]);
+    setProductName('');
+  };
+
+  const getRandomColor = () => {
+    const colors = [
+      '#27AE60',
+      '#F17C10',
+      '#0491F8',
+      '#EB5757',
+      '#AB21FF',
+      '#FF218C',
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
+  const handleDeleteItem = (index: number) => {
+    setProductNames(prevProductNames => {
+      const newProductNames = [...prevProductNames];
+      newProductNames.splice(index, 1);
+      return newProductNames;
+    });
+  };
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <Box backgroundColor="pageBackground" flex={1} height={'100%'}>
-        <Box mt="l" ml="m" flexDirection="row" alignItems="center">
+        <Box mt="l" ml="m" flexDirection="row" alignItems="center" mb="m">
           <TouchableOpacity
             style={{flexDirection: 'row', alignItems: 'center'}}
             onPress={() => navigation.goBack()}>
@@ -55,7 +94,8 @@ const ProductInfo = () => {
               </Text>
               <TextInput
                 value={productName}
-                onChangeText={text => setProductName(text)}
+                onChangeText={handleInputChange}
+                onSubmitEditing={handleInputSubmit}
                 style={{
                   width: '100%',
                   height: 48,
@@ -70,6 +110,16 @@ const ProductInfo = () => {
                 placeholder="Name"
                 placeholderTextColor={'#D0C9D6'}
               />
+              <Box style={styles.boxContainer}>
+                {productNames.map((product, index) => (
+                  <TouchableOpacity
+                    onPress={() => handleDeleteItem(index)}
+                    key={index}
+                    style={[styles.box, {backgroundColor: product.color}]}>
+                    <Text style={styles.boxText}>{product.name}</Text>
+                  </TouchableOpacity>
+                ))}
+              </Box>
             </Box>
             <Box mt="m" mx="l">
               <Text ml="s" variant="heading3">
@@ -105,12 +155,42 @@ const ProductInfo = () => {
             mx="m"
             variant="primary"
             label="Continue"
-            disabled={productName === '' || description === ''}
+            disabled={description === ''}
           />
         </FixedButton>
       </Box>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  input: {
+    width: '100%',
+    height: 24,
+    borderRadius: 10,
+    paddingLeft: 10,
+    marginTop: 10,
+    color: 'black',
+  },
+  boxContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 10,
+  },
+  box: {
+    backgroundColor: '#D0C9D6',
+    borderRadius: 10,
+    marginRight: 10,
+    marginBottom: 10,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  boxText: {
+    color: 'white',
+    fontSize: 16,
+    marginHorizontal: 8
+  },
+});
 
 export default ProductInfo;

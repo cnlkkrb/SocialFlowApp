@@ -22,8 +22,7 @@ const CreatePostBottomSheetStep2 = ({createPostBottomSheetStep2Ref}: any) => {
       LogBox.ignoreLogs(["VirtualizedLists should never be nested"])
     }, [])
     const postTypeBottomSheetRef = useRef<BottomSheet>(null);
-    const [text, setText] = React.useState('');
-    const snapPoints = ['98%'];
+    const snapPoints = ['95%'];
 
   return (
     <BottomSheetModalProvider>
@@ -34,19 +33,23 @@ const CreatePostBottomSheetStep2 = ({createPostBottomSheetStep2Ref}: any) => {
         stackBehavior="push"
         style={{flex: 1}}
         detached
+        onDismiss={false}
+        enableContentPanningGesture={false}
+        enablePanDownToClose={false}
+        closeOnPress={false}
         backdropComponent={props => (
           <BottomSheetBackdrop
             {...props}
             appearsOnIndex={0}
             disappearsOnIndex={-1}
+            pressBehavior={'collapse'}
           />
         )}
-        enablePanDownToClose
         backgroundStyle={{backgroundColor: '#F4F8FC'}}>
         <BottomSheetScrollView>
         <SafeAreaView style={{flex: 1}}>
           <Box flex={1} mx="l">
-            <Text textAlign="center" variant="generalHeading" fontWeight="600">
+            <Text mt='m' textAlign="center" variant="generalHeading" fontWeight="600">
               Create New Facebook Post
             </Text>
             <Box mt="s">
@@ -109,7 +112,6 @@ const CreatePostBottomSheetStep2 = ({createPostBottomSheetStep2Ref}: any) => {
             </Box>
             
           </Box>
-          
           <TouchableOpacity
             onPress={() => {
               createPostBottomSheetStep2Ref.current?.close()
@@ -117,7 +119,7 @@ const CreatePostBottomSheetStep2 = ({createPostBottomSheetStep2Ref}: any) => {
             style={{position: 'absolute', top: 0, right: 20}}>
             <CloseIcon />
           </TouchableOpacity>
-          <Box mx='l' mt='large'>
+          <Box mx='l' mt='l'>
               <Button
                 variant="primary"
                 label="Share"

@@ -22,7 +22,7 @@ const EditPostBottomSheet = ({selectedPost, EditPostBottomSheetRef, setSelectedP
   }
 
   const handleRemovePress = () => {
-    setSelectedPost(prevState => ({...prevState, image: null}));
+    setSelectedPost((prevState: any) => ({...prevState, image: null}));
     onRemovePress();
   }
   
@@ -35,14 +35,18 @@ const EditPostBottomSheet = ({selectedPost, EditPostBottomSheetRef, setSelectedP
         snapPoints={snapPoints}
         stackBehavior="push"
         style={{zIndex: 100}}
+        onDismiss={false}
+        enableContentPanningGesture={false}
+        enablePanDownToClose={false}
+        closeOnPress={false}
         backdropComponent={props => (
           <BottomSheetBackdrop
             {...props}
             appearsOnIndex={0}
             disappearsOnIndex={-1}
+            pressBehavior={'collapse'}
           />
         )}
-        enablePanDownToClose
         backgroundStyle={{backgroundColor: '#F4F8FC'}}>
         <BottomSheetScrollView>
           <Box mx="m">
@@ -116,7 +120,7 @@ const EditPostBottomSheet = ({selectedPost, EditPostBottomSheetRef, setSelectedP
             style={{position: 'absolute', right: 20}}>
             <CloseIcon />
           </TouchableOpacity>
-          <Box mx='m' mt='l'>
+          <Box mx='m' mt='m'>
             <Button labelColor={'white'} variant='primary' label='Save' onPress={handleSharePress} />
           </Box>
         </BottomSheetScrollView>

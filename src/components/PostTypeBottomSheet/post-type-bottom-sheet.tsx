@@ -8,6 +8,7 @@ import Text from '../Text/text';
 import Box from '../Box/box';
 import { Image, TouchableOpacity, StyleSheet } from 'react-native';
 import PostDetailBottomSheet from '../PostDetailBottomSheet/post-detail-bottom-sheet';
+import CloseIcon from '../../assets/icons/close-icon';
 
 const PostTypeBottomSheet = ({postTypeBottomSheetRef}: any) => {
 
@@ -22,14 +23,18 @@ const PostTypeBottomSheet = ({postTypeBottomSheetRef}: any) => {
         snapPoints={snapPoints}
         stackBehavior="push"
         detached
+        onDismiss={false}
+        enableContentPanningGesture={false}
+        enablePanDownToClose={false}
+        closeOnPress={false}
         backdropComponent={props => (
           <BottomSheetBackdrop
             {...props}
             appearsOnIndex={0}
             disappearsOnIndex={-1}
+            pressBehavior={'collapse'}
           />
         )}
-        enablePanDownToClose
         backgroundStyle={{backgroundColor: '#F4F8FC'}}>
         <Box mx="l">
           <Text textAlign="center" variant="generalHeading" fontWeight="600">
@@ -84,6 +89,13 @@ const PostTypeBottomSheet = ({postTypeBottomSheetRef}: any) => {
           </TouchableOpacity>
         </Box>
         </Box>
+        <TouchableOpacity
+            onPress={() => {
+              postTypeBottomSheetRef.current?.close()
+            }}
+            style={{position: 'absolute', top: -5, right: 20}}>
+            <CloseIcon />
+          </TouchableOpacity>
       </BottomSheetModal>
       <PostDetailBottomSheet postDetailBottomSheetRef={postDetailBottomSheetRef}/>
     </BottomSheetModalProvider>

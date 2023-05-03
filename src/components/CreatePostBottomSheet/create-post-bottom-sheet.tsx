@@ -14,6 +14,7 @@ import CreatePostBottomSheetStep2 from '../CreatePostBottomSheetStep2/create-pos
 import { useAtomValue } from 'jotai';
 import { socialPlatformAtom } from '../../utils/atom';
 import { SocailData } from '../../data/SocailPlatformData';
+import CloseIcon from '../../assets/icons/close-icon';
 
 const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
   const selectedSocialPlatform = useAtomValue(socialPlatformAtom)
@@ -29,16 +30,20 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
         snapPoints={Platform.OS === 'android' ? snapPoints : ['40%']}
         stackBehavior="push"
         detached
+        onDismiss={false}
+        enableContentPanningGesture={false}
+        enablePanDownToClose={false}
+        closeOnPress={false}
         backdropComponent={props => (
           <BottomSheetBackdrop
             {...props}
             appearsOnIndex={0}
             disappearsOnIndex={-1}
+            pressBehavior={'collapse'}
           />
         )}
         bottomInset={20}
         style={{marginHorizontal: 16, justifyContent: 'center',flex: 1,}}
-        enablePanDownToClose
         backgroundStyle={{backgroundColor: 'white'}}>
       <Box flex={1} justifyContent='center'>
         <Box
@@ -46,7 +51,7 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
           alignItems="center"
           justifyContent="center"
           mx="m">
-          <Image source={image} />
+          <Image source={!selectedSocialPlatform ? require('../../assets/logo_fb.png') : image} />
           <Text ml="s" variant="generalHeading" fontWeight="600">
             Create New Posts
           </Text>
@@ -70,7 +75,7 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
             <SinglePostIcon />
           </Box>
           <Text ml="m" variant="heading3">
-            {`Single ${name} Post`}
+            {`Single ${!selectedSocialPlatform ? 'Facebook' : name} Post`}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -88,7 +93,7 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
             <MultiplePostIcon />
           </Box>
           <Text ml="m" variant="heading3">
-            {`Multiple ${name} Posts`}
+            {`Multiple ${!selectedSocialPlatform ? 'Facebook' : name} Posts`}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -106,10 +111,17 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
             <SpecialPostIcon />
           </Box>
           <Text ml="m" variant="heading3">
-            {`Special ${name} Post`}
+            {`Special ${!selectedSocialPlatform ? 'Facebook' : name} Post`}
           </Text>
         </TouchableOpacity>
         </Box>
+        <TouchableOpacity
+            onPress={() => {
+              bottomSheetModalRef.current?.close()
+            }}
+            style={{position: 'absolute', top: 0, right: 20}}>
+            <CloseIcon />
+          </TouchableOpacity>
       </BottomSheetModal>
       <CreatePostBottomSheetStep2 createPostBottomSheetStep2Ref={createPostBottomSheetStep2Ref}/>
     </BottomSheetModalProvider>

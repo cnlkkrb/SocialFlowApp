@@ -51,7 +51,7 @@ const ScheduledScreen = ({draft}) => {
   };
 
   return (
-    <Box>
+    <Box backgroundColor='pageBackground'>
       <FlatList
         ListFooterComponent={<Box height={20} />}
         data={DraftData}
