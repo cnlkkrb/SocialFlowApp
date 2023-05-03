@@ -12,9 +12,9 @@ import {SocailData} from '../../data/SocailPlatformData';
 import TopTabNavigator from '../../navigations/top-tab-navigator';
 import SocialPlatformBottomSheet from '../../components/SocialPlatformBottomSheet/social-platform-bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
+import UserHeader from '../../components/Header/header';
 
 const LibraryScreen = () => {
-  const [, setLoggedIn] = useAtom(loggedInAtom);
   const [myData, setMyData] = React.useState(SocailData);
   const [userData] = useAtom(userDataAtom);
   const bottomSheetModalRef = useRef<BottomSheet>(null);
@@ -48,41 +48,7 @@ const LibraryScreen = () => {
   return (
   <SafeAreaView style={{flex: 1}}>
     <ScrollView contentContainerStyle={{flex: 1}}>
-      <Box
-        m="m"
-        flexDirection="row"
-        alignItems="center"
-        justifyContent="space-between">
-        <TouchableOpacity onPress={() => navigation.navigate('Menu')}>
-          <DotIcon />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={handlePresentModal}
-          style={{alignItems: 'center', flexDirection: 'row'}}>
-          <Box>
-            <Image
-              style={{width: 34, height: 34, borderRadius: 25}}
-              source={{uri: userData.photoURL}}
-            />
-            <Image
-              style={{
-                position: 'absolute',
-                top: 18,
-                bottom: 0,
-                left: 16,
-                width: 24,
-                height: 24,
-              }}
-              source={selectedIcon || require('../../assets/google-logo.png')}
-            />
-          </Box>
-          <Text variant="heading2" ml="s">
-            {userData.displayName}
-          </Text>
-          <DownIcon style={{top: 1, marginLeft: 5}} />
-        </TouchableOpacity>
-        <RingIcon />
-      </Box>
+      <UserHeader navigation={navigation} userData={userData} handlePresentModal={handlePresentModal} selectedIcon={selectedIcon} />
         <TopTabNavigator />
       <SocialPlatformBottomSheet
         bottomSheetModalRef={bottomSheetModalRef}

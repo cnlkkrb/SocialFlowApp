@@ -1,6 +1,6 @@
 import {useAtom} from 'jotai';
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, TouchableOpacity, View} from 'react-native';
+import {Image, SafeAreaView, ScrollView, TouchableOpacity, View} from 'react-native';
 import AppleIcon from '../../assets/icons/apple-icon';
 import FacebookIcon from '../../assets/icons/facebook-icon';
 import GoogleIcon from '../../assets/icons/google-icon';
@@ -13,11 +13,13 @@ import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
 import 'firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import appleAuth from '@invertase/react-native-apple-authentication';
+import { useNavigation } from '@react-navigation/native';
 
 const SignUp = () => {
   const [userData, setUserData] = useState({});
   const [, setLoggedIn] = useAtom(loggedInAtom);
   const [, setUserDataAtom] = useAtom(userDataAtom);
+  const navigation = useNavigation();
 
   const facebookLogin = async function onFacebookButtonPress() {
     try {
@@ -83,8 +85,14 @@ const SignUp = () => {
  
   return (
   <SafeAreaView style={{flex: 1}}>
-    <Box style={{backgroundColor: '#F4F8FC'}} flex={1} alignItems="center">
-      <Text mt="xxl">Illustration will be added</Text>
+    <Box style={{backgroundColor: '#F4F8FC'}} flex={1}>
+      <ScrollView style={{flex: 1}}>
+      <Box alignItems='center'>
+      <Image 
+        source={require('../../assets/login_illustration.png')}
+        resizeMode='contain'
+        style={{marginTop: 30}}
+      />
       <Text mt="l" variant="heading1">
         Create Your Account
       </Text>
@@ -129,16 +137,18 @@ const SignUp = () => {
           or
         </Text>
       </Box>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('CreateAccount')}>
         <Text variant="heading2" color="bg" textAlign="center" mt="xl">
           Sign up with e-mail
         </Text>
       </TouchableOpacity>
-      <Box position="absolute" bottom={20}>
+      <Box bottom={10} mt='large'>
         <Text fontSize={13} color="grey">
           By continuing, you agree to our terms and privacy policy
         </Text>
       </Box>
+      </Box>
+      </ScrollView>
     </Box>
     </SafeAreaView>
   );

@@ -15,6 +15,7 @@ import EditIcon from '../../assets/icons/edit-icon';
 import { CalendarIcon } from '../../assets/icons/calendar-icon';
 import AddVisualsIcon from '../../assets/icons/add-visuals-icon';
 import ApproveIcon from '../../assets/icons/approve-icon';
+import Divider from '../Divider/divider';
 
 const PostDetailBottomSheet = ({postDetailBottomSheetRef}: any) => {
 
@@ -93,9 +94,9 @@ const PostDetailBottomSheet = ({postDetailBottomSheetRef}: any) => {
                 backgroundColor="white"
                 borderRadius={10}
               />
+              <Divider />
                 <Box
                   mb="s"
-                  mt="xs"
                   flexDirection="row"
                   justifyContent="space-around">
                   <TouchableOpacity

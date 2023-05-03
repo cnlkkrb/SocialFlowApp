@@ -104,7 +104,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         options={{
-          title: 'Workspace',
+          title: 'Brand',
           headerShown: false,
           tabBarIcon: ({focused}) => {
             if (focused)

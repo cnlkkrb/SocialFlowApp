@@ -22,7 +22,6 @@ const SocialPlatformBottomSheet = ({bottomSheetModalRef, userData, selectedItem,
           activeOpacity={1}
           onPress={() => {
             setSocialPlatform(item)
-
             item.isSelected = !item.isSelected;
             myData[index] = item;
             selectedItem(item)
@@ -134,7 +133,7 @@ const SocialPlatformBottomSheet = ({bottomSheetModalRef, userData, selectedItem,
             disappearsOnIndex={-1}
           />
         )}
-        bottomInset={195}
+        bottomInset={430}
         topInset={60}
         style={{marginHorizontal: 16}}
         enablePanDownToClose

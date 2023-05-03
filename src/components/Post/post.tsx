@@ -209,7 +209,7 @@ const Post = ({draft}) => {
                         flexDirection="row"
                         justifyContent="space-between"
                         alignItems="center">
-                        <Text>Edit Post</Text>
+                        <Text>Regenerate</Text>
                         <SmallCalendarIcon />
                       </Box>
                       <Box

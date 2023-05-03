@@ -5,10 +5,8 @@ import Text from '../../components/Text/text';
 import DownIcon from '../../assets/icons/up-icon';
 import {Image, SafeAreaView, ScrollView, TouchableOpacity} from 'react-native';
 import {Calendar} from 'react-native-calendars';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
 import {useAtom} from 'jotai';
-import {loggedInAtom, userDataAtom} from '../../utils/atom';
+import {userDataAtom} from '../../utils/atom';
 import BottomSheet from '@gorhom/bottom-sheet';
 import {SocailData} from '../../data/SocailPlatformData';
 import SocialPlatformBottomSheet from '../../components/SocialPlatformBottomSheet/social-platform-bottom-sheet';
@@ -16,25 +14,15 @@ import {FlatList} from 'react-native-gesture-handler';
 import {CalendarData} from '../../data/CalendarData';
 import Post from '../../components/Post/post';
 import { useNavigation } from '@react-navigation/native';
+import ApprovedScreen from '../ApprovedScreen/approved-screen';
+import DraftScreen from '../DraftScreen/draft-screen';
 
 const CalendarScreen = () => {
-  const [, setLoggedIn] = useAtom(loggedInAtom);
   const [myData, setMyData] = React.useState(SocailData);
   const [userData] = useAtom(userDataAtom);
   const bottomSheetModalRef = useRef<BottomSheet>(null);
   const [selected, setSelected] = useState('');
   const navigation = useNavigation();
-
-  const signOut = async () => {
-    try {
-      await GoogleSignin.revokeAccess();
-      await auth().signOut();
-      setLoggedIn(false);
-      console.log('sign out success');
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   function handlePresentModal() {
     bottomSheetModalRef.current?.present();
@@ -177,14 +165,14 @@ const CalendarScreen = () => {
       />
       <Box mt="s" width={'100%'} height={1} backgroundColor="lightGrey" />
       </Box>
-      <Post />
-      <SocialPlatformBottomSheet
+      <DraftScreen draft={undefined}/>
+    </ScrollView>
+    <SocialPlatformBottomSheet
         bottomSheetModalRef={bottomSheetModalRef}
         selectedItem={selectedItem}
         myData={myData}
         userData={userData}
       />
-    </ScrollView>
     </SafeAreaView>
   );
 };

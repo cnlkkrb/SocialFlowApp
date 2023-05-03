@@ -20,6 +20,9 @@ import ShareIcon from '../../assets/icons/share-icon';
 import CheckIcon from '../../assets/icons/check-icon';
 import {DraftData} from '../../data/DraftData';
 import SelectedScheduleItem from '../../components/SelectedScheduleItem/selected-schedule-item';
+import DuplicateIcon from '../../assets/icons/duplicate-icon';
+import { SmallRemoveIcon } from '../../assets/icons/remove-icon';
+import UnapproveIcon from '../../assets/icons/unapproved-icon';
 
 const ApprovedScreen = () => {
   const EditPostBottomSheetRef = useRef<BottomSheet>(null);
@@ -218,7 +221,7 @@ const ApprovedScreen = () => {
                           justifyContent="space-between"
                           alignItems="center">
                           <Text>Unapprove</Text>
-                          <SmallCalendarIcon />
+                          <UnapproveIcon />
                         </Box>
                         <Box
                           mb="s"
@@ -233,7 +236,7 @@ const ApprovedScreen = () => {
                           justifyContent="space-between"
                           alignItems="center">
                           <Text>Duplicate</Text>
-                          <SmallEditIcon />
+                          <DuplicateIcon />
                         </Box>
                         <Box
                           mb="s"
@@ -249,7 +252,7 @@ const ApprovedScreen = () => {
                           justifyContent="space-between"
                           alignItems="center">
                           <Text>Delete</Text>
-                          <SmallCalendarCancelIcon />
+                          <SmallRemoveIcon />
                         </Box>
                       </TouchableOpacity>
                     </TouchableOpacity>

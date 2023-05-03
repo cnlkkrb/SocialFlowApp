@@ -11,17 +11,20 @@ import SinglePostIcon from '../../assets/icons/single-post-icon';
 import SpecialPostIcon from '../../assets/icons/special-post-icon';
 import MultiplePostIcon from '../../assets/icons/multiple-post-icon';
 import CreatePostBottomSheetStep2 from '../CreatePostBottomSheetStep2/create-post-bottom-sheet-step2';
-import { useAtomValue } from 'jotai';
+import { useAtom, useAtomValue } from 'jotai';
 import { socialPlatformAtom } from '../../utils/atom';
 import { SocailData } from '../../data/SocailPlatformData';
+import {userDataAtom} from '../../utils/atom';
 
 const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
-  const selectedSocialPlatform = useAtomValue(socialPlatformAtom)
+  
+    const selectedSocialPlatform = useAtomValue(socialPlatformAtom)
+    const [userData] = useAtom(userDataAtom);
     const createPostBottomSheetStep2Ref = useRef<BottomSheet>(null);
     const snapPoints = ['45%'];
     const {name, image} = SocailData.find(d => d.id === selectedSocialPlatform?.id) || {};
-    
-  return (
+
+    return (
     <BottomSheetModalProvider>
       <BottomSheetModal
         ref={bottomSheetModalRef}
@@ -69,9 +72,9 @@ const CreatePostBottomSheet = ({bottomSheetModalRef}: any) => {
             borderColor="lightGrey">
             <SinglePostIcon />
           </Box>
-          <Text flex={1} mr='xs' ml="m" variant="heading3">
-            {`Single ${name} Post`}
-          </Text>
+            <Text flex={1} mr='xs' ml="m" variant="heading3">
+              {`Single ${name} Post`}
+            </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.touchable}>
