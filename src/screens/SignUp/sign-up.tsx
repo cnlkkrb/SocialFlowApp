@@ -14,6 +14,8 @@ import 'firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import appleAuth from '@invertase/react-native-apple-authentication';
 import { useNavigation } from '@react-navigation/native';
+import { getLongLivedPageAccessToken } from '../../utils/facebook';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignUp = () => {
   const [userData, setUserData] = useState({});
@@ -23,20 +25,21 @@ const SignUp = () => {
 
   const facebookLogin = async function onFacebookButtonPress() {
     try {
-      const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+      const result = await LoginManager.logInWithPermissions(['public_profile', 'email','pages_show_list','pages_read_engagement','user_posts','pages_manage_posts']);
   
       if (result.isCancelled) {
         throw new Error('User cancelled the login process');
       }
-  
       const data = await AccessToken.getCurrentAccessToken();
-  
+      console.log(data)
+
       if (!data) {
         throw new Error('Something went wrong obtaining access token');
       }
   
       const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-  
+      //const pageAccessToken = await getLongLivedPageAccessToken(data.accessToken,data.userID)
+      //AsyncStorage.setItem('pageAccessToken', JSON.stringify(pageAccessToken)) 
       const userCredential = await auth().signInWithCredential(facebookCredential);
       setLoggedIn(true);
       setUserData(userCredential.user);
@@ -84,10 +87,9 @@ const SignUp = () => {
   };
  
   return (
-  <SafeAreaView style={{flex: 1}}>
     <Box style={{backgroundColor: '#F4F8FC'}} flex={1}>
       <ScrollView style={{flex: 1}}>
-      <Box alignItems='center'>
+      <Box alignItems='center' mt='large'>
       <Image 
         source={require('../../assets/login_illustration.png')}
         resizeMode='contain'
@@ -150,7 +152,6 @@ const SignUp = () => {
       </Box>
       </ScrollView>
     </Box>
-    </SafeAreaView>
   );
 };
 

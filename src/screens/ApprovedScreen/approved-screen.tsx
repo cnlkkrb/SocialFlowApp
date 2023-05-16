@@ -10,9 +10,6 @@ import AddVisualsIcon from '../../assets/icons/add-visuals-icon';
 import DotsIcon from '../../assets/icons/dots-icon';
 import LinearGradient from 'react-native-linear-gradient';
 import BottomSheet from '@gorhom/bottom-sheet';
-import SmallCalendarIcon from '../../assets/icons/small-calendar-icon';
-import SmallEditIcon from '../../assets/icons/small-edit-icon';
-import SmallCalendarCancelIcon from '../../assets/icons/small-calendar-cancel-icon';
 import Box from '../../components/Box/box';
 import Text from '../../components/Text/text';
 import EditPostBottomSheet from '../../components/EditPostBottomSheet/edit-post-bottom-sheet';
@@ -55,7 +52,7 @@ const ApprovedScreen = () => {
   };
 
   return (
-    <Box>
+    <Box backgroundColor='pageBackground'>
       <Box zIndex={1} position="absolute" bottom={10} width={'100%'}>
         {showSelectedItems && selectedItems.length > 0 && (
           <SelectedScheduleItem selectedItem={selectedItems} />
@@ -65,6 +62,7 @@ const ApprovedScreen = () => {
         <FlatList
           ListFooterComponent={<Box height={40} />}
           data={DraftData}
+          style={{marginTop: -12}}
           renderItem={({item}) => {
             return (
               <Box

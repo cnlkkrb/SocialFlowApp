@@ -8,9 +8,6 @@ import {
 import GreyFacebookIcon from '../../assets/icons/grey-facebook-icon';
 import GreyInstagramIcon from '../../assets/icons/grey-instagram-icon';
 import ClockIcon from '../../assets/icons/clock-icon';
-import EditIcon from '../../assets/icons/edit-icon';
-import AddVisualsIcon from '../../assets/icons/add-visuals-icon';
-import ApproveIcon from '../../assets/icons/approve-icon';
 import {DraftData} from '../../data/DraftData';
 import DotsIcon from '../../assets/icons/dots-icon';
 import LinearGradient from 'react-native-linear-gradient';
@@ -22,7 +19,7 @@ import Box from '../../components/Box/box';
 import Text from '../../components/Text/text';
 import EditPostBottomSheet from '../../components/EditPostBottomSheet/edit-post-bottom-sheet';
 
-const ScheduledScreen = ({draft}) => {
+const ScheduledScreen = () => {
   const EditPostBottomSheetRef = useRef<BottomSheet>(null);
   const [selectedPost, setSelectedPost] = React.useState(null);
   const [drafts, setDrafts] = React.useState(DraftData);
@@ -38,11 +35,6 @@ const ScheduledScreen = ({draft}) => {
     EditPostBottomSheetRef.current?.close();
   };
 
-  const handleEditPost = post => {
-    setSelectedPost(post);
-    EditPostBottomSheetRef.current?.present();
-  };
-
   const handleRemovePress = () => {
     const index = drafts.findIndex(draft => draft.id === selectedPost.id);
     const updatedDrafts = [...drafts];
@@ -51,10 +43,11 @@ const ScheduledScreen = ({draft}) => {
   };
 
   return (
-    <Box>
+    <Box backgroundColor='pageBackground'>
       <FlatList
         ListFooterComponent={<Box height={20} />}
         data={DraftData}
+        style={{marginTop: -12}}
         renderItem={({item}) => {
           return (
             <Box
@@ -75,7 +68,7 @@ const ScheduledScreen = ({draft}) => {
                   source={item.image}
                 />
               )}
-              <Text p="m" fontSize={13} lineHeight={18}>
+              <Text mr='s' p="m" fontSize={13} lineHeight={18}>
                 {item.title}
               </Text>
               <Box

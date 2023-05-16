@@ -126,17 +126,21 @@ const SocialPlatformBottomSheet = ({bottomSheetModalRef, userData, selectedItem,
         snapPoints={snapPoints}
         stackBehavior="push"
         detached
+        onDismiss={false}
+        enableContentPanningGesture={false}
+        enablePanDownToClose={false}
+        closeOnPress={false}
         backdropComponent={props => (
           <BottomSheetBackdrop
             {...props}
             appearsOnIndex={0}
             disappearsOnIndex={-1}
+            pressBehavior={'collapse'}
           />
         )}
         bottomInset={430}
         topInset={60}
         style={{marginHorizontal: 16}}
-        enablePanDownToClose
         backgroundStyle={{backgroundColor: 'white'}}>
         <Box
           flexDirection="row"

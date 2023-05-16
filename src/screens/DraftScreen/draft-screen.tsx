@@ -1,15 +1,12 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
+  Alert,
   FlatList,
   Image,
   Modal,
-  StyleSheet,
   TouchableOpacity,
-  View,
+  TouchableWithoutFeedback,
 } from 'react-native';
-import GreyFacebookIcon from '../../assets/icons/grey-facebook-icon';
-import GreyInstagramIcon from '../../assets/icons/grey-instagram-icon';
-import ClockIcon from '../../assets/icons/clock-icon';
 import EditIcon from '../../assets/icons/edit-icon';
 import AddVisualsIcon from '../../assets/icons/add-visuals-icon';
 import ApproveIcon from '../../assets/icons/approve-icon';
@@ -17,9 +14,6 @@ import {DraftData} from '../../data/DraftData';
 import DotsIcon from '../../assets/icons/dots-icon';
 import LinearGradient from 'react-native-linear-gradient';
 import BottomSheet from '@gorhom/bottom-sheet';
-import SmallCalendarIcon from '../../assets/icons/small-calendar-icon';
-import SmallEditIcon from '../../assets/icons/small-edit-icon';
-import SmallCalendarCancelIcon from '../../assets/icons/small-calendar-cancel-icon';
 import Box from '../../components/Box/box';
 import Text from '../../components/Text/text';
 import EditPostBottomSheet from '../../components/EditPostBottomSheet/edit-post-bottom-sheet';
@@ -27,14 +21,13 @@ import RegenerateIcon from '../../assets/icons/regenerate-icon';
 import DuplicateIcon from '../../assets/icons/duplicate-icon';
 import { SmallRemoveIcon } from '../../assets/icons/remove-icon';
 
-const DraftScreen = ({draft}) => {
+const DraftScreen = () => {
   const EditPostBottomSheetRef = useRef<BottomSheet>(null);
-  const [selectedPost, setSelectedPost] = React.useState(null);
-  const [drafts, setDrafts] = React.useState(DraftData);
-  const [menuVisible, setMenuVisible] = React.useState(false);
-  const [menuPosition, setMenuPosition] = React.useState({x: 0, y: 0});
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [drafts, setDrafts] = useState(DraftData);
+  const [menuVisible, setMenuVisible] = useState<any>({});
 
-  const handleSharePress = updatedPost => {
+  const handleSharePress = (updatedPost: { id: number; title: string; }) => {
     const index = DraftData.findIndex(post => post.id === updatedPost.id);
     if (index !== -1) {
       DraftData[index].title = updatedPost.title;
@@ -43,7 +36,7 @@ const DraftScreen = ({draft}) => {
     EditPostBottomSheetRef.current?.close();
   };
 
-  const handleEditPost = post => {
+  const handleEditPost = (post: React.SetStateAction<null>) => {
     setSelectedPost(post);
     EditPostBottomSheetRef.current?.present();
   };
@@ -56,10 +49,14 @@ const DraftScreen = ({draft}) => {
   };
 
   return (
-    <Box>
+    <TouchableWithoutFeedback onPress={() => {
+      setMenuVisible({})
+    }}>
+    <Box backgroundColor='pageBackground'>
       <FlatList
         ListFooterComponent={<Box height={20} />}
         data={DraftData}
+        style={{marginTop: -12}}
         renderItem={({item}) => {
           return (
             <Box
@@ -89,8 +86,6 @@ const DraftScreen = ({draft}) => {
                 height={1}
                 backgroundColor="lightGrey"
               />
-
-              {draft === true ? (
                 <Box
                   mb="s"
                   mt="xs"
@@ -115,22 +110,6 @@ const DraftScreen = ({draft}) => {
                     <Text>Approve</Text>
                   </Box>
                 </Box>
-              ) : (
-                <Box flexDirection="row" alignItems="center" mb="s">
-                  <Box flexDirection="row" ml="m" marginRight="auto">
-                    <Box mr="s">
-                      <GreyFacebookIcon />
-                    </Box>
-                    <GreyInstagramIcon />
-                  </Box>
-                  <Box alignItems="center" flexDirection="row" mr="m">
-                    <ClockIcon color={'grey'} />
-                    <Text variant="heading5" color="grey" ml="s">
-                      10:55 PM, Feb 28
-                    </Text>
-                  </Box>
-                </Box>
-              )}
               <LinearGradient
                 colors={
                   item.image === null
@@ -151,52 +130,37 @@ const DraftScreen = ({draft}) => {
                   top: 1,
                 }}>
                 <TouchableOpacity
+                  onPress={() => {
+                    setMenuVisible({
+                      ...menuVisible,
+                      [item.id]: true
+                  })
+                  }}
                   style={{
                     width: 30,
                     height: 30,
                     justifyContent: 'center',
                     alignItems: 'center',
-                  }}
-                  onPress={event => {
-                    setMenuPosition({
-                      x: event.nativeEvent.pageX,
-                      y: event.nativeEvent.pageY + 10,
-                    });
-                    setMenuVisible(true);
-                  }}
-                  onLayout={event => {
-                    setMenuPosition({
-                      x: event.nativeEvent.pageX,
-                      y: event.nativeEvent.pageY + 10,
-                    });
                   }}>
                   <DotsIcon color={item.image === null ? '#09121F' : 'white'} />
                 </TouchableOpacity>
-                <Modal
-                  visible={menuVisible}
-                  transparent={true}
-                  onRequestClose={() => setMenuVisible(false)}
-                  animationType="fade">
+              </LinearGradient>
+              <Box visible={!!menuVisible[item.id]} position='absolute' right={0}>
                   <TouchableOpacity
-                    onPress={() => setMenuVisible(false)}
-                    style={{flex: 1}}>
-                    <TouchableOpacity
                       style={{
                         position: 'relative',
-                        top: menuPosition.y - 22,
-                        left: menuPosition.x - 121,
                         backgroundColor: 'white',
                         borderRadius: 10,
                         width: 140,
                         borderWidth: 1,
                         borderColor: '#D6E0EA',
                       }}
-                      onPress={() => setMenuVisible(false)}>
+                      onPress={() => setMenuVisible({...menuVisible, [item.id]: false})}>
                       <Text
                         ml="s"
                         mb="xs"
                         mt="xs"
-                        fontSize={8}
+                        fontSize={12}
                         variant="heading5"
                         color="grey">
                         More Options
@@ -247,9 +211,7 @@ const DraftScreen = ({draft}) => {
                         <SmallRemoveIcon />
                       </Box>
                     </TouchableOpacity>
-                  </TouchableOpacity>
-                </Modal>
-              </LinearGradient>
+                  </Box>
             </Box>
           );
         }}
@@ -262,6 +224,7 @@ const DraftScreen = ({draft}) => {
         onRemovePress={handleRemovePress}
       />
     </Box>
+    </TouchableWithoutFeedback>
   );
 };
 

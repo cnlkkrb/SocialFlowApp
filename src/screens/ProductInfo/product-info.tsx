@@ -1,6 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
-import React, { useRef, useState } from 'react';
-import {SafeAreaView, TextInput, TouchableOpacity} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import BackIcon from '../../assets/icons/back-icon';
 import ProductIcon from '../../assets/icons/product-icon';
@@ -10,17 +15,51 @@ import FixedButton from '../../components/FixedButton/fixed-button';
 import Text from '../../components/Text/text';
 import ProgressStepsComponent from '../../components/ProgressSteps/progress-steps';
 
-const ProductInfo = () => {
+const ProductInfo = ({route}) => {
   const navigation = useNavigation();
   const [productName, setProductName] = useState('');
   const [description, setdescription] = useState('');
+  const [productNames, setProductNames] = useState<{ name: string, color: string }[]>([]);
+
   const productRef = useRef(null);
   const descriptionRef = useRef(null);
+  
+  const handleInputChange = (text: string) => {
+    setProductName(text);
+  };
+
+  const handleInputSubmit = () => {
+    setProductNames(prevProductNames => [
+      ...prevProductNames,
+      {name: productName, color: getRandomColor()},
+    ]);
+    setProductName('');
+  };
+
+  const getRandomColor = () => {
+    const colors = [
+      '#27AE60',
+      '#F17C10',
+      '#0491F8',
+      '#EB5757',
+      '#AB21FF',
+      '#FF218C',
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
+  const handleDeleteItem = (index: number) => {
+    setProductNames(prevProductNames => {
+      const newProductNames = [...prevProductNames];
+      newProductNames.splice(index, 1);
+      return newProductNames;
+    });
+  };
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Box backgroundColor="pageBackground" flex={1} height={'100%'}>
-        <Box mt="l" ml="m" flexDirection="row" alignItems="center">
+    <SafeAreaView style={{flex: 1, backgroundColor: '#F4F8FC'}}>
+      <Box height={'100%'}>
+        <Box mt="l" ml="m" flexDirection="row" alignItems="center" mb="m">
           <TouchableOpacity
             style={{flexDirection: 'row', alignItems: 'center'}}
             onPress={() => navigation.goBack()}>
@@ -29,9 +68,13 @@ const ProductInfo = () => {
               Back
             </Text>
           </TouchableOpacity>
-          <Box ml="l">
+          {
+          route.params && route.params.from === 'business'
+          ? null
+          :<Box ml='l'>
             <ProgressStepsComponent currentStep={3} />
           </Box>
+        }
         </Box>
         <KeyboardAwareScrollView style={{flex: 1}}>
           <Box>
@@ -59,7 +102,11 @@ const ProductInfo = () => {
               <TextInput
                 value={productName}
                 ref={productRef}
-                onChangeText={text => setProductName(text)}
+                onChangeText={handleInputChange}
+                onSubmitEditing={() => {
+                  handleInputSubmit()
+                  descriptionRef.current.focus();
+                }}
                 style={{
                   width: '100%',
                   height: 48,
@@ -71,12 +118,19 @@ const ProductInfo = () => {
                   marginTop: 10,
                   color: 'black',
                 }}
-                onSubmitEditing={() => {
-                  descriptionRef.current.focus();
-                }}
                 placeholder="Name"
                 placeholderTextColor={'#D0C9D6'}
               />
+              <Box style={styles.boxContainer}>
+                {productNames.map((product, index) => (
+                  <TouchableOpacity
+                    onPress={() => handleDeleteItem(index)}
+                    key={index}
+                    style={[styles.box, {backgroundColor: product.color}]}>
+                    <Text style={styles.boxText}>{product.name}</Text>
+                  </TouchableOpacity>
+                ))}
+              </Box>
             </Box>
             <Box mt="m" mx="l">
               <Text ml="s" variant="heading3">
@@ -108,17 +162,50 @@ const ProductInfo = () => {
         </KeyboardAwareScrollView>
         <FixedButton>
           <Button
-            onPress={() => navigation.navigate('Content')}
+            onPress={() => route.params && route.params.from === 'business'
+            ? navigation.goBack()
+            : navigation.navigate('Content')
+          }
             labelColor={'white'}
-            mx="m"
+            mx="l"
             variant="primary"
-            label="Continue"
-            disabled={productName === '' || description === ''}
+            label={route.params && route.params.from === 'business' ? 'Save' : 'Continue'}
+            disabled={description === ''}
           />
         </FixedButton>
       </Box>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  input: {
+    width: '100%',
+    height: 24,
+    borderRadius: 10,
+    paddingLeft: 10,
+    marginTop: 10,
+    color: 'black',
+  },
+  boxContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 10,
+  },
+  box: {
+    backgroundColor: '#D0C9D6',
+    borderRadius: 10,
+    marginRight: 10,
+    marginBottom: 10,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  boxText: {
+    color: 'white',
+    fontSize: 16,
+    marginHorizontal: 8
+  },
+});
 
 export default ProductInfo;

@@ -10,8 +10,8 @@ const LoginScreen = () => {
   const navigation = useNavigation();
 
   return (
-  <SafeAreaView style={{flex: 1}}>
-    <Box backgroundColor="white" flex={1} padding="m">
+  <SafeAreaView style={{flex: 1, backgroundColor: '#F4F8FC'}}>
+    <Box padding="m">
       <Box justifyContent='center' alignItems='center'>
         <Text style={{position: 'absolute', zIndex: 1}} variant="generalHeading" color="white">
           TUTORIAL VIDEO CONTENT

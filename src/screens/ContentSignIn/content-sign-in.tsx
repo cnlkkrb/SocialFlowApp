@@ -42,7 +42,7 @@ const ContentSignIn = () => {
   };
 
   return (
-  <SafeAreaView style={{flex: 1}}>
+  <SafeAreaView style={{flex: 1, backgroundColor: '#F4F8FC'}}>
     <ScrollView
       style={{
         flex: 1,

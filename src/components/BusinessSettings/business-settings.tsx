@@ -13,7 +13,7 @@ const BusinessSettings = () => {
   const navigation = useNavigation()
   return (
     <Box>
-      <TouchableOpacity onPress={() => navigation.navigate('Industry')} style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('Industry', {from : 'industry'})} style={styles.container}>
         <Box style={styles.iconContainer}>
           <IndustryIcon />
         </Box>
@@ -24,7 +24,7 @@ const BusinessSettings = () => {
           <RightIcon />
         </Box>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Business')} style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('Business', {from : 'business'})} style={styles.container}>
         <Box style={styles.iconContainer}>
           <BusinessIcon />
         </Box>
@@ -35,7 +35,7 @@ const BusinessSettings = () => {
           <RightIcon />
         </Box>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('ProductInfo')} style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('ProductInfo', {from : 'business'})} style={styles.container}>
         <Box style={styles.iconContainer}>
           <ProductIcon />
         </Box>
@@ -46,7 +46,7 @@ const BusinessSettings = () => {
           <RightIcon />
         </Box>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate('Content')} style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('Content', {from : 'business'})} style={styles.container}>
         <Box style={styles.iconContainer}>
           <ContentIcon />
         </Box>

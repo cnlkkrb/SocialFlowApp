@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '../Box/box';
 import Text from '../Text/text';
 import {
@@ -22,7 +22,7 @@ const PostDetailBottomSheet = ({postDetailBottomSheetRef}: any) => {
     useEffect(() => {
       LogBox.ignoreLogs(["VirtualizedLists should never be nested"])
     }, [])
-    const [text, setText] = React.useState('');
+    const [text, setText] = useState('');
     const snapPoints = ['75%'];
     const navigation = useNavigation();
 
@@ -34,14 +34,18 @@ const PostDetailBottomSheet = ({postDetailBottomSheetRef}: any) => {
         snapPoints={snapPoints}
         stackBehavior="push"
         detached
+        onDismiss={false}
+        enableContentPanningGesture={false}
+        enablePanDownToClose={false}
+        closeOnPress={false}
         backdropComponent={props => (
           <BottomSheetBackdrop
             {...props}
             appearsOnIndex={0}
             disappearsOnIndex={-1}
+            pressBehavior={'collapse'}
           />
         )}
-        enablePanDownToClose
         backgroundStyle={{backgroundColor: '#F4F8FC'}}>
         <BottomSheetScrollView>
           <Box mx="l">
@@ -53,8 +57,6 @@ const PostDetailBottomSheet = ({postDetailBottomSheetRef}: any) => {
                 Starting point
               </Text>
               <TextInput
-                value={text}
-                onChangeText={text => setText(text)}
                 style={{
                   width: '100%',
                   height: 95,
@@ -120,15 +122,7 @@ const PostDetailBottomSheet = ({postDetailBottomSheetRef}: any) => {
                 </Box>
             </Box>
           </Box>
-          <TouchableOpacity
-            onPress={() => {
-                postDetailBottomSheetRef.current?.close()
-            }}
-            style={{position: 'absolute', top: 0, right: 20}}>
-            <CloseIcon />
-          </TouchableOpacity>
-        </BottomSheetScrollView>
-        <Box position='absolute' bottom={Platform.OS === 'android' ? 10 : 40} width={'100%'}>
+          <Box mt='l'>
               <Button
                 mx='l'
                 variant="primary"
@@ -137,6 +131,14 @@ const PostDetailBottomSheet = ({postDetailBottomSheetRef}: any) => {
                 labelColor={'white'}
               />
             </Box>
+          <TouchableOpacity
+            onPress={() => {
+                postDetailBottomSheetRef.current?.close()
+            }}
+            style={{position: 'absolute', top: 0, right: 20}}>
+            <CloseIcon />
+          </TouchableOpacity>
+        </BottomSheetScrollView>
       </BottomSheetModal>
     </BottomSheetModalProvider>
   );

@@ -6,15 +6,17 @@ import { useAtom } from 'jotai';
 import { loggedInAtom } from './src/utils/atom';
 import SignInNavigator from './src/navigations/sign-in-navigator';
 import NotSignInNavigator from './src/navigations/not-sign-in-navigator';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useAtom(loggedInAtom);
-
+  const queryClient = new QueryClient()
+  
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       {loggedIn ? <SignInNavigator /> : <NotSignInNavigator />}
-    </>
+    </QueryClientProvider>
   );
 };
 

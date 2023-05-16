@@ -27,7 +27,7 @@ const SignInNavigator = () => {
         <Stack.Screen options={{ headerShown: false }} name="ContentSignIn" component={ContentSignIn} />
         <Stack.Screen options={{ headerShown: false }} name="TopTabNavigator" component={TopTabNavigator} />
         <Stack.Screen options={{ headerShown: false }} name="TeamManagement" component={TeamManagement} />
-        <Stack.Screen options={{ headerShown: false }} name="Menu" component={Menu} />
+        <Stack.Screen options={{ headerShown: false, animation: 'fade_from_bottom' }} name="Menu" component={Menu} />
         <Stack.Screen options={{ headerShown: false }} name="AccountSettings" component={AccountSettings} />
         <Stack.Screen options={{ headerShown: false }} name="Industry" component={Industry} />
         <Stack.Screen options={{ headerShown: false }} name="Business" component={Business} />
@@ -38,5 +38,6 @@ const SignInNavigator = () => {
     </NavigationContainer>
   );
 };
+
 
 export default SignInNavigator;

@@ -53,7 +53,7 @@ const Post = ({draft}) => {
   };
 
   return (
-    <Box>
+    <Box backgroundColor='pageBackground'>
       <FlatList
         ListFooterComponent={<Box height={20} />}
         data={DraftData}
@@ -196,7 +196,7 @@ const Post = ({draft}) => {
                         fontSize={8}
                         variant="heading5"
                         color="grey">
-                        More Options
+                        More Optionsx
                       </Text>
                       <Box
                         mb="s"

@@ -39,7 +39,7 @@ const CreateAccount = () => {
   };
 
   return (
-  <SafeAreaView style={{flex: 1}}>
+  <SafeAreaView style={{flex: 1, backgroundColor: '#F4F8FC'}}>
     <Box>
       <KeyboardAwareScrollView>
         <Box>

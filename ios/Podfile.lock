@@ -405,6 +405,8 @@ PODS:
   - React-jsinspector (0.71.4)
   - React-logger (0.71.4):
     - glog
+  - react-native-blur (4.3.1):
+    - React-Core
   - react-native-fbsdk-next (11.2.1):
     - React-Core
     - react-native-fbsdk-next/Core (= 11.2.1)
@@ -604,6 +606,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
   - react-native-fbsdk-next (from `../node_modules/react-native-fbsdk-next`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
@@ -707,6 +710,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-blur:
+    :path: "../node_modules/@react-native-community/blur"
   react-native-fbsdk-next:
     :path: "../node_modules/react-native-fbsdk-next"
   react-native-get-random-values:
@@ -816,6 +821,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: d6b7fa9260aa3cb40afee0507e3bc1d17ecaa6f2
   React-jsinspector: 1f51e775819199d3fe9410e69ee8d4c4161c7b06
   React-logger: 0d58569ec51d30d1792c5e86a8e3b78d24b582c6
+  react-native-blur: 52e2902df618ace97b3554aeb7f6a2d7ca3b5e9b
   react-native-fbsdk-next: 5291a5d67aab4e649d072c50988033ff0d05b915
   react-native-get-random-values: a6ea6a8a65dc93e96e24a11105b1a9c8cfe1d72a
   react-native-pager-view: 0ccb8bf60e2ebd38b1f3669fa3650ecce81db2df

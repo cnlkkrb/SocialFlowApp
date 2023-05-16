@@ -9,13 +9,13 @@ import Text from '../../components/Text/text';
 import ContentItems from '../../components/ContentItems/content-items';
 import ProgressStepsComponent from '../../components/ProgressSteps/progress-steps';
 
-const Content = () => {
+const Content = ({route}) => {
   const navigation = useNavigation();
   const [selectedItem, setSelectedItem] = useState(null);
 
   return (
-  <SafeAreaView style={{flex: 1}}>
-    <Box backgroundColor="pageBackground" flex={1} height={'100%'}>
+  <SafeAreaView style={{flex: 1, backgroundColor: '#F4F8FC'}}>
+    <Box height={'100%'}>
     <ScrollView >
     <Box mt="l" ml="m" flexDirection='row' alignItems='center'>
           <TouchableOpacity
@@ -26,9 +26,13 @@ const Content = () => {
               Back
             </Text>
           </TouchableOpacity>
-        <Box ml='l'>
-          <ProgressStepsComponent currentStep={4} />
-        </Box>
+          {
+          route.params && route.params.from === 'business'
+          ? null
+          :<Box ml='l'>
+            <ProgressStepsComponent currentStep={4} />
+          </Box>
+        }
         </Box>
       <Box>
         <Box mt="m" justifyContent="center" alignItems="center">
@@ -56,11 +60,14 @@ const Content = () => {
         height={70}
         justifyContent="center">
         <Button
-          onPress={() => navigation.navigate('ContentGeneration')}
+          onPress={() => route.params && route.params.from === 'business'
+          ? navigation.goBack()
+          : navigation.navigate('ContentGeneration')
+        }
           labelColor={'white'}
           mx="l"
           variant="primary"
-          label="Continue"
+          label={route.params && route.params.from === 'business' ? 'Save' : 'Continue'}
         />
       </Box>
     </Box>

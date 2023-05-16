@@ -6,15 +6,16 @@ import {
   BottomSheetModal,
   BottomSheetModalProvider,
   BottomSheetScrollView,
+  BottomSheetTextInput as TextInput
 } from '@gorhom/bottom-sheet';
-import {Image, ImageBackground, TextInput, TouchableOpacity} from 'react-native';
+import {Image, ImageBackground, ScrollView, TouchableOpacity} from 'react-native';
 import CloseIcon from '../../assets/icons/close-icon';
 import MediaIcon from '../../assets/icons/media-icon';
 import RemoveIcon from '../../assets/icons/remove-icon';
 import Button from '../Button/button';
 
 const EditPostBottomSheet = ({selectedPost, EditPostBottomSheetRef, setSelectedPost, onSharePress, onRemovePress}: any) => {
-
+  const scrollViewRef = React.useRef()
   const snapPoints = ['100%'];
 
   const handleSharePress = () => {
@@ -22,7 +23,7 @@ const EditPostBottomSheet = ({selectedPost, EditPostBottomSheetRef, setSelectedP
   }
 
   const handleRemovePress = () => {
-    setSelectedPost(prevState => ({...prevState, image: null}));
+    setSelectedPost((prevState: any) => ({...prevState, image: null}));
     onRemovePress();
   }
   
@@ -35,16 +36,20 @@ const EditPostBottomSheet = ({selectedPost, EditPostBottomSheetRef, setSelectedP
         snapPoints={snapPoints}
         stackBehavior="push"
         style={{zIndex: 100}}
+        onDismiss={false}
+        enableContentPanningGesture={false}
+        enablePanDownToClose={false}
+        closeOnPress={false}
         backdropComponent={props => (
           <BottomSheetBackdrop
             {...props}
             appearsOnIndex={0}
             disappearsOnIndex={-1}
+            pressBehavior={'collapse'}
           />
         )}
-        enablePanDownToClose
         backgroundStyle={{backgroundColor: '#F4F8FC'}}>
-        <BottomSheetScrollView>
+        <ScrollView ref={scrollViewRef}>
           <Box mx="m">
             <Text mt="m" variant="generalHeading" textAlign="center">
               Edit Post
@@ -61,32 +66,17 @@ const EditPostBottomSheet = ({selectedPost, EditPostBottomSheetRef, setSelectedP
                     }}
                     imageStyle={{borderRadius: 10}}
                     source={selectedPost.image}>
-                    <Box
-                      position="absolute"
-                      bottom={0}
-                      flexDirection="row"
-                      flex={1}
-                      height={54}
-                      style={{backgroundColor: '#00000080'}}
-                      width={'100%'}
-                      borderBottomLeftRadius={10}
-                      borderBottomRightRadius={10}
-                      justifyContent='space-evenly'>
-                      <Box alignItems='center' mt='s'>
-                        <MediaIcon />
-                        <Text fontSize={13} color='white'>Change</Text>
-                      </Box>
-                      <TouchableOpacity onPress={handleRemovePress} style={{alignItems: 'center', marginTop: 8}}>
-                        <RemoveIcon />
-                        <Text fontSize={13} color='white'>Remove</Text>
-                      </TouchableOpacity>
-                    </Box>
                   </ImageBackground>
                 )}
                 <Text ml='m' mt='s' variant='generalHeading'>Edit Text</Text>
               <Box mt='m'>
                 <TextInput 
                   multiline
+                  onFocus={() => {
+                    setTimeout(() => {
+                        scrollViewRef.current?.scrollToEnd?.({ animated: true })
+                    }, 500);
+                  }}
                   style={{
                     width: '100%',
                     backgroundColor: 'white',
@@ -116,10 +106,10 @@ const EditPostBottomSheet = ({selectedPost, EditPostBottomSheetRef, setSelectedP
             style={{position: 'absolute', right: 20}}>
             <CloseIcon />
           </TouchableOpacity>
-          <Box mx='m' mt='l'>
+          <Box mx='m' mt='m'>
             <Button labelColor={'white'} variant='primary' label='Save' onPress={handleSharePress} />
           </Box>
-        </BottomSheetScrollView>
+        </ScrollView>
       </BottomSheetModal>
     </BottomSheetModalProvider>
   );

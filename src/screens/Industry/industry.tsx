@@ -1,89 +1,40 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
-import {FlatList, SafeAreaView, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, SafeAreaView, ScrollView, TouchableOpacity} from 'react-native';
 import BackIcon from '../../assets/icons/back-icon';
 import CheckedIcon from '../../assets/icons/checked-icon';
 import IndustryIcon from '../../assets/icons/industry-icon';
 import Box from '../../components/Box/box';
 import Button from '../../components/Button/button';
 import Text from '../../components/Text/text';
-import ProgressStep from '../../components/ProgressSteps/progress-steps';
 import ProgressStepsComponent from '../../components/ProgressSteps/progress-steps';
+import axios from 'axios'
 
-const data = [
-  {
-    id: 1,
-    name: 'General (for any business)',
-  },
-  {
-    id: 2,
-    name: 'Food & Beverages',
-  },
-  {
-    id: 3,
-    name: 'Beauty & Personal Care',
-  },
-  {
-    id: 4,
-    name: 'Health & Fitness',
-  },
-  {
-    id: 5,
-    name: 'Travel & Hospitality',
-  },
-  {
-    id: 6,
-    name: 'Retail & E-commerce',
-  },
-  {
-    id: 7,
-    name: 'Local Services',
-  },
-  {
-    id: 8,
-    name: 'Arts & Recreation',
-  },
-  {
-    id: 9,
-    name: 'Real Estate',
-  },
-  {
-    id: 10,
-    name: 'Media & Communication',
-  },
-  {
-    id: 11,
-    name: 'Education',
-  },
-  {
-    id: 12,
-    name: 'Government & NonProfit',
-  },
-  {
-    id: 13,
-    name: 'Professional Services',
-  },
-];
-
-const Industry = () => {
-  const [mydata, setMyData] = useState(data);
+const Industry = ({route}) => {
+  const [industryData, setIndustryData] = useState([]);
   const navigation = useNavigation();
-  const [currentStep, setCurrentStep] = useState(0)
 
+  useEffect(() => {
+    axios.get('http://192.168.1.10:9000/api/data')
+      .then(res => {
+        setIndustryData(res.data[0].name.map(text => ({text, isSelected: false})))
+      })
+  }, []);
+  
   const selectedItem = (item, index) => {
-    const newArrData = data.map((e, index) => {
-      if (e.id === item.id) {
+    const newArrData = industryData.map((e, index) => {
+      if (e.text === item.text) {
         return {
-          ...e,
+          text: e.text,
           isSelected: true,
         };
       }
       return {
-        ...e,
+        text: e.text,
         isSelected: false,
       };
     });
-    setMyData(newArrData);
+    setIndustryData(newArrData);
   };
 
   const renderItem = ({item, index}) => {
@@ -114,7 +65,7 @@ const Industry = () => {
                 variant="heading4"
                 fontWeight="700"
                 ml="m">
-                {item.name}
+                {item.text}
               </Text>
               <Box marginRight="m">
                 <CheckedIcon />
@@ -137,7 +88,7 @@ const Industry = () => {
                 style={{backgroundColor: '#D9D9D9'}}
               />
               <Text variant="heading4" ml="m">
-                {item.name}
+                {item.text}
               </Text>
             </Box>
           )}
@@ -146,11 +97,10 @@ const Industry = () => {
     );
   };
   
-
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Box backgroundColor="pageBackground" flex={1}>
-        <Box mt="l" ml="m" flexDirection='row' alignItems='center'>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#F4F8FC'}}>
+      <Box flex={1}>
+        <Box mt="l" ml="m" flexDirection='row' alignItems='center' mb='m'>
           <TouchableOpacity
             style={{flexDirection: 'row', alignItems: 'center'}}
             onPress={() => navigation.goBack()}>
@@ -159,10 +109,15 @@ const Industry = () => {
               Back
             </Text>
           </TouchableOpacity>
-        <Box ml='l'>
-          <ProgressStepsComponent currentStep={1} />
+        {
+          route.params && route.params.from === 'industry'
+          ? null
+          :<Box ml='l'>
+            <ProgressStepsComponent currentStep={1} />
+          </Box>
+        }
         </Box>
-        </Box>
+        <ScrollView>
         <Box mt="m" justifyContent="center" alignItems="center">
           <Box flexDirection="row" alignItems="center">
             <IndustryIcon />
@@ -177,11 +132,12 @@ const Industry = () => {
           </Text>
         </Box>
         <FlatList
-          data={mydata}
-          keyExtractor={item => item.id.toString()}
+          data={industryData}
+          keyExtractor={item => item.text}
           renderItem={renderItem}
           ListFooterComponent={() => <Box height={80} />}
         />
+        </ScrollView>
         <Box
           position="absolute"
           width={'100%'}
@@ -190,12 +146,14 @@ const Industry = () => {
           height={70}
           justifyContent="center">
           <Button
-            onPress={() => navigation.navigate('Business')}
+            onPress={() => route.params && route.params.from === 'business'
+            ? navigation.goBack()
+            : navigation.navigate('Business')}
             labelColor={'white'}
             mx="m"
             variant="primary"
-            label="Continue"
-            disabled={mydata.filter(e => e.isSelected).length === 0}
+            label={route.params && route.params.from === 'industry' ? 'Save' : 'Continue'}
+            disabled={industryData.filter(item => item.isSelected).length === 0}
           />
         </Box>
       </Box>
