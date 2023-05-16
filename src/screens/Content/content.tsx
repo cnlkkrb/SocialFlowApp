@@ -13,6 +13,25 @@ const Content = () => {
   const navigation = useNavigation();
   const [selectedItem, setSelectedItem] = useState(null);
 
+  const saveSelectedOption = async (selectedOption) => {
+    try {
+      const response = await fetch('http://192.168.1.10:9000/save-option', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ selectedOption })
+      });
+      if (!response.ok) {
+        throw new Error('Error while saving the selected option');
+      }
+      const result = await response.json();
+      console.log('Save option response:', result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
   <SafeAreaView style={{flex: 1}}>
     <Box backgroundColor="pageBackground" flex={1} height={'100%'}>
@@ -56,7 +75,10 @@ const Content = () => {
         height={70}
         justifyContent="center">
         <Button
-          onPress={() => navigation.navigate('ContentGeneration')}
+          onPress={() => {
+            saveSelectedOption(selectedItem)
+            navigation.navigate('ContentGeneration')}
+          }
           labelColor={'white'}
           mx="l"
           variant="primary"

@@ -9,11 +9,10 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import BusinessIcon from '../../assets/icons/business-icon';
 import ProgressStepsComponent from '../../components/ProgressSteps/progress-steps';
 import { businessDataAtom } from '../../utils/atom';
-import { useAtom, useSetAtom } from 'jotai';
+import { useAtom } from 'jotai';
 
 const Business = () => {
   const navigation = useNavigation();
-  const [visible, setVisible] = useState(true);
   const [business, setBusiness] = useState('');
   const [location, setLocation] = useState('');
   const [year, setYear] = useState('');

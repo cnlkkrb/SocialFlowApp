@@ -1,4 +1,5 @@
 import {
+  BackHandler,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -23,6 +24,11 @@ const Menu = () => {
   const navigation = useNavigation();
   const [, setLoggedIn] = useAtom(loggedInAtom);
   const [userData] = useAtom(userDataAtom);
+
+  const handleExit = () => {
+    setLoggedIn(false)
+  };
+  
   const signOut = async () => {
     try {
       await GoogleSignin.revokeAccess();
@@ -100,10 +106,12 @@ const Menu = () => {
         Restore my purchases
       </Text>
       <TouchableOpacity onPress={() => {
-        if (userData.providerData[0].providerId === 'google.com') {
+        if (userData && userData.providerData && userData.providerData[0] && userData.providerData[0].providerId === 'google.com') {
           signOut();
-        } else {
+        } else if (userData && userData.providerData && userData.providerData[0] && userData.providerData[0].providerId === 'facebook.com') {
           facebookLogout();
+        } else {
+          handleExit();
         }
       }} style={styles.logOutButton}>
         <Text variant="heading3" style={{color: '#EB5757'}}>
@@ -133,3 +141,13 @@ const styles = StyleSheet.create({
 });
 
 export default Menu;
+
+
+
+
+
+
+
+
+
+

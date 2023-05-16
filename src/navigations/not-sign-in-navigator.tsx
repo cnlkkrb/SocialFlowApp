@@ -10,6 +10,7 @@ import Content from "../screens/Content/content";
 import ContentGeneration from "../screens/ContentGeneration/content-generation";
 import SignUp from "../screens/SignUp/sign-up";
 import CreateAccount from "../screens/CreateAccount/create-account";
+import SignUpEmail from "../screens/SignUpEmail/sign-up-email";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,7 @@ const NotSignInNavigator = () => {
         <Stack.Screen options={{ headerShown: false }} name="ContentGeneration" component={ContentGeneration} />
         <Stack.Screen options={{ headerShown: false }} name="SignUp" component={SignUp} />
         <Stack.Screen options={{ headerShown: false }} name="CreateAccount" component={CreateAccount} />
+        <Stack.Screen options={{ headerShown: false }} name="SignUpEmail" component={SignUpEmail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

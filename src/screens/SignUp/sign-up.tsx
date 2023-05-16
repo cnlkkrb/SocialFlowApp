@@ -130,7 +130,7 @@ const SignUp = () => {
           Sign up with e-mail
         </Text>
       </TouchableOpacity>
-      <Box bottom={10} mt='large'>
+      <Box bottom={10} mt='m'>
         <Text fontSize={13} color="grey">
           By continuing, you agree to our terms and privacy policy
         </Text>

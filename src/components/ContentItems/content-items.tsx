@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '../Box/box';
 import Text from '../Text/text';
 import FriendlyIcon from '../../assets/icons/friendly-icon';
@@ -14,14 +14,20 @@ const ContentItems = ({ onSelect }) => {
   const [selected, setSelected] = useState(null);
   const [disabled, setDisabled] = useState(true);
 
-  const handlePress = id => {
+  const handlePress = (id: number) => {
     setSelected(id);
     onSelect(id);
   };
 
-  const getBackgroundColor = id => {
+  const getBackgroundColor = (id: number | null) => {
     return selected === id ? 'transparent' : 'white';
   };
+
+  useEffect(() => {
+    return setSelected(7);
+  }, []);
+
+  console.log(selected)
 
   return (
     <Box mt="l">

@@ -11,7 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 
 const SocialHeader = ({
   handlePresentModal,
-  userData,
+  userData = {},
   myData,
   SocailData,
 }: any) => {
