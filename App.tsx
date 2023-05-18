@@ -3,14 +3,14 @@ import {ThemeProvider} from '@shopify/restyle';
 import theme from './src/theme/theme';
 
 import { useAtom } from 'jotai';
-import { loggedInAtom } from './src/utils/atom';
+import { loggedInAtom, userDataAtom } from './src/utils/atom';
 import SignInNavigator from './src/navigations/sign-in-navigator';
 import NotSignInNavigator from './src/navigations/not-sign-in-navigator';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 
 const App = () => {
-  const [loggedIn, setLoggedIn] = useAtom(loggedInAtom);
+  const [loggedIn] = useAtom(loggedInAtom);
   const queryClient = new QueryClient()
   
   return (

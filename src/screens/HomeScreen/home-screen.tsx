@@ -1,7 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import Box from '../../components/Box/box';
 import Text from '../../components/Text/text';
-import { Image, SafeAreaView, ScrollView } from 'react-native';
+import { SafeAreaView, ScrollView } from 'react-native';
 import Insights from '../../components/Insights/insights';
 import TipsTricks from '../../components/TipsTricks/tips-tricks';
 import SpecialDays from '../../components/SpecialDays/special-days';
@@ -13,7 +13,6 @@ import SocialPlatformBottomSheet from '../../components/SocialPlatformBottomShee
 import SocialHeader from '../../components/SocialHeader/social-header';
 import { sharePost, sharePostWithPhoto } from '../../utils/facebook';
 import Button from '../../components/Button/button';
-import { Configuration, OpenAIApi } from 'openai';
 
 const HomeScreen = () => {
 
@@ -59,121 +58,47 @@ const HomeScreen = () => {
   };
 
 
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-
-  const configuration = new Configuration({
-    apiKey: "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",
-  });
-
-  const openai = new OpenAIApi(configuration);
-
-  const generateGPTPrompt = (
-    socialMediaPlatform: string,
-    brandName: string,
-    products: string[] = [],
-    city: string,
-    foundationyear: number,
-    companySlogan: string,
-    competitors: string[] = [],
-    numberOfPost: number,
-    postTone: string,
-  ): string => {
-    const formattedProducts = products.join(', ');
-    const formattedCompetitors = competitors.join(', ');
-    const content = `As a Facebook content strategist for SocialFlowApp,a company specializing in ${formattedProducts} based in Ankara since its foundation on 1999, today being, with the slogan eat very eat and having competitors such as ${formattedCompetitors}, you are tasked to create 2, Facebook post based on the following criterias: choose one of the following post theme (Brand awareness), do not mention competitor names in the post, do not mention which theme was chosen, do not use irrelevant events or temperature to the current month, don't use out of season concept, have a Friendly tone, use emojis, have 1-3 hashtags, embed hashtags into post text if relevant, do not make up fake promotions or days. After generating the post text, extract the main subject of the post text that would be depicted on post image and give me 3-6-word brief definition of that subject for each post without mentioning brand or company name and return object as json object {post: string, keywords: string[]}`;
-    return content;
-  };
-
-  const generateImagePrompt = (
-    keywords: [],
-  ): {
-    prompt: string;
-    negativePrompt: string;
-  } => {
-    const formattedKeywords = keywords.join(', ');
-    const prompt = `((Best quality)) Commercial photograph, ${formattedKeywords} (center of screen) , (good composition), (in frame), centered, 8k, 4k, detailed, attractive, beautiful, impressive, photorealistic, realistic, cinematic composition, volumetric lighting, high-resolution, vivid, detailed, stunning, professional, lifelike, crisp, flawless, DSLR, 4k, 8k, 16k, 1024, 2048, 4096, detailed, sharp, best quality, high quality, highres, absurdres`;
-    const negativePrompt =
-      '(bad composition), (out of frame), off center, drawing, anime, art, cartoon, painting, drawing, anime, art, cartoon, painting, drawing, anime, art, cartoon, painting, Low quality, worst quality, bad anatomy, bad gun anatomy, 144p, blurry, censored, artifacts, jpeg artifact, oversaturation, watermark, signature, EasyNegative, verybadimagenegative, bad hand, duplicates, distortion';
-      return { prompt, negativePrompt };
-  };
-
-  async function generatePostDetails() {
-    const content = generateGPTPrompt(
-      'Facebook',
-      'Gege Cake',
-      ['Desserts', 'bakery', 'foods', 'cakes', 'cookies', 'croissants', 'pies'],
-      'London',
-      1990,
-      'Eat little bit',
-      ['Entree', 'PeckaCudo'],
-      1,
-      'friendly',
-    );
+  const generateImage = async () => {
+    const url = "http://192.168.1.10:9000/generate-image";
     try {
-      const completion = await openai.createChatCompletion({
-        model: 'gpt-4',
-        messages: [{ role: 'user', content: content }],
-      });
-      const res = JSON.parse(completion.data.choices[0].message.content);
-      if (res && res.keywords) {
-        return res;
-      } else {
-        throw new Error('Invalid response');
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  const generateImage = async (
-    model_id: string,
-    width: number,
-    height: number,
-    samples: number,
-    num_inference_steps: number,
-    scheduler: string,
-  ) => {
-    const postDetails = await generatePostDetails();
-    const imgPrompt = generateImagePrompt(postDetails.keywords);
-
-
-    const params = {
-      key: "npjmaHM3XrYce9VmtHMPLJBLeioMWXLcyCJzruwhjUke2avn1buGXO5lmcCR",
-      model_id,
-      prompt: imgPrompt.prompt,
-      negative_prompt: imgPrompt.negativePrompt,
-      width,
-      height,
-      samples,
-      num_inference_steps,
-      scheduler,
-    };
-
-    const response = await fetch(
-      "https://stablediffusionapi.com/api/v4/dreambooth",
-      {
-        method: "post",
-        body: JSON.stringify(params),
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    return await response.json();
-  }
-
+      const params = {
+        socialMediaPlatform: "Facebook",
+        brandName: "Gege Cake",
+        products: [
+          "Desserts",
+          "bakery",
+          "foods",
+          "cakes",
+          "cookies",
+          "croissants",
+          "pies",
+        ],
+        city: "London",
+        foundationyear: 1990,
+        companySlogan: "Eat little bit",
+        competitors: ["Entree", "PeckaCudo"],
+        numberOfPost: 1,
+        postTone: "friendly",
+      };
   
-  const generateImageAsync = async () => {
-    const image = await generateImage(
-      "realistic-vision-v13",
-      768,
-      768,
-      1,
-      41,
-      "DPMSolverMultistepScheduler"
-    );
-    setImageUrl(image);
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(params),
+      });
+  
+      if (!response.ok) {
+        console.log('error')
+      }
+  
+      const savedUser = await response.json();
+      console.log("User saved:", savedUser);
+    } catch (error) {
+      console.error("Error saving the user:", error);
+    }
   };
-
-
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F4F8FC' }}>
@@ -186,18 +111,7 @@ const HomeScreen = () => {
         />
         <ScrollView>
           <Button onPress={handleButtonPress} label={'Share'} labelColor={'black'} variant='primary'/>
-          <Button mt='l' onPress={generateImageAsync} label={'GenerateImage'} labelColor={'black'} variant='primary'/>
-          {
-            imageUrl && (
-              <Image 
-              style={{
-                width: 200,
-                height: 200,
-              }}
-              source={{ uri: imageUrl }}
-              />
-            )
-          }
+          <Button mt='l' onPress={generateImage} label={'GenerateImage'} labelColor={'black'} variant='primary'/>
           <Box mt="m" ml="m">
             <Text ml="m" variant="heading2">
               Insights

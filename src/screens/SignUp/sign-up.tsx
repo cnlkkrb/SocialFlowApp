@@ -1,6 +1,6 @@
 import {useAtom} from 'jotai';
 import React, {useEffect, useState} from 'react';
-import {Image, SafeAreaView, ScrollView, TouchableOpacity, View} from 'react-native';
+import {Image, Platform, SafeAreaView, ScrollView, TouchableOpacity, View} from 'react-native';
 import AppleIcon from '../../assets/icons/apple-icon';
 import FacebookIcon from '../../assets/icons/facebook-icon';
 import GoogleIcon from '../../assets/icons/google-icon';
@@ -14,7 +14,7 @@ import 'firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import appleAuth from '@invertase/react-native-apple-authentication';
 import { useNavigation } from '@react-navigation/native';
-import { getLongLivedPageAccessToken } from '../../utils/facebook';
+import { getLongLivedPageAccessToken, getLongLivedUserAccessToken } from '../../utils/facebook';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignUp = () => {
@@ -38,8 +38,10 @@ const SignUp = () => {
       }
   
       const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-      //const pageAccessToken = await getLongLivedPageAccessToken(data.accessToken,data.userID)
-      //AsyncStorage.setItem('pageAccessToken', JSON.stringify(pageAccessToken)) 
+
+      const pageAccessToken = await getLongLivedUserAccessToken(data.accessToken)
+      AsyncStorage.setItem('pageAccessToken', JSON.stringify(pageAccessToken)) 
+
       const userCredential = await auth().signInWithCredential(facebookCredential);
       setLoggedIn(true);
       setUserData(userCredential.user);
@@ -144,7 +146,7 @@ const SignUp = () => {
           Sign up with e-mail
         </Text>
       </TouchableOpacity>
-      <Box bottom={10} mt='large'>
+      <Box bottom={10} mt={Platform.OS === 'android' ? 'm' : 'xl'}>
         <Text fontSize={13} color="grey">
           By continuing, you agree to our terms and privacy policy
         </Text>

@@ -38,24 +38,50 @@ const CreateAccount = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
+
+  const createUser = async (name: any, email: any, password: any) => {
+    const response = await fetch('http://192.168.1.10:9000/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name, email, password })
+    });
+    if (!response.ok) {
+      throw new Error('Failed to create user');
+    }
+    const data = await response.json();
+    return data;
+  };
+  
+
+  const handleCreateUser = async () => {
+    try {
+      await createUser(name, email, password);
+      navigation.navigate('SignUpEmail');
+      console.log('userSaved')
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
   <SafeAreaView style={{flex: 1, backgroundColor: '#F4F8FC'}}>
-    <Box>
       <KeyboardAwareScrollView>
         <Box>
-          <Box mt="m" justifyContent="center">
+          <Box justifyContent="center">
             <Text mt="xl" ml="l" variant="heading1">
               Create an account
             </Text>
             <Text
               variant="heading5"
-              fontSize={15}
+              fontSize={14}
               mt="s"
               ml="l"
               flex={1}
               mr="s"
               color="textColor">
-              {' Start using PostCraft by filling the form \n beloved'}
+              {'Start using PostCraft by filling the form beloved'}
             </Text>
           </Box>
           <Box mt="l" mx="l">
@@ -185,7 +211,10 @@ const CreateAccount = () => {
         <Box mt="l" mx="l">
           <Button
             variant="primary"
-            onPress={handlePasswordConfirm}
+            onPress={() => {
+              handlePasswordConfirm()
+              handleCreateUser()
+            }}
             label={'Create Account'}
             labelColor={'white'}
           />
@@ -196,7 +225,7 @@ const CreateAccount = () => {
           alignItems="center"
           justifyContent="center">
           <Text variant="heading4">Already have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity onPress={() => navigation.navigate('SignUpEmail')}>
             <Text color="bg" variant="heading3">
               {' '}
               Log in
@@ -204,7 +233,6 @@ const CreateAccount = () => {
           </TouchableOpacity>
         </Box>
       </KeyboardAwareScrollView>
-    </Box>
   </SafeAreaView>
   );
 };

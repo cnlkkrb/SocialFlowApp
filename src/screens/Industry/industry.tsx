@@ -1,6 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {FlatList, SafeAreaView, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  FlatList,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import BackIcon from '../../assets/icons/back-icon';
 import CheckedIcon from '../../assets/icons/checked-icon';
 import IndustryIcon from '../../assets/icons/industry-icon';
@@ -8,21 +13,24 @@ import Box from '../../components/Box/box';
 import Button from '../../components/Button/button';
 import Text from '../../components/Text/text';
 import ProgressStepsComponent from '../../components/ProgressSteps/progress-steps';
-import axios from 'axios'
+import axios from 'axios';
 
 const Industry = ({route}) => {
-  const [industryData, setIndustryData] = useState([]);
+  const [industryData, setIndustryData] = useState<{ text: string; isSelected: boolean; }[]>([]);
+  const [selectedData, setSelectedData] = useState(null);
+
   const navigation = useNavigation();
 
   useEffect(() => {
-    axios.get('http://192.168.1.10:9000/api/data')
-      .then(res => {
-        setIndustryData(res.data[0].name.map(text => ({text, isSelected: false})))
-      })
+    axios.get('http://192.168.1.10:9000/api/data').then(res => {
+      setIndustryData(
+        res.data[0].name.map((text: string) => ({text, isSelected: false})),
+      );
+    });
   }, []);
-  
-  const selectedItem = (item, index) => {
-    const newArrData = industryData.map((e, index) => {
+
+  const selectedItem = (item: {text: string}) => {
+    const newArrData = industryData.map((e: any) => {
       if (e.text === item.text) {
         return {
           text: e.text,
@@ -35,14 +43,42 @@ const Industry = ({route}) => {
       };
     });
     setIndustryData(newArrData);
+    setSelectedData(item);
   };
 
-  const renderItem = ({item, index}) => {
+  const saveData = () => {
+    if (selectedData) {
+      const selectedItem = industryData.find(
+        item => item.text === selectedData.text,
+      );
+      if (selectedItem) {
+        axios
+          .post('http://192.168.1.10:9000/api/saveData', {data: selectedItem})
+          .then(res => {
+            console.log('Response data:', res.data);
+            setSelectedData(null);
+            const newItem = {text: selectedData.text, isSelected: false};
+            setIndustryData(prevData => [...prevData, newItem]);
+            console.log('Saved item:', selectedItem);
+          })
+          .catch(err => {
+            console.error('Failed to save data:', err);
+          });
+      } else {
+        console.error('Selected item not found.');
+      }
+    } else {
+      console.error('selectedData is null or undefined.');
+    }
+  };
+
+  const renderItem = ({item, index}: any) => {
     return (
       <Box flex={1}>
         <TouchableOpacity onPress={() => selectedItem(item, index)}>
           {item.isSelected ? (
             <Box
+              key={`${item.text}-selected`}
               mt="m"
               mx="m"
               backgroundColor="white"
@@ -67,7 +103,7 @@ const Industry = ({route}) => {
                 ml="m">
                 {item.text}
               </Text>
-              <Box marginRight="m">
+              <Box key={`${item.text}-icon`} marginRight="m">
                 <CheckedIcon />
               </Box>
             </Box>
@@ -87,7 +123,7 @@ const Industry = ({route}) => {
                 height={38}
                 style={{backgroundColor: '#D9D9D9'}}
               />
-              <Text variant="heading4" ml="m">
+              <Text key={`${item.text}-unselected`} variant="heading4" ml="m">
                 {item.text}
               </Text>
             </Box>
@@ -96,11 +132,11 @@ const Industry = ({route}) => {
       </Box>
     );
   };
-  
+
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#F4F8FC'}}>
-      <Box flex={1}>
-        <Box mt="l" ml="m" flexDirection='row' alignItems='center' mb='m'>
+    <SafeAreaView style={{flex: 1}}>
+      <Box backgroundColor="pageBackground" flex={1}>
+        <Box mt="l" ml="m" flexDirection="row" alignItems="center" mb="m">
           <TouchableOpacity
             style={{flexDirection: 'row', alignItems: 'center'}}
             onPress={() => navigation.goBack()}>
@@ -109,34 +145,34 @@ const Industry = ({route}) => {
               Back
             </Text>
           </TouchableOpacity>
-        {
-          route.params && route.params.from === 'industry'
-          ? null
-          :<Box ml='l'>
+          <Box ml="l">
             <ProgressStepsComponent currentStep={1} />
           </Box>
-        }
         </Box>
         <ScrollView>
-        <Box mt="m" justifyContent="center" alignItems="center">
-          <Box flexDirection="row" alignItems="center">
-            <IndustryIcon />
-            <Text ml="s" variant="heading1">
-              Select Your Industry
+          <Box mt="m" justifyContent="center" alignItems="center">
+            <Box flexDirection="row" alignItems="center">
+              <IndustryIcon />
+              <Text ml="s" variant="heading1">
+                Select Your Industry
+              </Text>
+            </Box>
+            <Text
+              variant="heading3"
+              textAlign="center"
+              mt="m"
+              color="textColor">
+              {
+                'Best personal Ai Assistant to boost your \n social media Social Flow is your new Ai \n Assistant to boost you business,'
+              }
             </Text>
           </Box>
-          <Text variant="heading3" textAlign="center" mt="m" color="textColor">
-            {
-              'Best personal Ai Assistant to boost your \n social media Social Flow is your new Ai \n Assistant to boost you business,'
-            }
-          </Text>
-        </Box>
-        <FlatList
-          data={industryData}
-          keyExtractor={item => item.text}
-          renderItem={renderItem}
-          ListFooterComponent={() => <Box height={80} />}
-        />
+          <FlatList
+            data={industryData}
+            keyExtractor={(item) => item.id}
+            renderItem={renderItem}
+            ListFooterComponent={() => <Box height={80} />}
+          />
         </ScrollView>
         <Box
           position="absolute"
@@ -146,9 +182,10 @@ const Industry = ({route}) => {
           height={70}
           justifyContent="center">
           <Button
-            onPress={() => route.params && route.params.from === 'business'
-            ? navigation.goBack()
-            : navigation.navigate('Business')}
+            onPress={() => {
+              saveData();
+              navigation.navigate('Business');
+            }}
             labelColor={'white'}
             mx="m"
             variant="primary"

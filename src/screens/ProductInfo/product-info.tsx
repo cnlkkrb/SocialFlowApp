@@ -20,6 +20,7 @@ const ProductInfo = ({route}) => {
   const [productName, setProductName] = useState('');
   const [description, setdescription] = useState('');
   const [productNames, setProductNames] = useState<{ name: string, color: string }[]>([]);
+  const [productInfo, setProductInfo] = useState('');
 
   const productRef = useRef(null);
   const descriptionRef = useRef(null);
@@ -55,6 +56,39 @@ const ProductInfo = ({route}) => {
       return newProductNames;
     });
   };
+
+  const handleSave = () => {
+    const updatedBusinessInfo = {
+      productName: productName,
+      description: description,
+    };
+    fetch('http://192.168.1.10:9000/save-info', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedBusinessInfo),
+    })
+      .then(response => {
+        if (response.ok) {
+          setProductInfo(updatedBusinessInfo)
+        } else {
+          console.error('Error saving data:', response.statusText);
+        }
+      })
+      .then(() => {
+        console.log('Data saved successfully:', updatedBusinessInfo);
+      })
+      .catch(error => {
+        console.error('Error saving data:', error);
+      });
+  };
+
+  
+  React.useEffect(() => {
+    console.log('businessData', productInfo);
+  }, [productInfo]);
+  
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#F4F8FC'}}>
@@ -162,10 +196,10 @@ const ProductInfo = ({route}) => {
         </KeyboardAwareScrollView>
         <FixedButton>
           <Button
-            onPress={() => route.params && route.params.from === 'business'
-            ? navigation.goBack()
-            : navigation.navigate('Content')
-          }
+            onPress={() => {
+              handleSave()
+              navigation.navigate('Content')
+            }}
             labelColor={'white'}
             mx="l"
             variant="primary"

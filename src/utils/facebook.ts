@@ -9,12 +9,7 @@ export async function sharePostWithPhoto(pageId: any, pageAccessToken: any, url:
   }
   
   export async function getLongLivedUserAccessToken(accessToken: string) {
-    const res = await fetch(`
-          https://graph.facebook.com/v16.0/oauth/access_token?
-          grant_type=fb_exchange_token&
-          client_id=1406901643443036&
-          client_secret=e0bfce92fd3e8a628a2787daf29e7de0&
-          fb_exchange_token=${accessToken}`);
+    const res = await fetch(`https://graph.facebook.com/v16.0/oauth/access_token?grant_type=fb_exchange_token&client_id=1406901643443036&client_secret=e0bfce92fd3e8a628a2787daf29e7de0&fb_exchange_token=${accessToken}`);
     const json = await res.json();
     console.log('long-lived-token', json);
     return json;
@@ -22,8 +17,9 @@ export async function sharePostWithPhoto(pageId: any, pageAccessToken: any, url:
   
   export async function getLongLivedPageAccessToken(token: string,userId: string) {
     const accessToken = await getLongLivedUserAccessToken(token);
+    console.log(accessToken)
     const res = await fetch(
-      `https://graph.facebook.com/v16.0/10220739380709104/accounts?access_token=${accessToken.access_token}`,
+      `https://graph.facebook.com/v16.0/${userId}/accounts?access_token=${accessToken.access_token}`,
     );
     const json = await res.json();
     console.log('long-lived-page', json);

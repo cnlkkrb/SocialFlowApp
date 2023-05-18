@@ -85,7 +85,7 @@ const WorkspaceScreen = () => {
             </Box>
           <Image style={{marginLeft: 8}} source={require('../../assets/logo_ig.png')}/>
           {
-            userData.providerData[0].providerId === 'google.com'  ? null : <Image style={{marginLeft: 8}} source={require('../../assets/google-image.png')}/>
+            userData?.providerData?.[0].providerId === 'google.com'  ? null : <Image style={{marginLeft: 8}} source={require('../../assets/google-image.png')}/>
           }
           <Image style={{marginLeft: 8}} source={require('../../assets/logo_linkedin.png')}/>
           <Image style={{marginLeft: 8, marginRight: 'auto'}} source={require('../../assets/logo_twtter.png')}/>
