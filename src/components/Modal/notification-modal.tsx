@@ -58,34 +58,9 @@ const NotificationModal = ({
               }}>
               {text}
             </Text>
-            <Text
-              style={{
-                textAlign: 'center',
-                color: 'black',
-                fontSize: 16,
-                marginTop: 8,
-                fontWeight: '500',
-              }}>
-              {description}
-            </Text>
           </View>
-          <View style={{width:'100%',marginTop: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-            {!!secondText && (
-              <TouchableOpacity
-                style={{width: '45%'}}
-                onPress={onCloseSecondary}>
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    color: '#6944FF',
-                    fontSize: 16,
-                    fontWeight: '500',
-                  }}>
-                  {secondText}
-                </Text>
-              </TouchableOpacity>
-            )}
-            <Box width={'55%'}>
+          <View style={{width:'90%',marginTop: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+            <Box width={'100%'}>
             <Button
               onPress={onPress}
               label={buttonLabel ?? ''}

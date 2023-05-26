@@ -15,7 +15,7 @@ const Content = ({route}) => {
 
   const saveSelectedOption = async (selectedOption) => {
     try {
-      const response = await fetch('http://192.168.1.10:9000/save-option', {
+      const response = await fetch('http://18.159.244.8:9000/save-option', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -80,9 +80,15 @@ const Content = ({route}) => {
         justifyContent="center">
         <Button
           onPress={() => {
-            saveSelectedOption(selectedItem)
-            navigation.navigate('ContentGeneration')}
+            if (route.params && route.params.from === 'business') {
+              saveSelectedOption(selectedItem)
+              navigation.goBack();
+            } else {
+              saveSelectedOption(selectedItem)
+              navigation.navigate('ContentGeneration');
+            }
           }
+        }
           labelColor={'white'}
           mx="l"
           variant="primary"

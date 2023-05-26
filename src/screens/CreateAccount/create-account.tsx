@@ -40,7 +40,7 @@ const CreateAccount = () => {
 
 
   const createUser = async (name: any, email: any, password: any) => {
-    const response = await fetch('http://192.168.1.10:9000/api/register', {
+    const response = await fetch('http://18.159.244.8:9000/api/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

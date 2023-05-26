@@ -14,13 +14,15 @@ import Button from '../../components/Button/button';
 import FixedButton from '../../components/FixedButton/fixed-button';
 import Text from '../../components/Text/text';
 import ProgressStepsComponent from '../../components/ProgressSteps/progress-steps';
+import { useAtom } from 'jotai';
+import { productsDataAtom } from '../../utils/atom';
 
-const ProductInfo = ({route}) => {
+const ProductInfo = ({route}: any) => {
   const navigation = useNavigation();
   const [productName, setProductName] = useState('');
   const [description, setdescription] = useState('');
   const [productNames, setProductNames] = useState<{ name: string, color: string }[]>([]);
-  const [productInfo, setProductInfo] = useState('');
+  const [productsData, setProductsData] = useAtom(productsDataAtom)
 
   const productRef = useRef(null);
   const descriptionRef = useRef(null);
@@ -30,11 +32,14 @@ const ProductInfo = ({route}) => {
   };
 
   const handleInputSubmit = () => {
-    setProductNames(prevProductNames => [
-      ...prevProductNames,
-      {name: productName, color: getRandomColor()},
-    ]);
+    const newProductNames = [
+      ...productNames,
+      { name: productName, color: getRandomColor() },
+    ];
+    setProductNames(newProductNames);
     setProductName('');
+  
+    saveProductsData(newProductNames);
   };
 
   const getRandomColor = () => {
@@ -50,45 +55,37 @@ const ProductInfo = ({route}) => {
   };
 
   const handleDeleteItem = (index: number) => {
-    setProductNames(prevProductNames => {
-      const newProductNames = [...prevProductNames];
-      newProductNames.splice(index, 1);
-      return newProductNames;
-    });
+    const newProductNames = [...productNames];
+    newProductNames.splice(index, 1);
+    setProductNames(newProductNames);
+  
+    saveProductsData(newProductNames);
   };
 
-  const handleSave = () => {
+  const saveProductsData = (servicesData: { name: string; color: string }[]) => {
     const updatedBusinessInfo = {
-      productName: productName,
+      ...productsData,
       description: description,
+      competitors: servicesData.map(({ name }) => name),
     };
-    fetch('http://192.168.1.10:9000/save-info', {
+  
+    fetch('http://18.159.244.8:9000/save-business', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(updatedBusinessInfo),
     })
-      .then(response => {
+      .then((response) => {
         if (response.ok) {
-          setProductInfo(updatedBusinessInfo)
+          setProductsData(updatedBusinessInfo);
+          console.log('Data saved successfully!');
         } else {
           console.error('Error saving data:', response.statusText);
         }
       })
-      .then(() => {
-        console.log('Data saved successfully:', updatedBusinessInfo);
-      })
-      .catch(error => {
-        console.error('Error saving data:', error);
-      });
+      .catch((error) => console.error('Error saving data:', error));
   };
-
-  
-  React.useEffect(() => {
-    console.log('businessData', productInfo);
-  }, [productInfo]);
-  
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#F4F8FC'}}>
@@ -197,8 +194,13 @@ const ProductInfo = ({route}) => {
         <FixedButton>
           <Button
             onPress={() => {
-              handleSave()
-              navigation.navigate('Content')
+              if (route.params && route.params.from === 'business') {
+                saveProductsData(productNames)
+                navigation.goBack();
+              } else {
+                saveProductsData(productNames)
+                navigation.navigate('Content');
+              }
             }}
             labelColor={'white'}
             mx="l"

@@ -52,10 +52,8 @@ const Menu = () => {
     }
   }
   
-  // Call the appleLogout function when you want to log out
   const handleLogout = async () => {
     try {
-      // Call any other logout functions you need here
       await appleLogout();
     } catch (error) {
       console.log('Logout error:', error);
@@ -65,13 +63,14 @@ const Menu = () => {
   }
   const facebookLogout = async function onFacebookLogoutPress() {
     try {
-      await auth().signOut(); // optional, to sign out of Firebase as well
+      await auth().signOut();
       setLoggedIn(false);
       console.log('logout success');
     } catch (error) {
       console.log(error);
     }
   }
+  
   return (
   <SafeAreaView style={{flex: 1}}>
     <ScrollView>

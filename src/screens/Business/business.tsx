@@ -11,7 +11,7 @@ import ProgressStepsComponent from '../../components/ProgressSteps/progress-step
 import { businessDataAtom } from '../../utils/atom';
 import { useAtom } from 'jotai';
 
-const Business = ({route}) => {
+const Business = ({route}: any) => {
   const navigation = useNavigation();
   const [business, setBusiness] = useState('');
   const [location, setLocation] = useState('');
@@ -26,11 +26,14 @@ const Business = ({route}) => {
   };
 
   const handleInputSubmit = () => {
-    setProductNames(prevProductNames => [
-      ...prevProductNames,
-      {name: competitors, color: getRandomColor()},
-    ]);
+    const newProductNames = [
+      ...productNames,
+      { name: competitors, color: getRandomColor() },
+    ];
+    setProductNames(newProductNames);
     setCompetitors('');
+  
+    saveCompetitors(newProductNames);
   };
 
   const getRandomColor = () => {
@@ -46,29 +49,30 @@ const Business = ({route}) => {
   };
 
   const handleDeleteItem = (index: number) => {
-    setProductNames(prevProductNames => {
-      const newProductNames = [...prevProductNames];
-      newProductNames.splice(index, 1);
-      return newProductNames;
-    });
+    const newProductNames = [...productNames];
+    newProductNames.splice(index, 1);
+    setProductNames(newProductNames);
+  
+    saveCompetitors(newProductNames);
   };
   
-  const handleSaveBusiness = () => {
+  const saveCompetitors = (competitorsData: { name: string; color: string }[]) => {
     const updatedBusinessInfo = {
+      ...businessData,
       business: business,
       location: location,
       year: year,
-      competitors: competitors,
+      competitors: competitorsData.map(({ name }) => name),
     };
   
-    fetch('http://192.168.1.10:9000/save-business', {
+    fetch('http://18.159.244.8:9000/save-business', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(updatedBusinessInfo),
     })
-      .then(response => {
+      .then((response) => {
         if (response.ok) {
           setBusinessInfo(updatedBusinessInfo);
           console.log('Data saved successfully!');
@@ -76,12 +80,8 @@ const Business = ({route}) => {
           console.error('Error saving data:', response.statusText);
         }
       })
-      .catch(error => console.error('Error saving data:', error));
+      .catch((error) => console.error('Error saving data:', error));
   };
-  
-  React.useEffect(() => {
-    console.log('businessData', businessData);
-  }, [businessData]);
 
   const locationRef = useRef(null);
   const yearRef = useRef(null);
@@ -249,10 +249,10 @@ const Business = ({route}) => {
           <Button
             onPress={() => {
               if (route.params && route.params.from === 'business') {
-                handleSaveBusiness();
+                saveCompetitors(productNames);
                 navigation.goBack();
               } else {
-                handleSaveBusiness();
+                saveCompetitors(productNames);
                 navigation.navigate('ProductInfo');
               }
             }}

@@ -33,7 +33,7 @@ const SignUpEmail = () => {
   };
 
   const handleLogin = () => {
-    fetch('http://192.168.1.10:9000/api/login', {
+    fetch('http://18.159.244.8:9000/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

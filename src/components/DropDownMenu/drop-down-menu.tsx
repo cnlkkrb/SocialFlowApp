@@ -6,6 +6,8 @@ import DownIcon from '../../assets/icons/up-icon';
 import Box from '../../components/Box/box';
 import Text from '../../components/Text/text';
 import {DropDownData} from '../../data/DropDownData';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const DropDownMenu = () => {
     
@@ -14,6 +16,15 @@ const DropDownMenu = () => {
   const [mydata, setMyData] = React.useState(DropDownData);
   const [selectedItem, setSelectedItem] = React.useState([]);
   const [firstItem, setFirstItem] = useState(DropDownData[0].title);
+  
+  const saveSelectedItem = async (itemId: string) => {
+    try {
+      await AsyncStorage.setItem('selectedItem', String(itemId))
+      console.log('save', )
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const onPressAboutOrgaizer = () => {
     if (aboutOrganizerStatus) {
@@ -39,18 +50,22 @@ const DropDownMenu = () => {
     outputRange: [50, 400],
   });
 
-  const renderItem = ({item}) => {
-    const {id, title} = item;
-    const isSelected = selectedItem.filter(i => i === id).length > 0;
+  const renderItem = ({ item }) => {
+    const { id, title } = item;
+    const isSelected = selectedItem === id;
+  
     return (
       <TouchableOpacity
         onPress={() => {
           if (isSelected) {
-            setSelectedItem(prev => prev.filter(i => i !== id));
+            return
           } else {
-            setSelectedItem(prev => [...prev, id]);
+            setSelectedItem(id);
+            setFirstItem(title)
+            saveSelectedItem(id)
           }
-        }}>
+        }}
+      >
         {isSelected ? (
           <Box flexDirection="row" justifyContent="space-between" mx="m" mt="m">
             <Text color="bg50" fontWeight="700" variant="heading4">
@@ -88,7 +103,7 @@ const DropDownMenu = () => {
             paddingHorizontal: 15,
             height: 50,
           }}>
-          <Text color="lightGrey">{firstItem}</Text>
+          <Text color={firstItem ? 'black' : 'lightGrey'}>{firstItem}</Text>
           <DownIcon style={aboutOrganizerStatus ? styles.arrow : null} />
         </TouchableOpacity>
         <Box>

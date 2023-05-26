@@ -7,8 +7,6 @@ import Divider from '../../components/Divider/divider';
 import {useAtom} from 'jotai';
 import {businessDataAtom, userDataAtom} from '../../utils/atom';
 import SwitchWorkIcon from '../../assets/icons/switch-work-icon';
-import TeamIcon from '../../assets/icons/team-icon';
-import RightIcon from '../../assets/icons/right-icon';
 import SmallPlusIcon from '../../assets/icons/small-plus-icon';
 import BusinessSettings from '../../components/BusinessSettings/business-settings';
 import { useNavigation } from '@react-navigation/native';

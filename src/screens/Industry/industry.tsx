@@ -15,14 +15,14 @@ import Text from '../../components/Text/text';
 import ProgressStepsComponent from '../../components/ProgressSteps/progress-steps';
 import axios from 'axios';
 
-const Industry = ({route}) => {
+const Industry = ({route}: any) => {
   const [industryData, setIndustryData] = useState<{ text: string; isSelected: boolean; }[]>([]);
   const [selectedData, setSelectedData] = useState(null);
 
   const navigation = useNavigation();
 
   useEffect(() => {
-    axios.get('http://192.168.1.10:9000/api/data').then(res => {
+    axios.get('http://18.159.244.8:9000/api/data').then(res => {
       setIndustryData(
         res.data[0].name.map((text: string) => ({text, isSelected: false})),
       );
@@ -53,7 +53,7 @@ const Industry = ({route}) => {
       );
       if (selectedItem) {
         axios
-          .post('http://192.168.1.10:9000/api/saveData', {data: selectedItem})
+          .post('http://18.159.244.8:9000/api/saveData', {data: selectedItem})
           .then(res => {
             console.log('Response data:', res.data);
             setSelectedData(null);
@@ -145,9 +145,13 @@ const Industry = ({route}) => {
               Back
             </Text>
           </TouchableOpacity>
-          <Box ml="l">
+          {
+          route.params && route.params.from === 'industry'
+          ? null
+          :<Box ml='l'>
             <ProgressStepsComponent currentStep={1} />
           </Box>
+        }
         </Box>
         <ScrollView>
           <Box mt="m" justifyContent="center" alignItems="center">
@@ -183,8 +187,13 @@ const Industry = ({route}) => {
           justifyContent="center">
           <Button
             onPress={() => {
-              saveData();
-              navigation.navigate('Business');
+              if (route.params && route.params.from === 'industry') {
+                saveData()
+                navigation.goBack();
+              } else {
+                saveData()
+                navigation.navigate('Business');
+              }
             }}
             labelColor={'white'}
             mx="m"

@@ -25,22 +25,30 @@ const SignUp = () => {
 
   const facebookLogin = async function onFacebookButtonPress() {
     try {
-      const result = await LoginManager.logInWithPermissions(['public_profile', 'email','pages_show_list','pages_read_engagement','user_posts','pages_manage_posts']);
-  
+      const result = await LoginManager.logInWithPermissions(['public_profile',
+      'user_photos',
+      'email',
+      'pages_show_list',
+      'pages_read_engagement',
+      'user_posts',
+      'pages_manage_posts',
+      'instagram_basic',
+      'instagram_content_publish',
+      'instagram_shopping_tag_products']);
       if (result.isCancelled) {
         throw new Error('User cancelled the login process');
       }
       const data = await AccessToken.getCurrentAccessToken();
-      console.log(data)
-
+      console.log('---', data)
       if (!data) {
         throw new Error('Something went wrong obtaining access token');
       }
   
       const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
 
-      const pageAccessToken = await getLongLivedUserAccessToken(data.accessToken)
-      AsyncStorage.setItem('pageAccessToken', JSON.stringify(pageAccessToken)) 
+      const pageAccessToken = await getLongLivedPageAccessToken(data.accessToken, data.userID)
+      AsyncStorage.setItem('pageAccessToken', JSON.stringify({pageAccessToken,userId: data.userID})) 
+      console.log('---->',JSON.stringify(facebookCredential, null , 2))
 
       const userCredential = await auth().signInWithCredential(facebookCredential);
       setLoggedIn(true);
