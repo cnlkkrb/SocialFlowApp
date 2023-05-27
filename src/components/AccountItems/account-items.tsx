@@ -2,14 +2,11 @@ import React from 'react';
 import Box from '../Box/box';
 import Text from '../Text/text';
 import RightIcon from '../../assets/icons/right-icon';
-import IndustryIcon from '../../assets/icons/industry-icon';
-import BusinessIcon from '../../assets/icons/business-icon';
-import ProductIcon from '../../assets/icons/product-icon';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity,Image} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import PremiumIcon from '../../assets/icons/premium-icon';
 import UserIcon from '../../assets/icons/user-icon';
 import NotificationIcon from '../../assets/icons/notification-icon';
+import SwitchButton from '../SwitchButton/switch-button';
 
 const AccountItems = () => {
   const navigation = useNavigation();
@@ -17,10 +14,13 @@ const AccountItems = () => {
     <Box>
       <TouchableOpacity style={styles.container}>
         <Box style={styles.iconContainer}>
-          <PremiumIcon />
+          <Image 
+            style={{width: 25, height: 25}}
+            source={require('../../assets/premium.png')}
+          />
         </Box>
         <Text marginRight="auto" variant="heading3" ml="s">
-          Try Premium for Free
+          Manage subscriptions
         </Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate('AccountSettings')} style={styles.container}>
@@ -42,7 +42,7 @@ const AccountItems = () => {
           Notifications
         </Text>
         <Box mr="m">
-          <RightIcon />
+          <SwitchButton />
         </Box>
       </TouchableOpacity>
     </Box>

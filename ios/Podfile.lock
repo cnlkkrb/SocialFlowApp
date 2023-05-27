@@ -434,6 +434,11 @@ PODS:
     - ReactCommon/turbomodule/core
   - react-native-slider (4.4.2):
     - React-Core
+  - react-native-video (5.2.1):
+    - React-Core
+    - react-native-video/Video (= 5.2.1)
+  - react-native-video/Video (5.2.1):
+    - React-Core
   - React-perflogger (0.71.4)
   - React-RCTActionSheet (0.71.4):
     - React-Core/RCTActionSheetHeaders (= 0.71.4)
@@ -612,6 +617,7 @@ DEPENDENCIES:
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
+  - react-native-video (from `../node_modules/react-native-video`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -722,6 +728,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-slider:
     :path: "../node_modules/@react-native-community/slider"
+  react-native-video:
+    :path: "../node_modules/react-native-video"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -821,12 +829,13 @@ SPEC CHECKSUMS:
   React-jsiexecutor: d6b7fa9260aa3cb40afee0507e3bc1d17ecaa6f2
   React-jsinspector: 1f51e775819199d3fe9410e69ee8d4c4161c7b06
   React-logger: 0d58569ec51d30d1792c5e86a8e3b78d24b582c6
-  react-native-blur: ec563fd55a8fa51b2ec36796810c5e56724eb4e5
+  react-native-blur: cfdad7b3c01d725ab62a8a729f42ea463998afa2
   react-native-fbsdk-next: 5291a5d67aab4e649d072c50988033ff0d05b915
   react-native-get-random-values: dee677497c6a740b71e5612e8dbd83e7539ed5bb
-  react-native-pager-view: 64a540ca9d09bca730626c4714e56a303620c25f
-  react-native-safe-area-context: 2f4cee1dc8828f67fcc33cc865a9093dfedab446
-  react-native-slider: a8cd117608235cf411dd507929ed589a89320b47
+  react-native-pager-view: 0ccb8bf60e2ebd38b1f3669fa3650ecce81db2df
+  react-native-safe-area-context: b8979f5eda6ed5903d4dbc885be3846ea3daa753
+  react-native-slider: 33b8d190b59d4f67a541061bb91775d53d617d9d
+  react-native-video: c26780b224543c62d5e1b2a7244a5cd1b50e8253
   React-perflogger: 0bb0522a12e058f6eb69d888bc16f40c16c4b907
   React-RCTActionSheet: bfd675a10f06a18728ea15d82082d48f228a213a
   React-RCTAnimation: 2fa220b2052ec75b733112aca39143d34546a941
@@ -841,14 +850,14 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 8fa50b38df6b992c76537993a2b0553d3b088004
   ReactCommon: 34f9369c376d5f335069dda29552b3e7351b9ec6
   RNAppleAuthentication: 0571c08da8c327ae2afc0261b48b4a515b0286a6
-  RNCAsyncStorage: 138c9b908c5569e7e9f633df75aa71a089690a0c
-  RNCMaskedView: 627993e2ddd1ed09c1d540a61c4311cfc507bbe7
+  RNCAsyncStorage: b90b71f45b8b97be43bc4284e71a6af48ac9f547
+  RNCMaskedView: 949696f25ec596bfc697fc88e6f95cf0c79669b6
   RNFBAnalytics: b4e2f1fb446c4bd15a5e778b0554464a8a303a1e
   RNFBApp: d59efa0872fff4e27de03cca3c528c203a436ae5
   RNFBAuth: 54e598bb1358a0cf6c0a187f43161cd1bde90455
   RNGestureHandler: 42ec7c28dd02d540ed6c9159c57a98ff016492dc
-  RNGoogleSignin: c1b1b68a6f15c7cfbd3debbd1bdd605344c05652
-  RNPermissions: 320825772cceb2fba9ae9dfa3e010c7fea15f3ca
+  RNGoogleSignin: 22e468a9474dbcb8618d8847205ad4f0b2575d13
+  RNPermissions: 215c54462104b3925b412b0fb3c9c497b21c358b
   RNReanimated: b1220a0e5168745283ff5d53bfc7d2144b2cee1b
   RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
   RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315

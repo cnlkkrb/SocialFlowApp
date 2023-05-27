@@ -11,6 +11,7 @@ const SwitchButton = () => {
       ios_backgroundColor="#3e3e3e"
       onValueChange={toggleSwitch}
       value={isEnabled}
+      style={{transform: [{scale: 0.8}]}}
     />
   );
 };

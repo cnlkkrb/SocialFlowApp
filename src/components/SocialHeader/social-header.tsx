@@ -37,7 +37,7 @@ const SocialHeader = ({
       <TouchableOpacity
         onPress={handlePresentModal}
         style={{alignItems: 'center', flexDirection: 'row'}}>
-        <Box>
+        <Box ml='l'>
           <Image
             style={{width: 34, height: 34, borderRadius: 25}}
             source={{uri: userData.photoURL}}
@@ -63,7 +63,13 @@ const SocialHeader = ({
         </Text>
         <DownIcon style={{top: 1, marginLeft: 5}} />
       </TouchableOpacity>
-      <RingIcon />
+    <Box flexDirection='row'>
+    <Image
+          style={{width: 25, height: 25,right: 10}} 
+          source={require('../../assets/premium.png')}
+        />
+        <RingIcon />
+    </Box>
     </Box>
   );
 };

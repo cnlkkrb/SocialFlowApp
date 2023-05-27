@@ -7,7 +7,7 @@ import BoldIcon from '../../assets/icons/bold-icon';
 import ProfessionalIcon from '../../assets/icons/professional-icon';
 import PersuasiveIcon from '../../assets/icons/persuasive-icon';
 import EmphaticIcon from '../../assets/icons/emphatic-icon';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 const ContentItems = ({ onSelect }) => {
@@ -59,6 +59,12 @@ const ContentItems = ({ onSelect }) => {
       </TouchableOpacity>
       </Box>
       <Box style={{ flexDirection: 'row'}}>
+      <Box flex={1}>
+      <Image 
+            source={require('../../assets/premium.png')}
+            resizeMode='contain'
+            style={{width: 34, height: 34, position: 'absolute', zIndex: 111}}
+          />
         <TouchableOpacity
           disabled={disabled}
           activeOpacity={disabled ? 1 : 0.5}
@@ -81,6 +87,13 @@ const ContentItems = ({ onSelect }) => {
             Friendly
           </Text>
         </TouchableOpacity>
+        </Box>
+        <Box flex={1}>
+      <Image 
+            source={require('../../assets/premium.png')}
+            resizeMode='contain'
+            style={{width: 34, height: 34, position: 'absolute', zIndex: 111}}
+          />
         <TouchableOpacity
           disabled={disabled}
           activeOpacity={disabled ? 1 : 0.5}
@@ -103,8 +116,15 @@ const ContentItems = ({ onSelect }) => {
             Luxury
           </Text>
         </TouchableOpacity>
+        </Box>
       </Box>
       <Box style={{ flexDirection: 'row'}}>
+      <Box flex={1}>
+      <Image 
+            source={require('../../assets/premium.png')}
+            resizeMode='contain'
+            style={{width: 34, height: 34, position: 'absolute', zIndex: 111}}
+          />
         <TouchableOpacity
           disabled={disabled}
           activeOpacity={disabled ? 1 : 0.5}
@@ -127,6 +147,13 @@ const ContentItems = ({ onSelect }) => {
             Bold
           </Text>
         </TouchableOpacity>
+      </Box>
+      <Box flex={1}>
+      <Image 
+            source={require('../../assets/premium.png')}
+            resizeMode='contain'
+            style={{width: 34, height: 34, position: 'absolute', zIndex: 111}}
+          />
         <TouchableOpacity
           disabled={disabled}
           activeOpacity={disabled ? 1 : 0.5}
@@ -149,8 +176,15 @@ const ContentItems = ({ onSelect }) => {
             Professional
           </Text>
         </TouchableOpacity>
+        </Box>
       </Box>
       <Box style={{ flexDirection: 'row' }}>
+      <Box flex={1}>
+      <Image 
+            source={require('../../assets/premium.png')}
+            resizeMode='contain'
+            style={{width: 34, height: 34, position: 'absolute', zIndex: 111}}
+          />
         <TouchableOpacity
           disabled={disabled}
           activeOpacity={disabled ? 1 : 0.5}
@@ -173,6 +207,13 @@ const ContentItems = ({ onSelect }) => {
             Persuasive
           </Text>
         </TouchableOpacity>
+      </Box>
+      <Box flex={1}>
+      <Image 
+            source={require('../../assets/premium.png')}
+            resizeMode='contain'
+            style={{width: 34, height: 34, position: 'absolute', zIndex: 111}}
+          />
         <TouchableOpacity
           disabled={disabled}
           activeOpacity={disabled ? 1 : 0.5}
@@ -196,6 +237,7 @@ const ContentItems = ({ onSelect }) => {
           </Text>
         </TouchableOpacity>
       </Box>
+      </Box>
     </Box>
   );
 };
@@ -205,7 +247,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#D6E0EA',
     borderRadius: 10,
-    width: '100%',
+    width: '95%',
     flex: 1,
     margin: 4,
     height: 90,
