@@ -20,10 +20,6 @@ const ContentGeneration = () => {
   const videoRef = useRef(null)
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleOnLoad2 = () => {
-    setIsLoading(false);
-  };
-
   const [showTopAnimation, setShowTopAnimation] = useState(true);
   const [showSecondAnimation, setShowSecondAnimation] = useState(true);
   const [showThirdAnimation, setShowThirdAnimation] = useState(true);
